@@ -1,19 +1,34 @@
 project:
   type: website
+  output-dir: _site
 
 website:
-  title: "site"
+  title: "Georges BALOGOG — Portfolio"
+  site-url: "https://mbalogogglemuel.github.io/portfolio/"
+  repo-url: "https://github.com/MBalogogGLemuel/portfolio"
+  repo-actions: [edit, issue]
+
   navbar:
     left:
       - href: index.qmd
-        text: Home
-      - about.qmd
+        text: Accueil
+      - href: projects/index.qmd
+        text: Projets
+      - href: cv.qmd
+        text: CV
+      - href: contact.qmd
+        text: Contact
+    right:
+      - icon: github
+        href: "https://github.com/MBalogogGLemuel"
+      - icon: linkedin
+        href: "https://www.linkedin.com/in/balogog-georges-6810b9118/"
 
 format:
   html:
     theme: cosmo
     css: styles.css
     toc: true
-
-
-
+    math: mathjax
+    code-copy: true
+    smooth-scroll: true
