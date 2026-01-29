@@ -1,34 +1,32 @@
-project:
-  type: website
-  output-dir: _site
+name: Publish Quarto site to GitHub Pages
 
-website:
-  title: "Georges BALOGOG — Portfolio"
-  site-url: "https://mbalogogglemuel.github.io/portfolio/"
-  repo-url: "https://github.com/MBalogogGLemuel/portfolio"
-  repo-actions: [edit, issue]
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
 
-  navbar:
-    left:
-      - href: index.qmd
-        text: Accueil
-      - href: projects/index.qmd
-        text: Projets
-      - href: cv.qmd
-        text: CV
-      - href: contact.qmd
-        text: Contact
-    right:
-      - icon: github
-        href: "https://github.com/MBalogogGLemuel"
-      - icon: linkedin
-        href: "https://www.linkedin.com/in/balogog-georges-6810b9118/"
+permissions:
+  contents: write
 
-format:
-  html:
-    theme: cosmo
-    css: styles.css
-    toc: true
-    math: mathjax
-    code-copy: true
-    smooth-scroll: true
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render site
+        run: quarto render
+
+      # Important: publish the rendered HTML directory, not the source (.qmd)
+      - name: Publish to gh-pages
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+          path: _site
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
