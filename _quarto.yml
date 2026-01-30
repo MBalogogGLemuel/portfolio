@@ -63,15 +63,12 @@ website:
 
 format:
   html:
-    theme:
-      light: cosmo
-      dark: darkly
-    css:
-      - styles.css
+    theme: cosmo
+    css: styles.css
     toc: true
     toc-depth: 3
-    number-sections: false
     smooth-scroll: true
+
 
     # look "clean + pro" (proche JamesKle)
     mainfont: "Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"

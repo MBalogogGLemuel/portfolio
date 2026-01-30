@@ -1,49 +1,66 @@
 ---
-title: "Georges L. Balogog"
-subtitle: "Data Science · Optimisation · Automatisme · Génie électrique"
+title: ""
+page-layout: full
+toc: false
 ---
 
-Je construis des solutions data orientées **décision** : forecasting, optimisation (déterministe & stochastique), RL, modélisation statistique/bayésienne, pipelines de données, API et déploiement.
+---
 
-<div class="cards">
+::: {.hero}
+![](assets/profile.jpg){.profile-img}
 
-<a class="card" href="projects/forecasting.html">
-  <div class="card-title">Forecasting</div>
-  <div class="card-meta">Séries temporelles · backtesting · intervalles</div>
-</a>
+# Georges Lemuel Balogog
+Data Science · Optimization · Data Engineering
 
-<a class="card" href="projects/optimisation.html">
-  <div class="card-title">Optimisation déterministe (MILP)</div>
-  <div class="card-meta">PuLP/Pyomo · contraintes · KPIs</div>
-</a>
+[Download CV](cv.qmd){.btn .btn-primary}
+:::
 
-<a class="card" href="projects/stochastic.html">
-  <div class="card-title">Optimisation stochastique</div>
-  <div class="card-meta">Scénarios · Monte Carlo · CVaR</div>
-</a>
+---
 
-<a class="card" href="projects/rl.html">
-  <div class="card-title">Reinforcement Learning</div>
-  <div class="card-meta">DQN/PPO · env custom · benchmarks</div>
-</a>
 
-<a class="card" href="projects/bayes.html">
-  <div class="card-title">Bayésien & Statistique</div>
-  <div class="card-meta">GLM/GLMM · MCMC · incertitude</div>
-</a>
+## Featured Projects
+A selection of my recent work.
 
-<a class="card" href="projects/dataeng_mlops.html">
-  <div class="card-title">Data Engineering & MLOps</div>
-  <div class="card-meta">ETL · tests · CI/CD · Docker · API</div>
-</a>
+::: {.project-grid}
 
-<a class="card" href="projects/llm.html">
-  <div class="card-title">LLM</div>
-  <div class="card-meta">RAG · embeddings · search · assistant</div>
-</a>
+::: {.project-card}
+![](assets/projects/warehouse.jpg){.card-img}
+### Warehouse Optimization
+Solving MIP problems for storage optimization.
+:::
 
-</div>
+::: {.project-card}
+![](assets/projects/energy.jpg){.card-img}
+### Energy Forecasting
+Predicting energy demand with ML models.
+:::
 
-## Liens
-- GitHub : https://github.com/MBalogogGLemuel  
-- LinkedIn : https://www.linkedin.com/in/balogog-georges-6810b9118/
+::: {.project-card}
+![](assets/projects/bi.jpg){.card-img}
+### Data Integration & BI
+ETL pipelines to Power BI dashboards.
+:::
+
+:::
+
+## What I Do
+My key areas of expertise.
+
+::: {.what-i-do}
+
+::: {.what-card}
+### Data Science & Machine Learning
+Advanced analytics and predictive modeling.
+:::
+
+::: {.what-card}
+### Optimization & Operations Research
+Solving complex optimization problems.
+:::
+
+::: {.what-card}
+### Data Engineering
+Building robust and scalable data pipelines.
+:::
+
+:::
