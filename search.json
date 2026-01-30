@@ -1,16 +1,23 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Georges L. Balogog",
+    "section": "",
+    "text": "Je construis des solutions data orientées décision : forecasting, optimisation (déterministe & stochastique), RL, modélisation statistique/bayésienne, pipelines de données, API et déploiement."
+  },
+  {
+    "objectID": "index.html#liens",
+    "href": "index.html#liens",
+    "title": "Georges L. Balogog",
+    "section": "Liens",
+    "text": "Liens\n\nGitHub : https://github.com/MBalogogGLemuel\n\nLinkedIn : https://www.linkedin.com/in/balogog-georges-6810b9118/"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
     "text": "About this site"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "site",
-    "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
   }
 ]
