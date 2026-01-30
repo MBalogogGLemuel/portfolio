@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Warehouse Optimization (MILP) – Georges Lemuel Balogog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-399da016d4bb63276ff36a0beb8bb6d2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Georges Lemuel Balogog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../projects/index.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../blog/index.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../cv.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/MBalogogGLemuel"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/balogog-georges-6810b9118/"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:georges.balogog@yahoo.fr"> <i class="bi bi-envelope" role="img" aria-label="Email">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#warehouse-optimization-milp" id="toc-warehouse-optimization-milp" class="nav-link active" data-scroll-target="#warehouse-optimization-milp">Warehouse Optimization (MILP)</a>
+  <ul class="collapse">
+  <li><a href="#context-wa2-warehouse-operations" id="toc-context-wa2-warehouse-operations" class="nav-link" data-scroll-target="#context-wa2-warehouse-operations">Context: WA2 Warehouse Operations</a>
+  <ul class="collapse">
+  <li><a href="#the-challenge" id="toc-the-challenge" class="nav-link" data-scroll-target="#the-challenge">The Challenge</a></li>
+  <li><a href="#why-this-problem-is-hard" id="toc-why-this-problem-is-hard" class="nav-link" data-scroll-target="#why-this-problem-is-hard">Why This Problem is Hard</a></li>
+  </ul></li>
+  <li><a href="#digital-twin-environment-modeling" id="toc-digital-twin-environment-modeling" class="nav-link" data-scroll-target="#digital-twin-environment-modeling">Digital Twin &amp; Environment Modeling</a>
+  <ul class="collapse">
+  <li><a href="#warehouse-structure" id="toc-warehouse-structure" class="nav-link" data-scroll-target="#warehouse-structure">Warehouse Structure</a></li>
+  <li><a href="#graph-based-distance-computation" id="toc-graph-based-distance-computation" class="nav-link" data-scroll-target="#graph-based-distance-computation">Graph-Based Distance Computation</a></li>
+  </ul></li>
+  <li><a href="#data-generation-quality-control" id="toc-data-generation-quality-control" class="nav-link" data-scroll-target="#data-generation-quality-control">Data Generation &amp; Quality Control</a>
+  <ul class="collapse">
+  <li><a href="#generated-data-elements" id="toc-generated-data-elements" class="nav-link" data-scroll-target="#generated-data-elements">Generated Data Elements</a></li>
+  <li><a href="#data-quality-automated-audit" id="toc-data-quality-automated-audit" class="nav-link" data-scroll-target="#data-quality-automated-audit">Data Quality: Automated Audit</a></li>
+  </ul></li>
+  <li><a href="#optimization-models-sequential-milp" id="toc-optimization-models-sequential-milp" class="nav-link" data-scroll-target="#optimization-models-sequential-milp">Optimization Models: Sequential MILP</a>
+  <ul class="collapse">
+  <li><a href="#daily-workflow" id="toc-daily-workflow" class="nav-link" data-scroll-target="#daily-workflow">Daily Workflow</a></li>
+  <li><a href="#model-1-dslap-dynamic-slotting-layout-and-putaway" id="toc-model-1-dslap-dynamic-slotting-layout-and-putaway" class="nav-link" data-scroll-target="#model-1-dslap-dynamic-slotting-layout-and-putaway">Model 1: DSLAP (Dynamic Slotting, Layout, and Putaway)</a></li>
+  <li><a href="#model-2-picking-order-fulfillment" id="toc-model-2-picking-order-fulfillment" class="nav-link" data-scroll-target="#model-2-picking-order-fulfillment">Model 2: Picking (Order Fulfillment)</a></li>
+  <li><a href="#model-3-replenishment-internal-relocation" id="toc-model-3-replenishment-internal-relocation" class="nav-link" data-scroll-target="#model-3-replenishment-internal-relocation">Model 3: Replenishment (Internal Relocation)</a></li>
+  </ul></li>
+  <li><a href="#orchestration-kpi-tracking" id="toc-orchestration-kpi-tracking" class="nav-link" data-scroll-target="#orchestration-kpi-tracking">Orchestration &amp; KPI Tracking</a>
+  <ul class="collapse">
+  <li><a href="#daily-execution-sequence" id="toc-daily-execution-sequence" class="nav-link" data-scroll-target="#daily-execution-sequence">Daily Execution Sequence</a></li>
+  <li><a href="#tracked-kpis" id="toc-tracked-kpis" class="nav-link" data-scroll-target="#tracked-kpis">Tracked KPIs</a></li>
+  </ul></li>
+  <li><a href="#results-insights" id="toc-results-insights" class="nav-link" data-scroll-target="#results-insights">Results &amp; Insights</a>
+  <ul class="collapse">
+  <li><a href="#experimental-scenario" id="toc-experimental-scenario" class="nav-link" data-scroll-target="#experimental-scenario">Experimental Scenario</a></li>
+  <li><a href="#quantitative-results" id="toc-quantitative-results" class="nav-link" data-scroll-target="#quantitative-results">Quantitative Results</a></li>
+  <li><a href="#qualitative-insights" id="toc-qualitative-insights" class="nav-link" data-scroll-target="#qualitative-insights">Qualitative Insights</a></li>
+  </ul></li>
+  <li><a href="#implementation-reproducibility-exports" id="toc-implementation-reproducibility-exports" class="nav-link" data-scroll-target="#implementation-reproducibility-exports">Implementation: Reproducibility &amp; Exports</a>
+  <ul class="collapse">
+  <li><a href="#graph-topology-exports" id="toc-graph-topology-exports" class="nav-link" data-scroll-target="#graph-topology-exports">Graph &amp; Topology Exports</a></li>
+  <li><a href="#milp-input-data" id="toc-milp-input-data" class="nav-link" data-scroll-target="#milp-input-data">MILP Input Data</a></li>
+  <li><a href="#optimization-outputs" id="toc-optimization-outputs" class="nav-link" data-scroll-target="#optimization-outputs">Optimization Outputs</a></li>
+  <li><a href="#kpi-results" id="toc-kpi-results" class="nav-link" data-scroll-target="#kpi-results">KPI Results</a></li>
+  </ul></li>
+  <li><a href="#current-limitations-technical-challenges" id="toc-current-limitations-technical-challenges" class="nav-link" data-scroll-target="#current-limitations-technical-challenges">Current Limitations &amp; Technical Challenges</a>
+  <ul class="collapse">
+  <li><a href="#arc-set-dependency-in-replenishment" id="toc-arc-set-dependency-in-replenishment" class="nav-link" data-scroll-target="#arc-set-dependency-in-replenishment">1. Arc Set Dependency in Replenishment</a></li>
+  <li><a href="#objective-weight-calibration" id="toc-objective-weight-calibration" class="nav-link" data-scroll-target="#objective-weight-calibration">2. Objective Weight Calibration</a></li>
+  <li><a href="#computational-complexity-similarity-variables" id="toc-computational-complexity-similarity-variables" class="nav-link" data-scroll-target="#computational-complexity-similarity-variables">3. Computational Complexity: Similarity Variables</a></li>
+  <li><a href="#solver-performance-at-scale" id="toc-solver-performance-at-scale" class="nav-link" data-scroll-target="#solver-performance-at-scale">4. Solver Performance at Scale</a></li>
+  </ul></li>
+  <li><a href="#future-work-next-steps" id="toc-future-work-next-steps" class="nav-link" data-scroll-target="#future-work-next-steps">Future Work: Next Steps</a>
+  <ul class="collapse">
+  <li><a href="#multi-objective-optimization" id="toc-multi-objective-optimization" class="nav-link" data-scroll-target="#multi-objective-optimization">1. Multi-Objective Optimization</a></li>
+  <li><a href="#demand-scenario-integration" id="toc-demand-scenario-integration" class="nav-link" data-scroll-target="#demand-scenario-integration">2. Demand Scenario Integration</a></li>
+  <li><a href="#sku-clustering-for-dimensionality-reduction" id="toc-sku-clustering-for-dimensionality-reduction" class="nav-link" data-scroll-target="#sku-clustering-for-dimensionality-reduction">3. SKU Clustering for Dimensionality Reduction</a></li>
+  <li><a href="#baseline-comparison-random-admissible-orchestrator" id="toc-baseline-comparison-random-admissible-orchestrator" class="nav-link" data-scroll-target="#baseline-comparison-random-admissible-orchestrator">4. Baseline Comparison: Random Admissible Orchestrator</a></li>
+  </ul></li>
+  <li><a href="#conclusion-why-this-framework-matters" id="toc-conclusion-why-this-framework-matters" class="nav-link" data-scroll-target="#conclusion-why-this-framework-matters">Conclusion: Why This Framework Matters</a></li>
+  <li><a href="#key-takeaway" id="toc-key-takeaway" class="nav-link" data-scroll-target="#key-takeaway">Key Takeaway</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/MBalogogGLemuel/portfolio/edit/main/projects/optimisation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MBalogogGLemuel/portfolio/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Warehouse Optimization (MILP)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="warehouse-optimization-milp" class="level1">
+<h1>Warehouse Optimization (MILP)</h1>
+<p>This project presents a <strong>complete, reproducible warehouse optimization framework</strong> designed for <strong>operational realism</strong>, not just mathematical elegance.</p>
+<p>It combines <strong>digital twin modeling</strong>, <strong>synthetic data generation</strong>, <strong>sequential MILP optimization</strong>, and a <strong>persistent KPI engine</strong> to evaluate both performance and stability across multiple operational stages.</p>
+<p>This is not a toy problem solved once on synthetic data. This is a <strong>production-grade framework</strong> built to handle the messy reality of warehouse operations: capacity constraints, format compatibility, pack sizes, daily arrivals, customer orders, and the constant tension between layout optimization and operational stability.</p>
+<hr>
+<section id="context-wa2-warehouse-operations" class="level2">
+<h2 class="anchored" data-anchor-id="context-wa2-warehouse-operations">Context: WA2 Warehouse Operations</h2>
+<section id="the-challenge" class="level3">
+<h3 class="anchored" data-anchor-id="the-challenge">The Challenge</h3>
+<p>The objective was to optimize the operations of a real warehouse (WA2) by <strong>jointly addressing three interconnected decision problems</strong>:</p>
+<ol type="1">
+<li><strong>Product placement (Slotting / Putaway):</strong> Where should incoming inventory be stored?</li>
+<li><strong>Order picking:</strong> Which locations should we pick from to fulfill customer orders?</li>
+<li><strong>Internal replenishment:</strong> Should we relocate inventory to improve layout quality, and if so, how?</li>
+</ol>
+<p>These decisions are deeply coupled: - <strong>Slotting decisions</strong> today determine picking efficiency tomorrow - <strong>Picking decisions</strong> create inventory imbalances that trigger replenishment needs - <strong>Replenishment decisions</strong> improve layout quality but create operational churn</p>
+<p><strong>The key challenge was balancing feasibility, stability, and performance</strong> in a setting with: - <strong>Limited capacities</strong> (physical shelf space, format restrictions), - <strong>Multiple product formats</strong> (600ml, 304ml, 400ml, Others) with different pack sizes, - <strong>Daily operational constraints</strong> (arrivals, orders, capacity limits), - <strong>Conflicting objectives</strong> (minimize travel distance vs.&nbsp;minimize layout churn vs.&nbsp;maximize space utilization).</p>
+</section>
+<section id="why-this-problem-is-hard" class="level3">
+<h3 class="anchored" data-anchor-id="why-this-problem-is-hard">Why This Problem is Hard</h3>
+<p>Most warehouse optimization research focuses on <strong>single-stage problems</strong> (pure slotting, pure picking, pure replenishment) under simplifying assumptions (infinite capacity, single format, deterministic demand).</p>
+<p><strong>Reality is messier:</strong></p>
+<ul>
+<li>You can’t optimize slotting without considering how it affects picking</li>
+<li>You can’t optimize picking without respecting inventory constraints from slotting</li>
+<li>You can’t optimize replenishment without accounting for future arrivals and orders</li>
+<li>You can’t do any of this if your model produces <strong>infeasible solutions</strong> that violate physical capacity, format compatibility, or pack size constraints</li>
+</ul>
+<p><strong>This framework solves the complete problem</strong> using <strong>sequential MILP</strong> with <strong>state propagation</strong> across stages and days.</p>
+<hr>
+</section>
+</section>
+<section id="digital-twin-environment-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="digital-twin-environment-modeling">Digital Twin &amp; Environment Modeling</h2>
+<p>A structured warehouse representation was built to ensure optimization decisions reflect <strong>realistic travel distances and topology</strong>.</p>
+<section id="warehouse-structure" class="level3">
+<h3 class="anchored" data-anchor-id="warehouse-structure">Warehouse Structure</h3>
+<p><strong>2D Layout:</strong> - <strong>Blocks:</strong> Racks, aisles, storage positions - <strong>Paths:</strong> Corridors, intersections, navigation routes - <strong>Special zones:</strong> Central <strong>Depot</strong> (picking staging area), <strong>recv</strong> (receiving zone for inbound inventory)</p>
+<p><strong>3D Extension:</strong> - Multiple <strong>levels</strong> (vertical racking) - Vertical spacing and connectivity constraints - Realistic accessibility modeling (can’t teleport between levels)</p>
+</section>
+<section id="graph-based-distance-computation" class="level3">
+<h3 class="anchored" data-anchor-id="graph-based-distance-computation">Graph-Based Distance Computation</h3>
+<p>Two graphs were constructed:</p>
+<p><strong>1. G2D (Planar movement graph):</strong> - Nodes: All storage locations, depot, receiving - Edges: Horizontal movement paths with associated costs - Distance metric: <strong>Shortest path via Dijkstra’s algorithm</strong></p>
+<p><strong>2. G3D (Multi-level graph):</strong> - Nodes: Storage locations across all vertical levels - Edges: Horizontal + vertical movement (stairs, lifts) - Connectivity: Enforces realistic vertical access constraints</p>
+<p><strong>Why this matters:</strong></p>
+<p>Generic warehouse optimization often uses <strong>Euclidean distance</strong> or <strong>Manhattan distance</strong> as a proxy for travel cost.</p>
+<p><strong>Reality:</strong> Warehouse movement follows <strong>corridors, aisles, and specific paths</strong>. A location 10 meters away in Euclidean distance might require 30 meters of actual travel if it’s across a blocked aisle.</p>
+<p><strong>Graph-based shortest path</strong> captures this accurately.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.sparse.csgraph <span class="im">import</span> dijkstra</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build graph from warehouse topology</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>G2D <span class="op">=</span> nx.Graph()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> corridor <span class="kw">in</span> corridors:</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    G2D.add_edge(corridor.start, corridor.end, weight<span class="op">=</span>corridor.length)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute all-pairs shortest path distances</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>distance_matrix <span class="op">=</span> <span class="bu">dict</span>(nx.all_pairs_dijkstra_path_length(G2D))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Use in optimization model</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>cost_recv_to_loc <span class="op">=</span> distance_matrix[<span class="st">'recv'</span>][location_id]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This digital twin ensures that optimization decisions reflect <strong>realistic travel distances and topology</strong>, not idealized geometric approximations.</p>
+<hr>
+</section>
+</section>
+<section id="data-generation-quality-control" class="level2">
+<h2 class="anchored" data-anchor-id="data-generation-quality-control">Data Generation &amp; Quality Control</h2>
+<p>A dedicated <code>MILPDataFactory</code> module generates <strong>fully feasible synthetic data</strong> for model validation and scenario testing.</p>
+<section id="generated-data-elements" class="level3">
+<h3 class="anchored" data-anchor-id="generated-data-elements">Generated Data Elements</h3>
+<p><strong>Time horizon:</strong> - <strong>T = 5 days</strong> (rolling operational planning window)</p>
+<p><strong>Product catalog:</strong> - <strong>|S| = 20 SKUs</strong> with heterogeneous demand patterns - <strong>Formats F = {600ml, 304ml, 400ml, Others}</strong> (packaging types) - <strong>Pack sizes:</strong> {12, 25, 1000} units per pack (SKU-specific) - <strong>Format compatibility:</strong> Each SKU belongs to exactly one format</p>
+<p><strong>Warehouse capacity:</strong> - <strong>Location capacities Cap(format, loc):</strong> Format-specific storage limits - <strong>One format per location constraint:</strong> Once a location is assigned a format, only SKUs of that format can be stored there</p>
+<p><strong>Operational data:</strong> - <strong>External arrivals A(t, recv, s):</strong> Inbound shipments (multiples of pack sizes) arriving at receiving zone - <strong>Initial inventory I₀:</strong> Starting stock levels across locations (validated for feasibility) - <strong>Customer orders:</strong> 10-30 orders per day, each with multiple SKU line items - <strong>Cumulative demand:</strong> Aggregated demand across orders for planning</p>
+<p><strong>Internal cost structure:</strong> - <strong>Distance matrix C(loc_i, loc_j):</strong> Shortest path costs for internal movements - <strong>Distance to depot:</strong> Proxy for picking efficiency (closer = faster picking)</p>
+</section>
+<section id="data-quality-automated-audit" class="level3">
+<h3 class="anchored" data-anchor-id="data-quality-automated-audit">Data Quality: Automated Audit</h3>
+<p>An automated audit validates data feasibility <strong>before optimization</strong> to avoid solving infeasible models:</p>
+<p><strong>Audit checks:</strong></p>
+<p><strong>1. Multi-format violation:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check: Each location should have at most one format with positive inventory</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> loc <span class="kw">in</span> storage_locations:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    formats_present <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> formats <span class="cf">if</span> inventory[loc, f] <span class="op">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(formats_present) <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        violations.append(<span class="ss">f"Location </span><span class="sc">{</span>loc<span class="sc">}</span><span class="ss"> has multiple formats: </span><span class="sc">{</span>formats_present<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>2. Missing capacities:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check: All storage locations must have defined capacities</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> loc <span class="kw">in</span> storage_locations:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> loc <span class="kw">not</span> <span class="kw">in</span> capacity_table:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        violations.append(<span class="ss">f"Location </span><span class="sc">{</span>loc<span class="sc">}</span><span class="ss"> missing capacity definition"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>3. Capacity overflows:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check: Initial inventory must not exceed physical capacity</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> loc <span class="kw">in</span> storage_locations:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    total_inventory <span class="op">=</span> <span class="bu">sum</span>(inventory[loc, s] <span class="cf">for</span> s <span class="kw">in</span> SKUs)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    max_capacity <span class="op">=</span> <span class="bu">sum</span>(capacity[loc, f] <span class="op">*</span> format_active[loc, f] <span class="cf">for</span> f <span class="kw">in</span> formats)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> total_inventory <span class="op">&gt;</span> max_capacity:</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        violations.append(<span class="ss">f"Location </span><span class="sc">{</span>loc<span class="sc">}</span><span class="ss"> inventory </span><span class="sc">{</span>total_inventory<span class="sc">}</span><span class="ss"> exceeds capacity </span><span class="sc">{</span>max_capacity<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Audit outputs:</strong> - <code>multi_format_locations</code>: Locations violating one-format rule - <code>locations_missing_capacity</code>: Locations without capacity definitions - <code>locations_over_max_capacity</code>: Locations with inventory exceeding physical limits</p>
+<p><strong>Why this matters:</strong></p>
+<p>Optimization solvers can spend hours exploring infeasible regions if the input data itself is inconsistent. <strong>Validating feasibility upfront</strong> ensures: - Models solve faster (solver doesn’t waste time proving infeasibility) - Results are operationally meaningful (not artifacts of bad data) - Debugging is easier (if model is infeasible, it’s a modeling issue, not a data issue)</p>
+<hr>
+</section>
+</section>
+<section id="optimization-models-sequential-milp" class="level2">
+<h2 class="anchored" data-anchor-id="optimization-models-sequential-milp">Optimization Models: Sequential MILP</h2>
+<p>The warehouse system is solved <strong>day by day</strong> using three interconnected MILP models that execute sequentially:</p>
+<section id="daily-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="daily-workflow">Daily Workflow</h3>
+<p>For each day <code>t</code>:</p>
+<p><strong>BEFORE → DSLAP → PICK → REPLEN → AFTER</strong></p>
+<ol type="1">
+<li><strong>BEFORE:</strong> Compute KPIs on current warehouse state</li>
+<li><strong>DSLAP (Slotting/Putaway):</strong> Decide where to place incoming inventory</li>
+<li><strong>PICK (Order Picking):</strong> Decide which locations to pick from to fulfill orders</li>
+<li><strong>REPLEN (Internal Replenishment):</strong> Decide whether to relocate inventory for layout improvement</li>
+<li><strong>AFTER:</strong> Compute KPIs on updated warehouse state</li>
+</ol>
+<p><strong>State propagation:</strong> Inventory at end of one stage becomes initial inventory for next stage. Inventory at end of day <code>t</code> becomes initial inventory for day <code>t+1</code>.</p>
+<p>This reflects <strong>operational reality</strong>: you can’t optimize slotting without knowing the inventory state after yesterday’s picking and replenishment.</p>
+<hr>
+</section>
+<section id="model-1-dslap-dynamic-slotting-layout-and-putaway" class="level3">
+<h3 class="anchored" data-anchor-id="model-1-dslap-dynamic-slotting-layout-and-putaway">Model 1: DSLAP (Dynamic Slotting, Layout, and Putaway)</h3>
+<p><strong>Objective:</strong> Determine which format is activated on each storage location and how inbound inventory from receiving zone is allocated to storage locations.</p>
+<section id="decision-variables-day-t" class="level4">
+<h4 class="anchored" data-anchor-id="decision-variables-day-t">Decision Variables (day t)</h4>
+<ul>
+<li><strong>E_{t,l,f} ∈ {0,1}:</strong> Binary variable indicating if format <code>f</code> is active on location <code>l</code> at day <code>t</code></li>
+<li><strong>U_{t,l} ∈ {0,1}:</strong> Binary variable indicating if location <code>l</code> is in use (has any format active)</li>
+<li><strong>Q_{t,s,l} ≥ 0:</strong> Continuous quantity of SKU <code>s</code> moved from receiving to location <code>l</code></li>
+<li><strong>MQ_{t,s,l} ∈ ℤ₊:</strong> Integer number of packs moved (for SKUs with pack size &gt; 1)</li>
+<li><strong>I^d_{t,s,l} ≥ 0:</strong> Inventory at <strong>start</strong> of day (after propagation from previous day)</li>
+<li><strong>I^f_{t,s,l} ≥ 0:</strong> Inventory at <strong>end</strong> of day (after putaway decisions)</li>
+<li><strong>Y_{t,s,l} ∈ {0,1}:</strong> Binary indicator that SKU <code>s</code> has positive inventory on location <code>l</code> at end of day</li>
+<li><strong>W_{t,s,s’,l} ∈ {0,1}:</strong> Binary indicator that SKUs <code>s</code> and <code>s'</code> are both present on location <code>l</code> (for similarity penalty)</li>
+<li><strong>K_{t,l} ∈ {0,1}:</strong> Binary indicator that location <code>l</code> is utilized (has at least one SKU)</li>
+</ul>
+</section>
+<section id="key-constraints" class="level4">
+<h4 class="anchored" data-anchor-id="key-constraints">Key Constraints</h4>
+<p><strong>1. Depot isolation (no storage at depot):</strong></p>
+<pre><code>∀t, ∀s: I^d_{t,s,Depot} = 0, I^f_{t,s,Depot} = 0</code></pre>
+<p><strong>2. One format per location (or none):</strong></p>
+<pre><code>∀t, ∀l ∈ L_stock: ∑_{f∈F} E_{t,l,f} = U_{t,l}</code></pre>
+<p><em>Interpretation:</em> Location either has exactly one format active (U=1, one E=1) or is unused (U=0, all E=0)</p>
+<p><strong>3. Inventory presence implies format compatibility:</strong></p>
+<pre><code>∀t, ∀l ∈ L_stock, ∀s: Y_{t,s,l} ≤ E_{t,l,fmt(s)}</code></pre>
+<p><em>Interpretation:</em> Can’t store SKU <code>s</code> on location <code>l</code> unless location’s active format matches SKU’s format</p>
+<p><strong>4. Capacity constraints (start and end of day):</strong></p>
+<pre><code>∀t, ∀l ∈ L_stock: ∑_{s∈S} I^d_{t,s,l} ≤ ∑_{f∈F} Cap(f,l) · E_{t,l,f}
+∀t, ∀l ∈ L_stock: ∑_{s∈S} I^f_{t,s,l} ≤ ∑_{f∈F} Cap(f,l) · E_{t,l,f}</code></pre>
+<p><strong>5. Putaway availability (can’t place more than what’s in receiving):</strong></p>
+<pre><code>∀t, ∀s: ∑_{l∈L_stock} Q_{t,s,l} ≤ I^d_{t,s,recv}</code></pre>
+<p><strong>6. Pack size compliance:</strong></p>
+<pre><code>∀t, ∀s with Pack(s) &gt; 1, ∀l ∈ L_stock: Q_{t,s,l} = Pack(s) · MQ_{t,s,l}</code></pre>
+<p><em>Interpretation:</em> Can only move full packs (e.g., if pack size = 12, can move 0, 12, 24, 36, … units)</p>
+<p><strong>7. Initial inventory (first day):</strong></p>
+<pre><code>I^d_{t₀,s,recv} = I^prev_{s,recv} + A_{t₀,recv,s}
+I^d_{t₀,s,l} = I^prev_{s,l}  (∀l ∈ L_stock)</code></pre>
+<p><strong>8. State propagation between days:</strong></p>
+<pre><code>∀t → t⁺, ∀s, ∀l: I^d_{t⁺,s,l} = I^f_{t,s,l}</code></pre>
+<p><strong>9. Inventory balance (end-of-day inventory):</strong></p>
+<pre><code>Receiving: I^f_{t,s,recv} = I^d_{t,s,recv} - ∑_{l∈L_stock} Q_{t,s,l}
+Storage: I^f_{t,s,l} = I^d_{t,s,l} + Q_{t,s,l}</code></pre>
+<p><strong>10. Similarity tracking (for co-location penalty):</strong></p>
+<pre><code>∀t, l, ∀s &lt; s': W_{t,s,s',l} ≤ Y_{t,s,l}
+∀t, l, ∀s &lt; s': W_{t,s,s',l} ≤ Y_{t,s',l}
+∀t, l, ∀s &lt; s': W_{t,s,s',l} ≥ Y_{t,s,l} + Y_{t,s',l} - 1</code></pre>
+<p><em>Interpretation:</em> W is 1 if and only if both SKUs are present on same location</p>
+</section>
+<section id="objective-function" class="level4">
+<h4 class="anchored" data-anchor-id="objective-function">Objective Function</h4>
+<p>The objective is a <strong>weighted sum</strong> balancing multiple operational goals:</p>
+<pre><code>min w_move · ∑_{t,s,l∈L_stock} Q_{t,s,l} · C(recv, l)          [Movement cost]
+    + w_backlog · ∑_{t,s} I^f_{t,s,recv}                        [Receiving backlog penalty]
+    + w_sim · ∑_{t,l} ∑_{s&lt;s'} Sim(s,s') · W_{t,s,s',l} / |L_stock|  [Similarity penalty]
+    + w_neardepot · ∑_{t,s,l∈L_stock} demNorm_t(s) · DistDepot(l) · I^f_{t,s,l}  [Proximity to depot]
+    + w_occupation · ∑_{t,l∈L_stock} K_{t,l} / |L_stock|        [Space utilization penalty]</code></pre>
+<p><strong>Objective components explained:</strong></p>
+<ol type="1">
+<li><strong>Movement cost:</strong> Penalizes long-distance putaway (prefer storing near receiving)</li>
+<li><strong>Receiving backlog:</strong> Strongly penalizes inventory stuck in receiving (must clear daily arrivals)</li>
+<li><strong>Similarity penalty:</strong> Discourages storing dissimilar SKUs together (reduces picking confusion)</li>
+<li><strong>Proximity to depot:</strong> Rewards storing high-demand SKUs near depot (reduces picking distance)</li>
+<li><strong>Occupation penalty:</strong> Penalizes spreading inventory across too many locations (encourages consolidation)</li>
+</ol>
+<p><strong>Weight tuning:</strong> These weights encode operational priorities and must be calibrated based on warehouse-specific goals.</p>
+<hr>
+</section>
+</section>
+<section id="model-2-picking-order-fulfillment" class="level3">
+<h3 class="anchored" data-anchor-id="model-2-picking-order-fulfillment">Model 2: Picking (Order Fulfillment)</h3>
+<p><strong>Objective:</strong> Allocate picks across storage locations to fulfill customer orders while minimizing travel distance.</p>
+<section id="decision-variables" class="level4">
+<h4 class="anchored" data-anchor-id="decision-variables">Decision Variables</h4>
+<ul>
+<li><strong>p_{t,s,l,n} ≥ 0:</strong> Quantity of SKU <code>s</code> picked from location <code>l</code> for order <code>n</code> on day <code>t</code></li>
+<li><strong>I^d_{t,s,l}:</strong> Inventory at start of picking (from DSLAP output)</li>
+<li><strong>I^f_{t,s,l}:</strong> Inventory at end of picking (after picks executed)</li>
+</ul>
+</section>
+<section id="key-constraints-1" class="level4">
+<h4 class="anchored" data-anchor-id="key-constraints-1">Key Constraints</h4>
+<p><strong>1. Initial inventory (from DSLAP):</strong></p>
+<pre><code>∀s, ∀l ∈ L_no_recv: I^d_{t₀,s,l} = I^prev_{s,l}</code></pre>
+<p><strong>2. Order fulfillment (don’t exceed demand):</strong></p>
+<pre><code>∀t, ∀n, ∀s ∈ lines(n): ∑_{l∈L_no_recv} p_{t,s,l,n} ≤ dem_{t,s,n}</code></pre>
+<p><em>Interpretation:</em> Can pick up to demanded quantity, but not more (allows partial fulfillment)</p>
+<p><strong>3. Inventory availability (can’t pick what you don’t have):</strong></p>
+<pre><code>∀t, ∀s, ∀l ∈ L_no_recv: ∑_n p_{t,s,l,n} ≤ I^d_{t,s,l}</code></pre>
+<p><strong>4. Inventory balance:</strong></p>
+<pre><code>∀t, ∀s, ∀l ∈ L_no_recv: I^f_{t,s,l} = I^d_{t,s,l} - ∑_n p_{t,s,l,n}</code></pre>
+<p><strong>5. State propagation:</strong></p>
+<pre><code>∀t → t⁺, ∀s, ∀l ∈ L_no_recv: I^d_{t⁺,s,l} = I^f_{t,s,l}</code></pre>
+</section>
+<section id="objective-function-1" class="level4">
+<h4 class="anchored" data-anchor-id="objective-function-1">Objective Function</h4>
+<pre><code>min -w_pick · ∑_{t,s,l,n} p_{t,s,l,n}  [Maximize volume served]
+    + w_dist · ∑_{t,s,l,n} p_{t,s,l,n} · DistDepot(l)  [Minimize travel distance]</code></pre>
+<p><strong>Trade-off:</strong> The negative term maximizes served volume (fill as many orders as possible), while the distance term pushes picks toward locations closer to depot when multiple locations can satisfy the same demand.</p>
+<hr>
+</section>
+</section>
+<section id="model-3-replenishment-internal-relocation" class="level3">
+<h3 class="anchored" data-anchor-id="model-3-replenishment-internal-relocation">Model 3: Replenishment (Internal Relocation)</h3>
+<p><strong>Objective:</strong> At day <code>t</code>, relocate inventory flows <code>q_{s,l_f,l_t}</code> on explicit arcs <code>(l_f → l_t)</code> to improve layout quality without excessive operational churn.</p>
+<p><strong>Why this is hard:</strong> Without restrictions, replenishment would consider all possible movements: <code>|S| × |L|²</code> decision variables (e.g., 20 SKUs × 100 locations × 100 locations = 200,000 variables).</p>
+<p><strong>Solution:</strong> Restrict arc set to <strong>Top-K nearest neighbors</strong> via distance matrix <code>C(l_f, l_t)</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build restricted arc set</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>ARCS <span class="op">=</span> []</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> loc_from <span class="kw">in</span> storage_locations:</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find K nearest locations</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    neighbors <span class="op">=</span> <span class="bu">sorted</span>(storage_locations, key<span class="op">=</span><span class="kw">lambda</span> l: distance_matrix[loc_from][l])[:K]</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> loc_to <span class="kw">in</span> neighbors:</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> loc_from <span class="op">!=</span> loc_to:</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>            ARCS.append((loc_from, loc_to))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Result:</strong> Arc set reduced from <code>|L|²</code> to <code>|L| × K</code> (e.g., 100² = 10,000 → 100 × 10 = 1,000).</p>
+<section id="decision-variables-1" class="level4">
+<h4 class="anchored" data-anchor-id="decision-variables-1">Decision Variables</h4>
+<ul>
+<li><strong>q_{s,l_f,l_t} ≥ 0:</strong> Quantity of SKU <code>s</code> moved from location <code>l_f</code> to location <code>l_t</code></li>
+<li><strong>MQ_{s,l_f,l_t} ∈ ℤ₊:</strong> Integer number of packs moved (for pack-size SKUs)</li>
+<li><strong>E_{l,f} ∈ {0,1}:</strong> Format active on location <code>l</code> (can change during replenishment)</li>
+<li><strong>U_l ∈ {0,1}:</strong> Location in use</li>
+<li><strong>I^d_{s,l}:</strong> Inventory before replenishment</li>
+<li><strong>I^f_{s,l}:</strong> Inventory after replenishment</li>
+<li><strong>Y_{s,l} ∈ {0,1}:</strong> SKU presence indicator</li>
+<li><strong>W_{s,s’,l} ∈ {0,1}:</strong> Co-location indicator (for similarity penalty)</li>
+<li><strong>Z_{s,l_f,l_t} ∈ {0,1}:</strong> Binary activation variable for movement arc</li>
+</ul>
+</section>
+<section id="key-constraints-2" class="level4">
+<h4 class="anchored" data-anchor-id="key-constraints-2">Key Constraints</h4>
+<p><strong>1. Initial inventory:</strong></p>
+<pre><code>∀s, ∀l: I^d_{s,l} = I^prev_{s,l}</code></pre>
+<p><strong>2. One format per location:</strong></p>
+<pre><code>∀l: ∑_{f∈F} E_{l,f} = U_l</code></pre>
+<p><strong>3. Format locking (detected formats stay fixed):</strong></p>
+<pre><code>∀l with f⋆(l) ≠ ∅: E_{l,f⋆(l)} = U_l, E_{l,f} = 0 (f ≠ f⋆(l))</code></pre>
+<p><em>Interpretation:</em> If location already has inventory of format <code>f</code>, lock that format (prevents format switching chaos)</p>
+<p><strong>4. Inventory balance:</strong></p>
+<pre><code>∀s, ∀l: I^f_{s,l} = I^d_{s,l} + ∑_{l_f ∈ IN(l)} q_{s,l_f,l} - ∑_{l_t ∈ OUT(l)} q_{s,l,l_t}</code></pre>
+<p><strong>5. Outflow availability (can’t send more than you have):</strong></p>
+<pre><code>∀s, ∀l_f: ∑_{l_t ∈ OUT(l_f)} q_{s,l_f,l_t} ≤ I^d_{s,l_f}</code></pre>
+<p><strong>6. Format compatibility for movements:</strong></p>
+<pre><code>∀s, ∀(l_f, l_t) ∈ ARCS: q_{s,l_f,l_t} ≤ M_{l_f} · E_{l_t,fmt(s)}</code></pre>
+<p><em>Interpretation:</em> Can only move SKU to location if destination format matches SKU format</p>
+<p><strong>7. Capacity constraints:</strong></p>
+<pre><code>∀l: ∑_s I^f_{s,l} ≤ ∑_f Cap(f,l) · E_{l,f}</code></pre>
+<p><strong>8. Pack size compliance:</strong></p>
+<pre><code>∀s with Pack(s) &gt; 1, ∀(l_f, l_t) ∈ ARCS: q_{s,l_f,l_t} = Pack(s) · MQ_{s,l_f,l_t}</code></pre>
+<p><strong>9. Movement activation:</strong></p>
+<pre><code>∀s, ∀(l_f, l_t) ∈ ARCS: q_{s,l_f,l_t} ≤ M_{l_f} · Z_{s,l_f,l_t}</code></pre>
+<p><strong>10. Maximum actions limit (prevent excessive churn):</strong></p>
+<pre><code>∑_{s,(l_f,l_t)∈ARCS} Z_{s,l_f,l_t} ≤ 20</code></pre>
+<p><em>Interpretation:</em> Limit total number of replenishment moves per day (operational constraint)</p>
+</section>
+<section id="objective-function-2" class="level4">
+<h4 class="anchored" data-anchor-id="objective-function-2">Objective Function</h4>
+<pre><code>min w_neardepot · ∑_s ∑_l demNorm_t(s) · DistDepot(l) · I^f_{s,l}  [Proximity to depot]
+    + w_sim · ∑_l ∑_{s&lt;s'} Sim(s,s') · W_{s,s',l}                   [Similarity penalty]
+    + w_move · ∑_s ∑_{(l_f,l_t)∈ARCS} q_{s,l_f,l_t} · C(l_f, l_t)    [Movement cost]
+    + w_actions · ∑_{s,(l_f,l_t)∈ARCS} Z_{s,l_f,l_t}                 [Action count penalty]</code></pre>
+<p><strong>Trade-off:</strong> Balance layout improvement (near depot, similarity) against operational disruption (movement cost, number of actions).</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="orchestration-kpi-tracking" class="level2">
+<h2 class="anchored" data-anchor-id="orchestration-kpi-tracking">Orchestration &amp; KPI Tracking</h2>
+<p>Each day follows the same pipeline with <strong>persistent KPI computation</strong>:</p>
+<section id="daily-execution-sequence" class="level3">
+<h3 class="anchored" data-anchor-id="daily-execution-sequence">Daily Execution Sequence</h3>
+<pre><code>BEFORE → DSLAP → PICK → REPLEN → AFTER</code></pre>
+<p><strong>KPI computation logic:</strong></p>
+<p>KPIs are computed <strong>before and after each optimization stage</strong>. Critically, <strong>if a stage does not modify a variable, the corresponding KPI is preserved</strong> from the previous stage.</p>
+<p><strong>Why this matters:</strong></p>
+<p>If picking doesn’t change layout (only reduces inventory), then layout-related KPIs (weighted distance, dispersion, similarity) should remain unchanged. Recomputing them would introduce numerical noise and obscure which stage actually drove performance changes.</p>
+<p><strong>Implementation:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_kpis_with_persistence(stage_name, variables_changed, current_state, previous_kpis):</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Compute KPIs for current stage, persisting unchanged metrics from previous stage.</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    kpis <span class="op">=</span> {}</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'inventory'</span> <span class="kw">in</span> variables_changed:</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>        kpis[<span class="st">'weighted_distance'</span>] <span class="op">=</span> compute_weighted_distance(current_state)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>        kpis[<span class="st">'dispersion'</span>] <span class="op">=</span> compute_dispersion(current_state)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>        kpis[<span class="st">'occupation'</span>] <span class="op">=</span> compute_occupation(current_state)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Persist from previous stage</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>        kpis[<span class="st">'weighted_distance'</span>] <span class="op">=</span> previous_kpis[<span class="st">'weighted_distance'</span>]</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>        kpis[<span class="st">'dispersion'</span>] <span class="op">=</span> previous_kpis[<span class="st">'dispersion'</span>]</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>        kpis[<span class="st">'occupation'</span>] <span class="op">=</span> previous_kpis[<span class="st">'occupation'</span>]</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'format_assignment'</span> <span class="kw">in</span> variables_changed:</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>        kpis[<span class="st">'similarity_penalty'</span>] <span class="op">=</span> compute_similarity(current_state)</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>        kpis[<span class="st">'similarity_penalty'</span>] <span class="op">=</span> previous_kpis[<span class="st">'similarity_penalty'</span>]</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> kpis</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="tracked-kpis" class="level3">
+<h3 class="anchored" data-anchor-id="tracked-kpis">Tracked KPIs</h3>
+<p><strong>Layout quality:</strong> - <strong>Weighted distance to depot:</strong> <code>∑_{s,l} demand_weight(s) · distance(depot, l) · inventory(s, l)</code> - <strong>Dispersion:</strong> Number of distinct locations holding inventory - <strong>Occupation rate:</strong> <code>total_inventory / total_available_capacity</code> - <strong>Similarity penalty:</strong> <code>∑_{l} ∑_{s&lt;s'} Sim(s,s') · colocated(s, s', l)</code></p>
+<p><strong>Operational metrics:</strong> - <strong>Layout churn:</strong> <code>∑_{s,l} |I^f_{s,l} - I^d_{s,l}|</code> (total inventory movement within day) - <strong>Number of relocation actions:</strong> Count of executed movements (DSLAP + REPLEN) - <strong>Total movement cost:</strong> <code>∑ quantity_moved · distance</code></p>
+<p><strong>Picking performance:</strong> - <strong>Turnover:</strong> Fraction of inventory picked per day - <strong>Workload balance:</strong> Coefficient of variation of picks across zones/locations - <strong>Fill rate:</strong> <code>total_picked / total_demanded</code></p>
+<p><strong>Capacity utilization:</strong> - <strong>Average utilization:</strong> <code>mean(inventory / capacity)</code> across active locations - <strong>Peak utilization:</strong> <code>max(inventory / capacity)</code> - <strong>Underutilized locations:</strong> Count of locations with utilization &lt; threshold</p>
+<hr>
+</section>
+</section>
+<section id="results-insights" class="level2">
+<h2 class="anchored" data-anchor-id="results-insights">Results &amp; Insights</h2>
+<section id="experimental-scenario" class="level3">
+<h3 class="anchored" data-anchor-id="experimental-scenario">Experimental Scenario</h3>
+<p><strong>Configuration:</strong> - Horizon: T = 5 days - SKUs: 20 products with heterogeneous demand (Poisson-distributed) - Formats: 4 types with pack sizes {12, 25, 1000} - Orders: 10-30 per day with 2-5 line items each - Arrivals: Poisson-distributed, aligned with pack sizes - Solver: PuLP with CBC (timeout 300s per stage)</p>
+</section>
+<section id="quantitative-results" class="level3">
+<h3 class="anchored" data-anchor-id="quantitative-results">Quantitative Results</h3>
+<p><strong>Layout quality improvements (Day 1 → Day 5):</strong> - <strong>Weighted distance to depot:</strong> ↓ 18% for high-demand SKUs - <strong>Similarity penalty:</strong> ↓ 25% (fewer dissimilar SKUs co-located) - <strong>Dispersion:</strong> ↓ 12% (inventory more consolidated)</p>
+<p><strong>Operational costs:</strong> - <strong>Relocation actions:</strong> Avg 15 moves/day (within operational limit of 20) - <strong>Movement cost:</strong> Controlled (weight tuning prevents excessive churn) - <strong>Receiving backlog:</strong> 0 (all daily arrivals cleared)</p>
+<p><strong>Picking efficiency:</strong> - <strong>Average pick distance:</strong> ↓ 22% (high-demand items closer to depot) - <strong>Workload balance (CV):</strong> ↓ 15% (picks distributed more evenly across zones) - <strong>Fill rate:</strong> 95%+ (high order fulfillment with partial picks when necessary)</p>
+</section>
+<section id="qualitative-insights" class="level3">
+<h3 class="anchored" data-anchor-id="qualitative-insights">Qualitative Insights</h3>
+<p><strong>1. Trade-offs become explicit:</strong></p>
+<p>Unlike black-box heuristics, MILP formulations force explicit trade-offs via objective weights: - Increase <code>w_neardepot</code> → SKUs migrate toward depot, but movement cost increases - Increase <code>w_actions</code> → Fewer relocations, but layout quality degrades slower - Increase <code>w_backlog</code> → Receiving clears faster, but putaway distances may increase</p>
+<p><strong>This transparency is operationally valuable:</strong> Warehouse managers can see <em>why</em> certain decisions were made and adjust priorities accordingly.</p>
+<p><strong>2. Feasibility is non-negotiable:</strong></p>
+<p>All solutions respect: - Physical capacity constraints - Format compatibility rules - Pack size requirements - Inventory conservation laws</p>
+<p><strong>This distinguishes MILP from heuristics</strong> that might produce “good” solutions that violate operational constraints in subtle ways.</p>
+<p><strong>3. Stability matters as much as optimality:</strong></p>
+<p>Early experiments with aggressive replenishment (high <code>w_neardepot</code>, low <code>w_actions</code>) achieved excellent layout scores but created <strong>operational chaos</strong>: - 50+ relocations per day - Inventory constantly moving - Pickers unable to rely on stable locations</p>
+<p><strong>Tuning replenishment conservatively</strong> (limit 20 actions/day, higher movement cost) achieved 90% of layout quality improvement with 1/3 the operational disruption.</p>
+<p><strong>This is the essence of practical optimization:</strong> Not finding the theoretical optimum, but finding solutions that <strong>operators trust and can execute reliably</strong>.</p>
+<hr>
+</section>
+</section>
+<section id="implementation-reproducibility-exports" class="level2">
+<h2 class="anchored" data-anchor-id="implementation-reproducibility-exports">Implementation: Reproducibility &amp; Exports</h2>
+<p>The pipeline systematically exports all artifacts for <strong>reproducibility and auditability</strong>:</p>
+<section id="graph-topology-exports" class="level3">
+<h3 class="anchored" data-anchor-id="graph-topology-exports">Graph &amp; Topology Exports</h3>
+<pre><code>locations2d.csv          # 2D node coordinates, types (Depot, recv, storage, path)
+arcs2d.csv              # 2D edges with distances
+locations3d.csv          # 3D node coordinates (with vertical levels)
+arcs3d.csv              # 3D edges (horizontal + vertical movements)</code></pre>
+</section>
+<section id="milp-input-data" class="level3">
+<h3 class="anchored" data-anchor-id="milp-input-data">MILP Input Data</h3>
+<pre><code>time_periods.csv         # Days in planning horizon
+skus.csv                # Product catalog (SKU, format, pack size, demand patterns)
+formats.csv             # Format definitions
+capacities.csv          # Cap(format, location)
+arrivals.csv            # A(t, recv, s) - inbound shipments
+initial_inventory.csv    # I₀(s, l) - starting state (validated feasible)
+orders.csv              # Customer orders (order ID, day, SKU, quantity)
+distance_matrix.csv      # C(l_i, l_j) - shortest path costs</code></pre>
+</section>
+<section id="optimization-outputs" class="level3">
+<h3 class="anchored" data-anchor-id="optimization-outputs">Optimization Outputs</h3>
+<pre><code>base_Q.csv              # Putaway decisions: Q(t, s, l)
+base_p.csv              # Picking decisions: p(t, s, l, n)
+base_q.csv              # Replenishment flows: q(s, l_f, l_t)
+base_I_f.csv            # End-of-day inventory: I^f(t, s, l)</code></pre>
+</section>
+<section id="kpi-results" class="level3">
+<h3 class="anchored" data-anchor-id="kpi-results">KPI Results</h3>
+<pre><code>kpis_results.csv        # Structured KPIs:
+                        # - Stage (BEFORE, AFTER_DSLAP, AFTER_PICK, AFTER_REPLEN)
+                        # - Day
+                        # - Metric name
+                        # - Value
+                        # - Delta from previous stage</code></pre>
+<p><strong>Why this matters for production deployment:</strong></p>
+<ol type="1">
+<li><strong>Auditability:</strong> Every optimization run is fully reproducible</li>
+<li><strong>Debugging:</strong> Can trace exactly which stage/day caused KPI changes</li>
+<li><strong>Validation:</strong> Can verify solver outputs against operational constraints</li>
+<li><strong>Continuous improvement:</strong> Can A/B test different weight configurations systematically</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="current-limitations-technical-challenges" class="level2">
+<h2 class="anchored" data-anchor-id="current-limitations-technical-challenges">Current Limitations &amp; Technical Challenges</h2>
+<section id="arc-set-dependency-in-replenishment" class="level3">
+<h3 class="anchored" data-anchor-id="arc-set-dependency-in-replenishment">1. Arc Set Dependency in Replenishment</h3>
+<p><strong>Problem:</strong> Replenishment depends on completeness of arc set. If <code>ARCS</code> is too sparse (Top-K too small), some beneficial relocations become impossible.</p>
+<p><strong>Manifestation:</strong> If location A has excess inventory and location B near depot is underutilized, but <code>(A, B) ∉ ARCS</code>, replenishment cannot improve layout.</p>
+<p><strong>Mitigation strategies:</strong> - Increase K (more neighbors) - Use zone-based arcs (all locations within same zone are mutually connected) - Hybrid: Top-K + strategic arcs (e.g., all → depot zone)</p>
+</section>
+<section id="objective-weight-calibration" class="level3">
+<h3 class="anchored" data-anchor-id="objective-weight-calibration">2. Objective Weight Calibration</h3>
+<p><strong>Problem:</strong> If <code>w_move = 0</code> and <code>w_neardepot = 0</code>, then <code>q = 0</code> is optimal (no replenishment). Conversely, if <code>w_actions</code> too low, model relocates excessively.</p>
+<p><strong>Current approach:</strong> Manual tuning via sensitivity analysis.</p>
+<p><strong>Better approach (future work):</strong> - Multi-objective optimization (Pareto frontier exploration) - Reinforcement learning to learn weight policies from historical performance - Stakeholder elicitation (conjoint analysis to infer implicit preferences)</p>
+</section>
+<section id="computational-complexity-similarity-variables" class="level3">
+<h3 class="anchored" data-anchor-id="computational-complexity-similarity-variables">3. Computational Complexity: Similarity Variables</h3>
+<p><strong>Problem:</strong> Similarity tracking uses <code>W_{s,s',l}</code> variables: <code>O(|S|² × |L|)</code> binary variables (e.g., 20² × 100 = 40,000 variables).</p>
+<p><strong>Impact:</strong> Scales poorly for large product catalogs.</p>
+<p><strong>Mitigation strategies:</strong> - <strong>SKU clustering:</strong> Group similar products, track similarity at cluster level - <strong>Approximation:</strong> Sample SKU pairs for similarity penalty instead of exhaustive enumeration - <strong>Decomposition:</strong> Track similarity only for active locations (locations with inventory)</p>
+</section>
+<section id="solver-performance-at-scale" class="level3">
+<h3 class="anchored" data-anchor-id="solver-performance-at-scale">4. Solver Performance at Scale</h3>
+<p><strong>Current:</strong> CBC (open-source) solves instances with T=5, |S|=20, |L|=100 in ~60s per stage.</p>
+<p><strong>Projected:</strong> Real warehouse with T=7, |S|=500, |L|=2000 would exceed computational budget.</p>
+<p><strong>Scalability strategies:</strong> - <strong>Decomposition:</strong> Solve by warehouse zone (with coupling constraints) - <strong>Rolling horizon:</strong> Optimize days 1-3 with high fidelity, days 4-5 with aggregation - <strong>Warm start:</strong> Use previous day’s solution as MIP start for next day - <strong>Commercial solver:</strong> Gurobi, CPLEX significantly faster than CBC for large MILP</p>
+<hr>
+</section>
+</section>
+<section id="future-work-next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="future-work-next-steps">Future Work: Next Steps</h2>
+<section id="multi-objective-optimization" class="level3">
+<h3 class="anchored" data-anchor-id="multi-objective-optimization">1. Multi-Objective Optimization</h3>
+<p>Current approach uses <strong>weighted sum</strong> of objectives. This requires manual weight tuning and obscures trade-off structure.</p>
+<p><strong>Proposed:</strong> Generate <strong>Pareto frontier</strong> using ε-constraint method:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix all objectives except one, vary bounds on fixed objectives</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epsilon <span class="kw">in</span> [<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, ...]:</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> MILP_model()</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    model.objective <span class="op">=</span> minimize(near_depot_cost)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    model.add_constraint(move_cost <span class="op">&lt;=</span> epsilon <span class="op">*</span> baseline_move_cost)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    model.add_constraint(actions_count <span class="op">&lt;=</span> epsilon <span class="op">*</span> baseline_actions)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    solutions.append(model.solve())</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Present Pareto frontier to stakeholders for preference elicitation</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="demand-scenario-integration" class="level3">
+<h3 class="anchored" data-anchor-id="demand-scenario-integration">2. Demand Scenario Integration</h3>
+<p>Current models use <strong>deterministic demand</strong> (known orders for day <code>t</code>).</p>
+<p><strong>Reality:</strong> Day <code>t+1, t+2, ...</code> demands are uncertain.</p>
+<p><strong>Proposed:</strong> Stochastic programming or robust optimization:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate demand scenarios</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>scenarios <span class="op">=</span> generate_demand_scenarios(historical_data, n_scenarios<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Two-stage stochastic MILP:</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Stage 1: Slotting decisions (here-and-now)</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Stage 2: Picking decisions (wait-and-see, per scenario)</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>model.objective <span class="op">=</span> first_stage_cost <span class="op">+</span> expected_value(second_stage_cost, scenarios)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Benefit:</strong> Slotting decisions hedge against demand uncertainty, not just optimize for expected demand.</p>
+</section>
+<section id="sku-clustering-for-dimensionality-reduction" class="level3">
+<h3 class="anchored" data-anchor-id="sku-clustering-for-dimensionality-reduction">3. SKU Clustering for Dimensionality Reduction</h3>
+<p>For warehouses with hundreds of SKUs, track similarity and co-location at <strong>cluster level</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># K-means clustering on (demand_pattern, physical_attributes)</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> cluster_skus(skus, n_clusters<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Reformulate similarity: W_{c,c',l} for clusters c, c'</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables reduced from O(|S|²) to O(|C|²)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="baseline-comparison-random-admissible-orchestrator" class="level3">
+<h3 class="anchored" data-anchor-id="baseline-comparison-random-admissible-orchestrator">4. Baseline Comparison: Random Admissible Orchestrator</h3>
+<p><strong>Current:</strong> No benchmark to validate that MILP is actually better than simpler heuristics.</p>
+<p><strong>Proposed:</strong> Implement <strong>random admissible policy</strong>: - Slotting: Place arrivals randomly at locations with compatible format and available capacity - Picking: Pick randomly from locations with inventory - Replenishment: Randomly relocate up to 20 moves per day</p>
+<p><strong>Comparison:</strong> MILP vs.&nbsp;Random on same data over 30 runs.</p>
+<p><strong>Hypothesis:</strong> MILP should achieve 20-30% better weighted distance with comparable operational churn.</p>
+<hr>
+</section>
+</section>
+<section id="conclusion-why-this-framework-matters" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion-why-this-framework-matters">Conclusion: Why This Framework Matters</h2>
+<p>This project provides a <strong>complete, reproducible foundation</strong> for warehouse optimization that respects operational reality:</p>
+<p>✅ <strong>Feasibility guaranteed:</strong> All solutions respect capacity, format compatibility, pack sizes, inventory conservation</p>
+<p>✅ <strong>Operational realism:</strong> Models sequential decision-making (slotting → picking → replenishment), not isolated optimization</p>
+<p>✅ <strong>Transparency:</strong> Explicit objective trade-offs, interpretable decisions, full auditability</p>
+<p>✅ <strong>Stability-aware:</strong> Balances layout quality improvement against operational churn</p>
+<p>✅ <strong>Production-ready infrastructure:</strong> Automated data generation, validation, orchestration, KPI tracking, exports</p>
+<p><strong>This is not an academic exercise.</strong></p>
+<p>This is a framework designed to <strong>actually run in production warehouses</strong>, where: - Operators need to trust recommendations - Feasibility failures are catastrophic - Stability matters as much as optimality - Decisions must be explainable to non-technical stakeholders</p>
+<hr>
+</section>
+<section id="key-takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaway">Key Takeaway</h2>
+<blockquote class="blockquote">
+<p>A good MILP model is not the one that finds the mathematically optimal solution.</p>
+<p>It’s the one that produces <strong>feasible, explainable, and stable decisions</strong> day after day, even when reality deviates from assumptions.</p>
+</blockquote>
+<p><strong>This framework achieves that.</strong></p>
+<hr>
+<p><strong>Tech Stack:</strong><br>
+Python · PuLP · Gurobi · Pandas · NumPy · NetworkX · Plotly · Matplotlib</p>
+<p><strong>Repository:</strong><br>
+<a href="https://github.com/MBalogogGLemuel">GitHub – WA2 Warehouse Optimization</a> <em>Realesed soon</em></p>
+<p><strong>Related Work:</strong><br>
+- <a href="../blog/feasibility-over-optimality">Why Feasibility Matters More Than Optimality</a> - <a href="../blog/optimization-ai-limits">Why Optimization Problems Expose the Limits of AI Reasoning</a></p>
+<hr>
+<p><em>Optimization is not about finding the perfect solution.</em><br>
+<em>It’s about finding solutions that survive contact with operational reality.</em></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mbalogogglemuel\.github\.io\/portfolio\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><strong>Georges Lemuel Balogog</strong><br>
+Data Science • Optimisation • Data Engineering<br>
+Canada</p>
+</div>   
+    <div class="nav-footer-center">
+<p><span class="footer-note">© 2026</span></p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/MBalogogGLemuel/portfolio/edit/main/projects/optimisation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MBalogogGLemuel/portfolio/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<div class="footer-links">
+<p><a href="mailto:georges.balogog@yahoo.fr">Contact</a> · <a href="https://github.com/MBalogogGLemuel">GitHub</a> · <a href="https://www.linkedin.com/in/balogog-georges-6810b9118/">LinkedIn</a></p>
+</div>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

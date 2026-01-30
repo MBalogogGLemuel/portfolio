@@ -1,23 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mbalogogglemuel.github.io/portfolio/blog.html</loc>
-    <lastmod>2026-01-30T03:05:50.725Z</lastmod>
+    <loc>https://mbalogogglemuel.github.io/portfolio/projects/stochastic.html</loc>
+    <lastmod>2026-01-30T14:12:40.850Z</lastmod>
   </url>
   <url>
-    <loc>https://mbalogogglemuel.github.io/portfolio/about.html</loc>
-    <lastmod>2026-01-30T03:05:50.709Z</lastmod>
+    <loc>https://mbalogogglemuel.github.io/portfolio/projects/optimisation.html</loc>
+    <lastmod>2026-01-30T14:12:40.850Z</lastmod>
   </url>
   <url>
-    <loc>https://mbalogogglemuel.github.io/portfolio/index.html</loc>
-    <lastmod>2026-01-30T03:05:50.725Z</lastmod>
+    <loc>https://mbalogogglemuel.github.io/portfolio/projects/index.html</loc>
+    <lastmod>2026-01-30T14:12:40.849Z</lastmod>
   </url>
   <url>
-    <loc>https://mbalogogglemuel.github.io/portfolio/projects.html</loc>
-    <lastmod>2026-01-30T03:05:50.728Z</lastmod>
+    <loc>https://mbalogogglemuel.github.io/portfolio/projects/dataeng_mlops.html</loc>
+    <lastmod>2026-01-30T14:12:40.849Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mbalogogglemuel.github.io/portfolio/blog/index.html</loc>
+    <lastmod>2026-01-30T14:12:40.846Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mbalogogglemuel.github.io/portfolio/blog/2026-ia-optimization-limits.html</loc>
+    <lastmod>2026-01-30T14:12:40.846Z</lastmod>
   </url>
   <url>
     <loc>https://mbalogogglemuel.github.io/portfolio/cv.html</loc>
-    <lastmod>2026-01-30T03:05:50.725Z</lastmod>
+    <lastmod>2026-01-30T14:12:40.846Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mbalogogglemuel.github.io/portfolio/index.html</loc>
+    <lastmod>2026-01-30T14:12:40.846Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mbalogogglemuel.github.io/portfolio/about.html</loc>
+    <lastmod>2026-01-30T14:12:40.829Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mbalogogglemuel.github.io/portfolio/blog/2026-ia-illusion-thinking.html</loc>
+    <lastmod>2026-01-30T14:12:40.846Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mbalogogglemuel.github.io/portfolio/blog/feasibility-over-optimality.html</loc>
+    <lastmod>2026-01-30T14:12:40.846Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mbalogogglemuel.github.io/portfolio/projects/bayes.html</loc>
+    <lastmod>2026-01-30T14:12:40.849Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mbalogogglemuel.github.io/portfolio/projects/forecasting.html</loc>
+    <lastmod>2026-01-30T14:12:40.849Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mbalogogglemuel.github.io/portfolio/projects/llm.html</loc>
+    <lastmod>2026-01-30T14:12:40.850Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mbalogogglemuel.github.io/portfolio/projects/rl.html</loc>
+    <lastmod>2026-01-30T14:12:40.850Z</lastmod>
   </url>
 </urlset>
