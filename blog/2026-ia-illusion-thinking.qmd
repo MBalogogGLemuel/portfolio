@@ -1,0 +1,168 @@
+---
+title: "Can AI Really Think About Model Design?"
+date: 2026-01-28
+toc: true
+toc-location: right
+page-class: blog-page
+---
+
+## Introduction
+
+Recent advances in large language models have reignited an old question:
+*can machines truly reason, or do they merely reproduce convincing patterns?*
+
+In applied data science and optimization, this question is not philosophical.
+It becomes **practical and painful** as soon as we ask AI systems
+to assist in **model design**, not just code generation.
+
+I've spent years designing optimization models for supply chains, energy systems, and operational planning. I've watched AI systems generate impressively fluent formulations—and I've also debugged the silent failures they create when deployed. This post is about the gap between **what AI can articulate** and **what it can actually understand**.
+
+---
+
+## Fluency is not understanding
+
+Modern AI systems are remarkably fluent.
+They can describe optimization models, recite textbook formulations,
+and even generate plausible mathematical expressions with impressive syntax.
+
+What they cannot reliably do is **decide why a model should be designed one way rather than another**.
+
+They often fail to distinguish between:
+- a theoretically elegant formulation,
+- a computationally feasible one,
+- and an operationally usable one.
+
+**Example from practice:**  
+Ask an AI to design a warehouse slotting optimization model. It will confidently propose a Mixed-Integer Linear Program (MILP) with binary variables for every SKU-location pair. Mathematically correct. Computationally catastrophic at scale—thousands of products, hundreds of locations, and solver runtimes exploding into hours or days.
+
+A human optimizer would immediately ask:
+- *Can we decompose this by zone?*
+- *Should we relax some integer constraints?*
+- *What's the real decision frequency—daily, weekly, quarterly?*
+
+These questions don't come from pattern matching. They come from **operational intuition forged through failure and iteration**.
+
+This distinction is precisely where human expertise matters.
+
+---
+
+## Model design is a sequence of commitments
+
+Designing a model is not about choosing equations.
+It is about **committing to assumptions**—each one a negotiation between competing objectives.
+
+When I decide to:
+- **linearize a constraint** → I'm choosing computational tractability over perfect realism,
+- **split a global optimization into sequential subproblems** → I'm accepting local optima to guarantee convergence,
+- **introduce a penalty instead of a hard constraint** → I'm prioritizing solution existence over strict compliance.
+
+Each decision carries consequences:
+- Linearization may ignore critical non-linear interactions.
+- Decomposition may miss globally optimal solutions.
+- Penalties require careful tuning—too weak and they're ignored; too strong and they dominate the objective.
+
+I am not optimizing mathematics.  
+I am negotiating **trade-offs between realism, tractability, and stability**.
+
+Current AI systems do not *understand* these trade-offs.  
+They imitate them. They've seen similar patterns in training data. But when faced with a novel operational context—**a new constraint structure, an unusual cost function, a hybrid discrete-continuous problem**—they regress to textbook templates that may be fundamentally unsuited to the problem at hand.
+
+---
+
+## Why this matters in practice
+
+In real projects, poor model design does not fail loudly.  
+It fails **silently, insidiously, expensively**.
+
+### Silent failure modes I've encountered:
+
+**1. Infeasibility that appears only in production**  
+A model validates perfectly on historical data. Deploy it with real-time inputs, and suddenly: *"No feasible solution found."* Why? Because the AI-generated formulation didn't account for operational constraints that rarely appear in training scenarios—equipment downtime, simultaneous resource conflicts, regulatory edge cases.
+
+**2. Numerical instability at scale**  
+A small-scale pilot works beautifully. Scale to production data volumes, and solver performance collapses. The culprit? Poor constraint formulation leading to ill-conditioned matrices, numerical precision issues, or combinatorial explosion that wasn't visible at toy scale.
+
+**3. KPIs improve in simulation but degrade operations**  
+The model optimizes the *wrong* objective. It minimizes total distance traveled but ignores picking time variability. It maximizes throughput but creates bottlenecks downstream. It reduces inventory costs but increases stockout risk beyond acceptable thresholds.
+
+**AI-generated designs often look correct until confronted with reality.**
+
+The model runs. It produces numbers. It generates convincing dashboards.  
+But the **assumptions embedded in its structure** don't reflect the operational reality it was meant to serve.
+
+And here's the insidious part: **the business user won't know**. They see charts, metrics, recommendations. They don't see the linearization that discarded a critical interaction, the penalty coefficient chosen arbitrarily, or the decomposition that locked out better solutions.
+
+---
+
+## What AI *can* do well
+
+Let's be clear: I use AI extensively in my work. It's not about AI versus humans.  
+It's about **knowing where AI excels and where it fails**.
+
+**AI is a powerful assistant for:**
+
+- **Exploration:** Rapidly generating candidate formulations, testing alternative objective functions, exploring sensitivity to parameters.
+- **Documentation:** Translating mathematical notation into plain language, generating solver configuration documentation, explaining model structure to non-technical stakeholders.
+- **Code acceleration:** Implementing standard algorithms (Simplex, Branch-and-Bound, gradient descent), generating boilerplate for data ingestion and transformation, scaffolding MLOps pipelines.
+
+But when it comes to **model architecture**—the fundamental decisions about what to optimize, what to constrain, and how to balance competing objectives—**that requires judgment born from experience, failure, and accountability**.
+
+---
+
+## The accountability gap
+
+Here's the core issue: **AI cannot be held accountable**.
+
+When a model I design fails in production, I own that failure.  
+I debug it. I iterate. I explain to stakeholders what went wrong and how we'll fix it.  
+I carry the operational consequences of my assumptions.
+
+When an AI-generated model fails, who owns it?  
+The data scientist who deployed it without validating assumptions?  
+The AI system that "hallucinated" a plausible-looking formulation?
+
+**Responsibility cannot be delegated to a statistical pattern matcher.**
+
+Model design is fundamentally about **risk management**—understanding what can go wrong, anticipating edge cases, stress-testing assumptions against operational reality.
+
+AI can simulate competence.  
+It cannot simulate accountability.
+
+---
+
+## Conclusion: Tools, not replacements
+
+AI is a **force multiplier** for experienced practitioners.  
+It is a **dangerous crutch** for those who don't yet understand the domain.
+
+I use AI to:
+- Accelerate implementation of well-understood patterns,
+- Explore formulation alternatives quickly,
+- Document and communicate model logic.
+
+I do **not** use AI to:
+- Make foundational design decisions,
+- Choose between competing modeling paradigms,
+- Validate whether a model is fit for operational deployment.
+
+**Model design remains a human responsibility.**
+
+Not because humans are faster.  
+Not because humans are more creative.
+
+But because **we are accountable for assumptions**.
+
+We understand that every model is a **deliberate simplification of reality**.  
+We know which simplifications are acceptable and which are catastrophic.  
+We can explain our choices, defend our trade-offs, and adapt when reality proves us wrong.
+
+---
+
+*AI can write models.  
+It cannot yet take responsibility for them.*
+
+*And until it can, the final decision—the commitment to deploy, the ownership of outcomes—must remain human.*
+
+---
+
+**What's your experience?** Have you deployed AI-generated models in production? What failed? What worked? I'd love to hear your stories—reach out on [LinkedIn](https://www.linkedin.com/in/balogog-georges-6810b9118/).

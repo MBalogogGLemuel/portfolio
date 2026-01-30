@@ -1,0 +1,346 @@
+---
+title: "Why Feasibility Matters More Than Optimality"
+date: 2026-01-29
+toc: true
+toc-location: right
+page-class: blog-page
+---
+
+## Introduction: The Optimization Paradox
+
+Most optimization courses emphasize **optimality**.  
+Most industrial systems punish **infeasibility**.
+
+This mismatch is not academic.  
+It is **operational**.
+
+I've watched meticulously optimized models collapse in production because they were too perfect—operating at the razor's edge of feasibility with zero margin for error. Meanwhile, "suboptimal" solutions with built-in slack ran flawlessly for months.
+
+The lesson was brutal and clear: **in real-world operations, a feasible solution you can trust beats an optimal solution you can't deploy**.
+
+Here's why feasibility isn't just important—it's **the entire foundation** of practical optimization.
+
+---
+
+## Feasible beats optimal — every time
+
+In theory, an infeasible solution is useless.  
+In practice, an *almost optimal but feasible* solution beats a perfect one that violates a single constraint.
+
+**Consider two warehouse slotting solutions:**
+
+**Solution A (Optimal):**
+- Minimizes total picking distance by 18%
+- Achieves perfect load balancing across zones
+- Violates physical capacity in Zone 3 by 2% during peak hours
+- **Result:** Cannot be implemented. Overflow creates safety hazards and operational chaos.
+
+**Solution B (Feasible, 95% optimal):**
+- Minimizes total picking distance by 14%
+- Slight imbalance in zone utilization
+- Respects all capacity constraints with 10% buffer
+- **Result:** Deployed successfully. Runs for 6 months without intervention.
+
+**Which solution adds more value?**
+
+The answer is obvious—but optimization algorithms don't care about deployment. They care about objective functions.
+
+### Operations do not negotiate constraints
+
+When I tell a warehouse manager that my optimization model reduced costs by 15% but requires occasional capacity violations, the response is always the same:
+
+*"I don't care about your objective function. My constraint is physical reality. Shelves hold X pallets. Not X + 2%. Fix your model."*
+
+Operations enforce invariants:
+
+- **Capacity:** You cannot store more than physical space allows.
+- **Safety:** You cannot exceed load limits, violate clearances, or ignore fire codes.
+- **Timing:** You cannot deliver before pickup, ship before receiving, or start before prerequisites complete.
+- **Sequencing:** You cannot clean equipment while it's running, access blocked inventory, or bypass mandatory inspections.
+
+These are not soft rules.  
+They are **boundary conditions of reality**.
+
+And reality is unforgiving.
+
+---
+
+## Optimality hides fragility
+
+Highly optimized solutions tend to be **brittle**.  
+They operate at the edge of feasibility, exploiting every available degree of freedom.
+
+This is beautiful in theory.  
+It is **catastrophic in practice**.
+
+### The fragility of optimal solutions
+
+**Example: Production scheduling**
+
+An optimal production schedule might:
+- Utilize machines at 98% capacity,
+- Minimize changeover times to seconds,
+- Sequence jobs with zero buffer between operations,
+- Assume perfect availability of materials, labor, and equipment.
+
+**Then reality happens:**
+
+A small perturbation:
+- Delayed shipment (raw materials arrive 2 hours late),
+- Missing data (quality inspection reveals batch defect),
+- Human override (operator emergency stop for safety),
+- Equipment variance (machine runs 5% slower than spec),
+
+**...and the entire plan collapses.**
+
+The schedule cascades into:
+- Missed deadlines,
+- Idle downstream operations,
+- Expedited logistics to recover,
+- Manual rescheduling consuming hours of planner time.
+
+**The "optimal" solution optimized for a world that doesn't exist.**
+
+### Robust systems trade optimality for slack
+
+In my supply chain work, I've learned to **deliberately suboptimize**:
+
+- Schedule machines at **85-90% capacity**, not 98%—leaves room for variability.
+- Build **time buffers** between critical operations—absorbs delays without cascading.
+- Maintain **safety stock** even when EOQ formulas say minimize inventory—guards against demand spikes.
+- Use **conservative lead times**—accounts for supplier unreliability.
+
+These choices reduce the objective function value.  
+They also **reduce the probability of catastrophic failure**.
+
+**Good models make this trade-off explicit.**
+
+Instead of:
+```python
+# Maximize throughput (fragile)
+objective = maximize(sum(production[t] for t in time_periods))
+```
+
+I design:
+```python
+# Maximize throughput subject to robustness
+objective = maximize(
+    sum(production[t] for t in time_periods) 
+    - penalty * sum(capacity_utilization_excess[m, t] for m, t in machines_time)
+)
+
+# With explicit slack constraints
+capacity_utilization[m, t] <= 0.90 * capacity[m]  # Hard 90% cap
+```
+
+This is **not** academic risk-aversion.  
+This is **operational survival**.
+
+---
+
+## Feasibility is a design choice
+
+Feasibility does not come "for free".  
+It is **engineered**.
+
+When I design an optimization model, ensuring feasibility requires deliberate choices:
+
+### 1. Conservative bounds
+
+Instead of using nominal capacity, I use **effective capacity** accounting for:
+- Maintenance downtime,
+- Quality rejection rates,
+- Operator efficiency variance,
+- Peak load conditions.
+```python
+# Naive approach (fails in production)
+constraint: production[t] <= nominal_capacity
+
+# Robust approach (survives reality)
+constraint: production[t] <= 0.85 * nominal_capacity  # 15% buffer for variability
+```
+
+### 2. Explicit buffers
+
+I build slack **into the model structure**, not as an afterthought:
+
+- **Time buffers:** between dependent operations,
+- **Inventory buffers:** safety stock, surge capacity,
+- **Capacity buffers:** reserve equipment, overflow zones.
+
+These reduce optimal objective value.  
+They also **prevent infeasibility under perturbation**.
+
+### 3. Carefully chosen big-M values
+
+Big-M formulations are notoriously brittle. Choose M too small, and you artificially constrain the problem. Choose M too large, and you create numerical instability.
+
+**Bad big-M choice:**
+```python
+# Arbitrary large number
+M = 1e9
+constraint: y[i] <= M * x[i]  # If x[i]=0, forces y[i]=0
+```
+
+**If actual y values can reach 1e8, this breaks. If they're bounded by 100, M=1e9 causes solver numerical issues.**
+
+**Good big-M choice:**
+```python
+# Derived from problem structure
+M = max(demand[i] for i in products) * max(lead_time[j] for j in suppliers)
+constraint: y[i] <= M * x[i]  # Tightest valid bound
+```
+
+This requires **understanding the problem**, not just reproducing a textbook template.
+
+### 4. Deliberate simplifications
+
+Sometimes the "right" formulation is intractable.  
+Sometimes simplification is **the only path to feasibility**.
+
+**Example:** A globally optimal multi-echelon inventory model might require:
+- Stochastic dynamic programming,
+- Monte Carlo simulation for demand uncertainty,
+- Integer variables for order quantities,
+- Nonlinear holding cost functions.
+
+**Result:** Computationally intractable for realistic problem sizes.
+
+**Simplification:**
+- Use deterministic approximation with demand scenarios,
+- Linearize holding costs,
+- Decompose by echelon,
+- Solve sequentially with information passing.
+
+**Trade-off:** Lose global optimality guarantee.  
+**Gain:** Feasible solutions in minutes instead of never.
+
+**These choices are rarely elegant.**  
+**They are necessary.**
+
+---
+
+## What production teaches quickly
+
+Production environments expose what simulations hide.
+
+In academic settings, models are evaluated on:
+- Objective function value,
+- Solver runtime,
+- Optimality gap.
+
+In production, models are evaluated on:
+- **Deployment success rate** (does it actually run?),
+- **Manual intervention frequency** (how often do operators override it?),
+- **Failure modes** (what breaks it, and how badly?),
+- **Stakeholder trust** (do people believe the recommendations?).
+
+### If a model:
+
+**1. Fails silently**
+
+Produces solutions that violate constraints not explicitly modeled (regulatory limits, implicit precedence, unstated business rules), the operations team discovers violations **after deployment**, not before.
+
+**Impact:** Loss of trust. Manual workarounds. Model abandonment.
+
+**2. Requires constant manual fixes**
+
+Generates solutions that are "technically feasible" but operationally nonsensical:
+- Scheduling a shipment that arrives after the customer deadline,
+- Assigning incompatible products to the same storage zone,
+- Recommending production quantities that don't align with packaging units.
+
+**Impact:** Planners spend more time fixing model outputs than they would planning manually.
+
+**3. Produces solutions that need explanations**
+
+If stakeholders consistently ask *"Why did it recommend this?"* and the answer requires diving into dual variables, shadow prices, or constraint relaxations—**the model has failed at its primary job: supporting decisions**.
+
+### Feasibility is what survives contact with reality
+
+I've learned to evaluate models not by how well they optimize, but by:
+
+- **How long they run without manual intervention**,
+- **How gracefully they degrade under data quality issues**,
+- **How easily stakeholders understand and trust the outputs**,
+- **How few "emergency fixes" they require in production**.
+
+**Optimality is a nice-to-have.**  
+**Feasibility is non-negotiable.**
+
+---
+
+## The hidden cost of infeasibility
+
+Infeasible solutions don't just fail—they **erode trust in analytics**.
+
+When a meticulously crafted optimization model:
+- Recommends a production plan that violates capacity,
+- Suggests inventory levels that create stockouts,
+- Proposes shipments that miss delivery windows,
+
+**Stakeholders don't blame the model.**  
+**They blame the entire analytics function.**
+
+The conversation shifts from *"How can optimization help us?"* to *"Why should we trust your models?"*
+
+**Rebuilding that trust takes months.**  
+**Destroying it takes one bad deployment.**
+
+This is why I **obsess over feasibility** before I even think about optimality.
+
+---
+
+## Final thought: Existence before excellence
+
+Optimization is not about finding the best solution.  
+**It is about finding solutions that can exist.**
+
+A solution that:
+- Respects all constraints,
+- Withstands operational variability,
+- Earns stakeholder trust,
+- Runs without constant intervention,
+
+**...is infinitely more valuable than a theoretically optimal solution that cannot be deployed.**
+
+**Everything else is optional.**
+
+---
+
+## Practical checklist for feasibility-first design
+
+When I design an optimization model, I now ask these questions **before** I run the solver:
+
+✅ **Have I validated every constraint with stakeholders?**  
+(Not just "Is this constraint correct?" but "Is this how reality actually works?")
+
+✅ **Have I built explicit buffers for variability?**  
+(Capacity slack, time buffers, safety stock, surge capacity)
+
+✅ **Have I stress-tested the formulation on edge cases?**  
+(Peak demand, supplier failures, data quality issues, equipment downtime)
+
+✅ **Can I explain every constraint in plain language?**  
+(If I can't explain why a constraint exists, stakeholders won't trust solutions that respect it)
+
+✅ **Have I designed for graceful degradation?**  
+(What happens when a constraint is almost violated? Does the model recover or collapse?)
+
+✅ **Is my big-M formulation numerically stable?**  
+(Are my big-M values tight bounds, or arbitrary large numbers that cause solver issues?)
+
+**If I can't answer "yes" to all of these, I don't deploy.**
+
+Because **feasibility failures in production are far more expensive than suboptimal solutions**.
+
+---
+
+*Optimal solutions impress in presentations.*  
+*Feasible solutions survive in production.*
+
+*I choose survival.*
+
+---
+
+**What's been your experience with feasibility vs. optimality trade-offs?** Have you deployed "optimal" models that failed? Or "suboptimal" models that thrived? Let's compare war stories—reach out on [LinkedIn](https://www.linkedin.com/in/balogog-georges-6810b9118/).

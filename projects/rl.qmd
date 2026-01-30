@@ -1,0 +1,135 @@
+---
+title: "Reinforcement Learning"
+toc: true
+---
+
+# Reinforcement Learning
+
+My work in reinforcement learning is guided by a simple idea:  
+**learning to act is fundamentally different from learning to predict**.
+
+Where supervised models excel at recognizing patterns, reinforcement learning confronts a much harder problem: deciding *what to do next* when actions have long-term consequences, delayed rewards, and irreversible mistakes. This difference becomes especially visible in environments governed by **combinatorial structure and physical constraints**.
+
+The project presented here explores these limits through a concrete, tangible system:  
+an autonomous robot solving a routing problem in the physical world.
+
+---
+
+## Reinforcement Learning for Combinatorial Navigation — Codey Rocky Robot
+
+### Context
+
+At its core, this project is a practical instantiation of the **Traveling Salesman Problem (TSP)**, one of the most studied problems in combinatorial optimization. The objective is deceptively simple: visit a set of locations exactly once, minimize total travel cost, and return to the starting point.
+
+Yet the underlying complexity grows factorially. Even modest problem sizes lead to millions of possible routes, making exhaustive search infeasible in practice. In classical optimization, this motivates mathematical programming, heuristics, or approximation schemes. Here, the challenge was approached from a different angle: **can an agent learn such a strategy purely through interaction?**
+
+This question is not theoretical. It directly reflects how autonomous systems must operate when global information is unavailable or when explicit modeling becomes impractical.
+
+---
+
+### Task Definition
+
+The environment is implemented on **Codey Rocky**, a mobile robot capable of autonomous movement and basic sensing. The robot starts from a fixed base, navigates the environment, visits a set of colored targets exactly once, and finally returns to its starting position.
+
+No global map is provided. The robot does not plan a full route in advance. Instead, it must make decisions sequentially, relying only on its current perception and internal state. Each action modifies the future space of possibilities.
+
+By framing the task this way, a static optimization problem is transformed into a **sequential decision-making process**, where local actions accumulate into global behavior.
+
+---
+
+### Environment Representation and State Space
+
+A critical design choice lies in how the environment is represented. Rather than encoding raw sensor data, the environment is abstracted into a finite **state space of 128 states**. Each state captures the essential information required for decision-making: the robot’s position and orientation, the set of already visited targets, and the remaining objectives.
+
+This abstraction is intentionally compact. It preserves the structure of the problem while remaining small enough for learning algorithms to converge. The exercise makes a broader point: in reinforcement learning, **state design often matters more than algorithmic sophistication**.
+
+A poorly chosen state space leads to slow learning or unstable behavior, regardless of how advanced the learning algorithm may be.
+
+---
+
+### Action Space
+
+The robot’s action space is deliberately constrained. At each step, it can move forward or rotate by fixed angles. These actions reflect physical feasibility rather than mathematical convenience.
+
+This restriction plays a dual role. It simplifies the learning problem while simultaneously enforcing realism. The agent cannot “teleport” or perform abstract transitions; every action has a physical cost and a spatial consequence.
+
+---
+
+### Reward Design: Where Most RL Projects Succeed or Fail
+
+If state design determines learnability, **reward design determines behavior**.
+
+The reward function was carefully constructed to align short-term incentives with long-term goals. Positive rewards are granted for discovering new targets and for completing the full tour. Penalties discourage revisiting already collected items, wandering unnecessarily, or taking excessively long paths.
+
+This balance is delicate. Small changes in reward magnitude can radically alter learned behavior, leading to oscillations, local loops, or premature termination. Designing rewards thus becomes an exercise in systems thinking rather than pure mathematics.
+
+The process revealed a central weakness of reinforcement learning: **desired behavior is never guaranteed, only encouraged**.
+
+---
+
+### Learning Approaches
+
+Two learning paradigms were explored.
+
+The first is **tabular Q-learning**, where each state–action pair is explicitly stored and updated using the Bellman equation. This approach offers full transparency. Every decision can be traced back to learned values. However, its scalability is fundamentally limited by the size of the state space.
+
+The second approach replaces the explicit table with a neural network approximation: **Deep Q-Learning (DQN)**. The network estimates action values directly from state representations, trading interpretability for generalization.
+
+Despite their conceptual differences, both methods were trained under comparable conditions and evaluated on identical tasks.
+
+---
+
+### Training Behavior and Observations
+
+During training, both algorithms exhibit a similar learning trajectory. Early episodes show rapid improvement as the agent discovers basic strategies. Over time, performance stabilizes and oscillates around a plateau.
+
+Interestingly, the deep model does not outperform the tabular one. Given the modest state space and deterministic environment, this result is expected. It illustrates a key insight often overlooked in practice: **deep learning is not automatically superior**. When the problem structure is small and well defined, simpler methods can be just as effective.
+
+---
+
+### Limitations and Structural Lessons
+
+Beyond performance metrics, the project exposes deeper limitations of reinforcement learning.
+
+The agent explores many trajectories that a classical optimizer would discard immediately. Learning is inherently inefficient in combinatorial spaces. Furthermore, there are no feasibility guarantees: a learned policy may work most of the time, yet fail catastrophically in edge cases.
+
+Perhaps most importantly, convergence does not imply correctness. A stable policy is not necessarily a good one; it is merely a consistent one under the observed experience.
+
+These are not implementation flaws. They are structural properties of reinforcement learning itself.
+
+---
+
+### Takeaways
+
+This project leads to a broader conclusion:
+
+> **Reinforcement learning is well suited for adaptive control,  
+> but poorly suited for structured combinatorial optimization.**
+
+For routing, scheduling, and allocation problems:
+- explicit optimization provides guarantees and interpretability,
+- reinforcement learning provides adaptability but little assurance.
+
+In practice, the most effective systems often combine both: optimization for structure, learning for adaptation.
+
+---
+
+### Why This Project Matters
+
+This experiment serves as a concrete reminder that intelligence is not only about learning patterns, but about respecting constraints and understanding consequences.
+
+By placing reinforcement learning in a physical, constrained environment, the project highlights both its strengths and its limits. It reinforces the idea that **decision systems must be evaluated not by elegance, but by reliability**.
+
+---
+
+**Tech Stack**  
+Python · Q-learning · Deep Q-Learning · Neural Networks · Robotics
+
+**Repository**  
+[GitHub – Codey Rocky RL Navigation](https://github.com/MBalogogGLemuel) *Released soon*
+
+---
+
+*Reinforcement learning teaches agents to adapt.*  
+*Optimization teaches systems to remain correct.*
+*Both are needed to build intelligent, reliable systems.*

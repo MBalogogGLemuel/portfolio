@@ -6,7 +6,8 @@ project:
     - projects.qmd
     - about.qmd
     - cv.qmd
-    - blog.qmd
+    - blog/*.qmd
+    - projects/*.qmd
 
 website:
   title: "Georges Lemuel Balogog"
@@ -24,9 +25,9 @@ website:
       - text: "Home"
         href: index.qmd
       - text: "Projects"
-        href: projects.qmd
+        href: projects/index.qmd
       - text: "Blog"
-        href: blog.qmd
+        href: blog/index.qmd
       - text: "About"
         href: about.qmd
       - text: "CV"

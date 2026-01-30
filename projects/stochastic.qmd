@@ -1,0 +1,180 @@
+---
+title: "Optimisation stochastique"
+toc: true
+---
+
+# Optimisation stochastique
+
+My work in stochastic optimization focuses on **decision-making under uncertainty**, where randomness is not a nuisance to eliminate, but a structural component of the problem.
+
+Rather than replacing uncertainty with averages, stochastic models explicitly represent variability, risk, and information asymmetry. This perspective is essential in operations, finance, energy, and supply chain systems, where decisions must remain viable across a range of plausible futures.
+
+The two projects presented here explore this idea from complementary angles:  
+one through **analytical stochastic optimization**, the other through **sequential decision-making and simulation**. 
+
+---
+
+## Stochastic Optimization of Inventory Decisions — Newsvendor Problem
+
+### Context
+
+The newsvendor problem is one of the simplest yet most instructive models in stochastic optimization. A decision-maker must choose an order quantity **before demand is realized**, balancing the risk of overstocking against the risk of stockouts.
+
+Despite its simplicity, the model captures a fundamental trade-off present in many industrial systems:
+> deciding under uncertainty with **irreversible consequences**.
+
+This project revisits the classical formulation and extends it to analyze the value of stochastic modeling compared to deterministic approximations. :contentReference[oaicite:1]{index=1}
+
+---
+
+### Analytical Formulation
+
+Demand is modeled as a random variable with known distribution. The expected profit function integrates:
+- revenue from sold units,
+- salvage value of unsold inventory,
+- ordering cost.
+
+By explicitly differentiating the expected profit, the optimal order quantity is obtained as a **quantile of the demand distribution**, known as the *critical fractile*.
+
+A key insight emerges immediately:
+> the optimal decision depends on the **entire distribution**, not just its mean.
+
+This result holds even when the demand distribution is truncated or bounded, highlighting the robustness of the stochastic formulation. :contentReference[oaicite:2]{index=2}
+
+---
+
+### Deterministic vs Stochastic Decisions
+
+To assess the practical impact of stochastic modeling, the optimal stochastic decision is compared to a deterministic policy based on average demand.
+
+The analysis reveals that:
+- the deterministic solution coincides with the mean demand,
+- the stochastic solution intentionally deviates from the mean to hedge risk,
+- the resulting profits can differ substantially.
+
+This difference is formalized through the **Value of the Stochastic Solution (VSS)**, which quantifies how much is gained—or lost—by accounting for uncertainty explicitly.
+
+In this case, the results show that ignoring uncertainty can lead to **systematic overconfidence**, even when the deterministic model appears reasonable. :contentReference[oaicite:3]{index=3}
+
+---
+
+### Gradient-Based Stochastic Optimization
+
+Beyond closed-form solutions, the project also explores **stochastic gradient methods** to recover the optimal order quantity empirically.
+
+Despite noisy observations, the stochastic gradient converges reliably toward the analytical optimum. This illustrates how stochastic optimization techniques scale to settings where:
+- demand distributions are unknown,
+- only samples or simulations are available,
+- analytical solutions are no longer feasible.
+
+---
+
+## Sequential Decision-Making under Uncertainty — MDP & Approximate Dynamic Programming
+
+### Context
+
+While the newsvendor problem captures one-shot decisions, many real systems are inherently **sequential**. Decisions taken today affect the state of the system tomorrow, often in stochastic ways.
+
+This second project models such situations using **Markov Decision Processes (MDPs)**, where uncertainty enters through probabilistic transitions and rewards. :contentReference[oaicite:4]{index=4}
+
+The motivating example is a treasure-hunting agent navigating a hazardous environment, where each move carries both cost and risk.
+
+---
+
+### MDP Modeling
+
+The environment is represented as a finite graph with:
+- safe regions,
+- high-reward terminal states,
+- and dangerous absorbing states.
+
+At each step, the agent chooses between:
+- moving toward a neighboring state,
+- or waiting to reduce risk.
+
+State transitions are probabilistic, reflecting environmental uncertainty (slips, falls, adverse events). Rewards combine:
+- movement costs,
+- terminal bonuses,
+- and severe penalties for catastrophic outcomes.
+
+This formulation emphasizes a crucial idea:
+> **expected reward alone is insufficient — the path to the reward matters**.
+
+---
+
+### Exact Dynamic Programming
+
+Using **value iteration**, the optimal value function and policy are computed explicitly. The algorithm converges after a finite number of iterations, yielding:
+- a clear ranking of states,
+- optimal actions that trade off risk and reward,
+- and a policy that deliberately avoids high-variance paths, even when their expected reward is attractive.
+
+This demonstrates how stochastic dynamic programming naturally encodes **risk awareness**, without introducing ad-hoc penalties.
+
+---
+
+### Approximate Dynamic Programming & Learning
+
+To move beyond exact computation, the project introduces **approximate value functions**, expressed as linear combinations of hand-crafted features.
+
+Temporal-Difference (TD) learning is used to estimate value function parameters from simulated trajectories. Despite approximation error and stochastic transitions, the algorithm converges toward a stable value function.
+
+This experiment highlights both the promise and the limits of learning-based approaches:
+- they scale better than exact methods,
+- but depend critically on feature design,
+- and provide no guarantees comparable to exact dynamic programming.
+
+---
+
+### Monte Carlo Policy Evaluation
+
+The final part of the project evaluates several **parameterized decision policies** under stochastic price dynamics using Monte Carlo simulation.
+
+Across multiple scenarios—independent noise, autoregressive prices, increased volatility—the same pattern emerges:
+- policies that *adapt smoothly* to price dynamics dominate rigid threshold rules,
+- performance differences are modest but consistent,
+- uncertainty reshapes not only optimal parameters, but also relative policy rankings. :contentReference[oaicite:5]{index=5}
+
+---
+
+## Key Takeaways
+
+Across both projects, a consistent message emerges:
+
+> **Uncertainty is not a modeling inconvenience — it is the core of the decision problem.**
+
+Stochastic optimization provides:
+- explicit trade-offs between risk and reward,
+- decisions that remain viable across scenarios,
+- and tools to quantify the cost of ignoring uncertainty.
+
+However, it also imposes discipline:
+- assumptions must be stated clearly,
+- distributions must be stress-tested,
+- and approximations must be justified.
+
+---
+
+### Why This Matters
+
+In industrial and energy systems, decisions made under uncertainty often dominate costs and risks. Models that ignore variability may appear elegant, but they fail precisely when conditions deviate from the average.
+
+These projects demonstrate how **stochastic thinking transforms decision quality**, not by predicting the future, but by preparing for its variability.
+
+---
+
+**Tech Stack**  
+Python · R · Stochastic Optimization · Dynamic Programming · Monte Carlo Simulation · Approximate DP
+
+**Repository**  
+[GitHub – Codey Rocky RL Navigation](https://github.com/MBalogogGLemuel) *Released soon*
+
+
+**Related Work**  
+- Reinforcement Learning (control under uncertainty)  
+- Deterministic MILP Optimization (structure before randomness)
+
+---
+
+*Deterministic models optimize for a world that does not exist.*  
+*Stochastic models prepare decisions for the world that does.*

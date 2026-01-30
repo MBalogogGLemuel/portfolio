@@ -1,0 +1,41 @@
+---
+title: ""
+toc: false
+---
+
+# Blog
+
+This blog is a space for **technical reflections on data science, optimization, and AI systems**.
+
+I focus on **model design, decision-making, and operational realism**, often taking a
+**skeptical stance toward current AI hype**, especially when AI is presented as a
+replacement for structured reasoning in optimization and forecasting.
+
+---
+
+## Recent posts
+
+### ❖ Can AI really *think* about model design?
+**A critical look at large language models and their limits in scientific reasoning**
+
+👉 [Read article →](2026-ia-illusion-thinking.qmd)
+
+---
+
+### ❖ Why optimization problems expose the limits of AI reasoning
+**Where heuristics, feasibility, and constraints defeat pattern-based intelligence**
+
+👉 [Read article →](2026-ia-optimization-limits.qmd)
+
+### ❖ Why feasibility matters more than optimality
+**The operational importance of feasible solutions over theoretically optimal ones**
+👉 [Read article →](feasibility-over-optimality.qmd)
+
+---
+
+## Topics covered
+- Optimization & MILP modeling
+- Forecasting and time series
+- Model evaluation and failure modes
+- MLOps and production constraints
+- Lessons from real industrial projects
