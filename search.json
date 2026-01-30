@@ -1,17 +1,17 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Georges L. Balogog",
-    "section": "",
-    "text": "Je construis des solutions data orientées décision : forecasting, optimisation (déterministe & stochastique), RL, modélisation statistique/bayésienne, pipelines de données, API et déploiement."
+    "objectID": "index.html#featured-projects",
+    "href": "index.html#featured-projects",
+    "title": "Georges Lemuel Balogog",
+    "section": "Featured Projects",
+    "text": "Featured Projects\nA selection of my recent work.\n\n\n ### Warehouse Optimization Solving MIP problems for storage optimization.\n\n\n ### Energy Forecasting Predicting energy demand with ML models.\n\n\n ### Data Integration & BI ETL pipelines to Power BI dashboards."
   },
   {
-    "objectID": "index.html#liens",
-    "href": "index.html#liens",
-    "title": "Georges L. Balogog",
-    "section": "Liens",
-    "text": "Liens\n\nGitHub : https://github.com/MBalogogGLemuel\n\nLinkedIn : https://www.linkedin.com/in/balogog-georges-6810b9118/"
+    "objectID": "index.html#what-i-do",
+    "href": "index.html#what-i-do",
+    "title": "Georges Lemuel Balogog",
+    "section": "What I Do",
+    "text": "What I Do\nMy key areas of expertise.\n\n\nData Science & Machine Learning\nAdvanced analytics and predictive modeling.\n\n\nOptimization & Operations Research\nSolving complex optimization problems.\n\n\nData Engineering\nBuilding robust and scalable data pipelines."
   },
   {
     "objectID": "about.html",
