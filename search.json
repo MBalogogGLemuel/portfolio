@@ -1,23 +1,72 @@
 [
   {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Blog\nI plan to publish blog posts here soon: optimization, time series, data engineering, and experience reports (Quarto, Power BI, D365, etc.).\nUpcoming: “How to structure a clean MIP project (data, models, KPIs, exports)” Upcoming: “End-to-end energy forecasting pipeline”\nStay tuned!"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Georges Lemuel Balogog",
+    "section": "",
+    "text": "I am a data science / optimization / data engineering professional with a hands-on approach: starting from operational constraints, structuring data, modeling, measuring impact with KPIs, and delivering usable artifacts (code, dashboards, docs).\nMy current focus: supply chain & optimization, ERP integration (Dynamics 365 SCM), and time series forecasting (energy / demand)."
+  },
+  {
+    "objectID": "about.html#what-i-value",
+    "href": "about.html#what-i-value",
+    "title": "Georges Lemuel Balogog",
+    "section": "What I value",
+    "text": "What I value\n\nClarity: readable and maintainable deliverables\n\nMeasurement: KPIs, validation, scenarios\n\nExecution: deployment, automation, CI/CD"
+  },
+  {
+    "objectID": "about.html#contact",
+    "href": "about.html#contact",
+    "title": "Georges Lemuel Balogog",
+    "section": "Contact",
+    "text": "Contact\nYou can reach me at: 📩 georges.balogog@yahoo.fr 🔗 LinkedIn · GitHub :::"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Georges Lemuel Balogog",
+    "section": "",
+    "text": "Data Science · Optimization · Data Engineering · Electrical Engineering\nI build end-to-end analytical solutions: ingestion/ETL, predictive modeling, optimization (MILP/MIP), deployment (API/CI/CD), and decision-making dashboards.\nDownload CV"
+  },
+  {
     "objectID": "index.html#featured-projects",
     "href": "index.html#featured-projects",
     "title": "Georges Lemuel Balogog",
     "section": "Featured Projects",
-    "text": "Featured Projects\nA selection of my recent work.\n\n\n ### Warehouse Optimization Solving MIP problems for storage optimization.\n\n\n ### Energy Forecasting Predicting energy demand with ML models.\n\n\n ### Data Integration & BI ETL pipelines to Power BI dashboards."
+    "text": "Featured Projects\nA selection of my recent work.\n\n\n\nWarehouse Optimization Solving MIP problems for storage optimization.\nMIP Models for slotting, picking, and replenishment with KPI tracking and export.\nTech: Python · PuLP/Gurobi · NetworkX · Plotly\n\n\n\nEnergy Forecasting Predicting energy demand with Stats & ML models.\nDemand forecasting using sliding window approach with TCN/RNN models, SARIMAX models, evaluated with MAE/RMSE/MAPE metrics and monitoring.\nTech: Python · TensorFlow · Pandas · ML lifecycle tools - R · Prophet · Statsmodels · Forecasting\n\n\n\nData Integration & BI ETL pipelines to Power BI dashboards.\nPipelines from various data sources (SQL Server, Excel, APIs) to Power BI dashboards with data quality checks and DAX measures.\nTech: Azure Databrick · SQL · Power BI · ETL/ELT · Data quality monitoring · DAX\n\nRead more →"
   },
   {
     "objectID": "index.html#what-i-do",
     "href": "index.html#what-i-do",
     "title": "Georges Lemuel Balogog",
     "section": "What I Do",
-    "text": "What I Do\nMy key areas of expertise.\n\n\nData Science & Machine Learning\nAdvanced analytics and predictive modeling.\n\n\nOptimization & Operations Research\nSolving complex optimization problems.\n\n\nData Engineering\nBuilding robust and scalable data pipelines."
+    "text": "What I Do\nMy key areas of expertise.\n\n\nReinforcement Learning\nDeveloping RL algorithms for decision-making.\n\n\nData Science & Machine Learning\nAdvanced analytics and predictive modeling.\n\n\nOptimization & Operations Research\nSolving complex optimization problems.\n\n\nData Engineering\nBuilding robust and scalable data pipelines.\n\n\nHeuristic & Metaheuristic Algorithms\nDesigning algorithms for complex problem-solving."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
     "section": "",
-    "text": "About this site"
+    "text": "MIP modeling framework to optimize warehousing and internal movements, with KPI tracking (occupancy, dispersion, distance to depot, movement costs, etc.).\nTech: Python · PuLP/Gurobi · Plotly · NetworkX\nRepo: (add your GitHub link here)\n\n\n\n\n2D/3D representation (nodes, arcs, Manhattan distances) to simulate and analyze the impact of placement on order picking costs.\nTech: Python · Pandas · Plotly · NetworkX\nRepo: (add your GitHub link here)\n\n\n\n\nHeuristic and MIP approaches to solve VRP problems with time windows, capacity constraints, and route optimization.\nTech: Python · PuLP/Gurobi · NumPy · Matplotlib\nRepo: (add your GitHub link here)\n\n\n\n\nProduction scheduling models to optimize resource allocation, minimize downtime, and meet demand forecasts.\nTech: Python · PuLP/Gurobi · Pandas · Plotly\nRepo: (add your GitHub link here)\n\n\n\n\n\n\nForecasting energy demand using statistical and machine learning models for better resource planning.\nTech: Python · TensorFlow · R · Prophet · Statsmodels · ML lifecycle tools · Scikit-learn · Matplotlib/Plotly\nRepo: (add your GitHub link here)\n\n\n\n\nETL pipelines from various data sources to Power BI dashboards with data quality checks and DAX measures.\nTech: SQL · Power BI · ETL/ELT · Python · Azure Databricks\nRepo: (add your GitHub link here)"
+  },
+  {
+    "objectID": "projects.html#supply-chain-optimization",
+    "href": "projects.html#supply-chain-optimization",
+    "title": "Projects",
+    "section": "",
+    "text": "MIP modeling framework to optimize warehousing and internal movements, with KPI tracking (occupancy, dispersion, distance to depot, movement costs, etc.).\nTech: Python · PuLP/Gurobi · Plotly · NetworkX\nRepo: (add your GitHub link here)\n\n\n\n\n2D/3D representation (nodes, arcs, Manhattan distances) to simulate and analyze the impact of placement on order picking costs.\nTech: Python · Pandas · Plotly · NetworkX\nRepo: (add your GitHub link here)\n\n\n\n\nHeuristic and MIP approaches to solve VRP problems with time windows, capacity constraints, and route optimization.\nTech: Python · PuLP/Gurobi · NumPy · Matplotlib\nRepo: (add your GitHub link here)\n\n\n\n\nProduction scheduling models to optimize resource allocation, minimize downtime, and meet demand forecasts.\nTech: Python · PuLP/Gurobi · Pandas · Plotly\nRepo: (add your GitHub link here)\n\n\n\n\n\n\nForecasting energy demand using statistical and machine learning models for better resource planning.\nTech: Python · TensorFlow · R · Prophet · Statsmodels · ML lifecycle tools · Scikit-learn · Matplotlib/Plotly\nRepo: (add your GitHub link here)\n\n\n\n\nETL pipelines from various data sources to Power BI dashboards with data quality checks and DAX measures.\nTech: SQL · Power BI · ETL/ELT · Python · Azure Databricks\nRepo: (add your GitHub link here)"
+  },
+  {
+    "objectID": "projects.html#forecasting-data-engineering",
+    "href": "projects.html#forecasting-data-engineering",
+    "title": "Projects",
+    "section": "",
+    "text": "Forecasting energy demand using statistical and machine learning models for better resource planning.\nTech: Python · TensorFlow · R · Prophet · Statsmodels · ML lifecycle tools · Scikit-learn · Matplotlib/Plotly\nRepo: (add your GitHub link here)\n\n\n\n\nETL pipelines from various data sources to Power BI dashboards with data quality checks and DAX measures.\nTech: SQL · Power BI · ETL/ELT · Python · Azure Databricks\nRepo: (add your GitHub link here)"
   }
 ]

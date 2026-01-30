@@ -1,84 +1,28 @@
-/* =========================
-   Global "Blue/Grey Glass"
-   ========================= */
-
-/* =========================
-   GLOBAL CENTERING FIX
-   ========================= */
-
-/* Force Quarto content to be centered */
-#quarto-content,
-.page-columns,
-.content,
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Limit readable width like the mockup */
-#quarto-content > *,
-.content > *,
-main > * {
-  width: 100%;
-  max-width: 1100px;
-}
-
-/* =========================
-   HERO CENTER FIX
-   ========================= */
-
-.hero {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* =========================
-   SECTION CENTER FIX
-   ========================= */
-
-.project-grid,
-.what-i-do {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Titles centered like screenshot */
-.hero h1,
-.hero h3,
-.hero p,
-.hero .btn {
-  text-align: center;
-}
-
-/* =========================
-   REMOVE LEFT BIAS FROM BOOTSTRAP
-   ========================= */
-
-.container,
-.container-fluid {
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
+/* =========================================================
+   FINAL styles.css — Blue/Grey Glass + Pixel-Perfect Center
+   (Single source of truth: Quarto grid centering)
+   ========================================================= */
 
 :root{
   --bg1: rgba(120,180,255,.22);
   --bg2: rgba(225,232,242,.55);
-  --glass: rgba(255,255,255,.42);
+
+  --glass: rgba(255,255,255,.45);
   --glass2: rgba(255,255,255,.30);
+
   --border: rgba(160,180,210,.38);
+
   --text: #173a63;
   --muted: rgba(23,58,99,.72);
+
   --shadow: 0 10px 28px rgba(10,40,80,.18);
   --shadow2: 0 8px 20px rgba(10,40,80,.12);
-  --radius: 18px;
 }
 
-/* Body background like your screenshot */
-html, body{
-  height: 100%;
-}
+/* -------------------------
+   Global background
+   ------------------------- */
+html, body{ height: 100%; }
 
 body{
   color: var(--text);
@@ -88,20 +32,50 @@ body{
     linear-gradient(180deg, var(--bg1), var(--bg2));
 }
 
-/* Make the main content breathe */
-#quarto-content{
-  padding-top: 0.8rem;
+/* Some breathing room under navbar */
+#quarto-content{ padding-top: 0.8rem; }
+
+/* =========================================================
+   CENTERING — SINGLE SOURCE OF TRUTH
+   =========================================================
+   Quarto uses .page-columns grid. We force a 3-column layout:
+   gutter | centered content (max 1100px) | gutter
+   Then we force all wrappers into the middle column.
+*/
+.page-columns{
+  display: grid !important;
+  grid-template-columns: 1fr minmax(0, 1100px) 1fr !important;
+  column-gap: 0 !important;
 }
 
-/* Constrain page width close to the screenshot */
-.page-columns, .content{
-  max-width: 1100px;
+/* Put everything in the middle column */
+.page-columns > *{
+  grid-column: 2 !important;
 }
 
-/* =========================
+/* Common Quarto wrappers */
+.page-columns .content,
+.page-columns #quarto-document-content,
+.page-columns main,
+.page-columns .page-layout-full,
+.page-columns .page-layout,
+.page-columns .quarto-title-block{
+  grid-column: 2 !important;
+  width: 100% !important;
+  max-width: 1100px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Also center Bootstrap containers (safety) */
+.container, .container-fluid{
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* -------------------------
    Navbar: glass + blur
-   ========================= */
-
+   ------------------------- */
 .navbar{
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -130,17 +104,16 @@ body{
   background: rgba(45,120,220,.55);
 }
 
-/* icons on right */
-.navbar a.navbar-brand{
-  font-weight: 700;
-}
-
-/* =========================
-   Hero section like screenshot
-   ========================= */
-
+/* -------------------------
+   Hero section (centered)
+   ------------------------- */
 .hero{
   margin-top: 14px;
+  width: 100% !important;
+  max-width: 1100px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+
   background:
     radial-gradient(900px 500px at 50% 10%, rgba(120,180,255,.30), transparent 60%),
     linear-gradient(135deg, rgba(120,180,255,.18), rgba(210,220,235,.40));
@@ -181,7 +154,7 @@ body{
   margin-top: 0;
 }
 
-/* Buttons like screenshot */
+/* Buttons like mockup */
 .hero .btn{
   margin-top: 18px;
   padding: 10px 18px;
@@ -200,10 +173,9 @@ body{
   border-color: rgba(45,120,220,1);
 }
 
-/* =========================
+/* -------------------------
    Section titles / spacing
-   ========================= */
-
+   ------------------------- */
 h2{
   margin-top: 2.2rem;
   font-weight: 800;
@@ -214,11 +186,15 @@ h2 + p{
   color: rgba(23,58,99,.70);
 }
 
-/* =========================
+/* -------------------------
    Featured projects: 3 cards
-   ========================= */
-
+   ------------------------- */
 .project-grid{
+  width: 100% !important;
+  max-width: 1100px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
@@ -230,7 +206,7 @@ h2 + p{
 }
 
 .project-card{
-  background: rgba(255,255,255,.45);
+  background: var(--glass);
   border: 1px solid rgba(160,180,210,.32);
   border-radius: 16px;
   box-shadow: var(--shadow2);
@@ -263,11 +239,15 @@ h2 + p{
   color: rgba(23,58,99,.72);
 }
 
-/* =========================
+/* -------------------------
    What I do: 3 small cards
-   ========================= */
-
+   ------------------------- */
 .what-i-do{
+  width: 100% !important;
+  max-width: 1100px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
@@ -297,10 +277,9 @@ h2 + p{
   color: rgba(23,58,99,.72);
 }
 
-/* =========================
-   Footer like screenshot
-   ========================= */
-
+/* -------------------------
+   Footer
+   ------------------------- */
 .footer{
   margin-top: 38px;
   background: rgba(255,255,255,.18);
@@ -309,15 +288,11 @@ h2 + p{
   -webkit-backdrop-filter: blur(12px);
 }
 
-.footer-note{
-  opacity: .85;
-}
+.footer-note{ opacity: .85; }
 
-/* Link styling */
-a{
-  text-decoration: none;
-}
+/* Links */
+a{ text-decoration: none; }
+a:hover{ text-decoration: underline; }
 
-a:hover{
-  text-decoration: underline;
-}
+
+
