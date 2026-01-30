@@ -1,0 +1,13 @@
+---
+title: "Projets"
+---
+
+Choisis une catégorie :
+
+- [Forecasting](forecasting.qmd)
+- [Optimisation déterministe (MILP)](optimisation.qmd)
+- [Optimisation stochastique](stochastic.qmd)
+- [Reinforcement Learning](rl.qmd)
+- [Bayésien & Statistiques](bayes.qmd)
+- [Data Engineering & MLOps](dataeng_mlops.qmd)
+- [LLM](llm.qmd)

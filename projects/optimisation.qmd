@@ -1,0 +1,35 @@
+---
+title: "Optimisation déterministe (MILP) — Exemple"
+---
+
+## Problème
+Déterminer une décision optimale sous contraintes (capacités, flux, coûts). Objectif : minimiser le coût total.
+
+## Modèle (extrait)
+On cherche :
+$\min \sum_{i,j} c_{ij} x_{ij}$  
+sous contraintes :
+$\sum_j x_{ij} = 1 \ \forall i$
+
+## Démo (Python)
+```{python}
+import pulp
+
+# mini affectation
+I = ["A","B","C"]
+J = ["L1","L2","L3"]
+c = {("A","L1"):3,("A","L2"):2,("A","L3"):4,
+     ("B","L1"):2,("B","L2"):5,("B","L3"):1,
+     ("C","L1"):4,("C","L2"):1,("C","L3"):3}
+
+m = pulp.LpProblem("assign", pulp.LpMinimize)
+x = pulp.LpVariable.dicts("x", (I,J), 0, 1, cat="Binary")
+
+m += pulp.lpSum(c[(i,j)]*x[i][j] for i in I for j in J)
+for i in I:
+    m += pulp.lpSum(x[i][j] for j in J) == 1
+for j in J:
+    m += pulp.lpSum(x[i][j] for i in I) <= 1
+
+m.solve(pulp.PULP_CBC_CMD(msg=False))
+{(i,j): pulp.value(x[i][j]) for i in I for j in J if pulp.value(x[i][j]) > 0.5}

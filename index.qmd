@@ -1,5 +1,5 @@
 ---
-title: "Georges Balogog — Portfolio"
+title: "Georges Balogog"
 subtitle: "Data Science · Optimisation · Automatisme · Génie électrique"
 ---
 
