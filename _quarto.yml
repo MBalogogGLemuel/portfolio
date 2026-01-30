@@ -1,32 +1,101 @@
-name: Publish Quarto site to GitHub Pages
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+    - projects.qmd
+    - about.qmd
+    - cv.qmd
+    - blog.qmd
 
-on:
-  push:
-    branches: [ "main" ]
-  workflow_dispatch:
+website:
+  title: "Georges Lemuel Balogog"
+  site-url: "https://mbalogogglemuel.github.io/portfolio/"
+  description: "Data Science • Optimisation • Data Engineering — portfolio (Quarto)"
+  favicon: assets/favicon.png
 
-permissions:
-  contents: write
+  repo-url: "https://github.com/MBalogogGLemuel/portfolio"
+  repo-actions: [edit, issue]
 
-jobs:
-  build-deploy:
-    runs-on: ubuntu-latest
+  navbar:
+    background: "transparent"
+    pinned: true
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Projects"
+        href: projects.qmd
+      - text: "Blog"
+        href: blog.qmd
+      - text: "About"
+        href: about.qmd
+      - text: "CV"
+        href: cv.qmd
+    right:
+      - icon: github
+        href: "https://github.com/MBalogogGLemuel"
+        aria-label: "GitHub"
+      - icon: linkedin
+        href: "https://www.linkedin.com/in/balogog-georges-6810b9118/"
+        aria-label: "LinkedIn"
+      - icon: envelope
+        href: "mailto:georges.balogog@yahoo.fr"
+        aria-label: "Email"
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  search:
+    location: navbar
+    type: overlay
 
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
+  page-footer:
+    border: true
+    left: |
+      **Georges Lemuel Balogog**  
+      Data Science • Optimisation • Data Engineering  
+      Montréal / Canada
+    center: |
+      <span class="footer-note">© 2026 — Built with Quarto • Theme custom (blue/grey gradient)</span>
+    right: |
+      <div class="footer-links">
+        <a href="mailto:georges.balogog@yahoo.fr">Contact</a> ·
+        <a href="https://github.com/MBalogogGLemuel">GitHub</a> ·
+        <a href="https://www.linkedin.com/in/balogog-georges-6810b9118/">LinkedIn</a>
+      </div>
 
-      - name: Render site
-        run: quarto render
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    css:
+      - styles.css
+    toc: true
+    toc-depth: 3
+    number-sections: false
+    smooth-scroll: true
 
-      # Important: publish the rendered HTML directory, not the source (.qmd)
-      - name: Publish to gh-pages
-        uses: quarto-dev/quarto-actions/publish@v2
-        with:
-          target: gh-pages
-          path: _site
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # look "clean + pro" (proche JamesKle)
+    mainfont: "Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+    monofont: "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace"
+    fontsize: 1.05em
+    linestretch: 1.35
+
+    # code / science vibe
+    highlight-style: github
+    code-copy: true
+    code-fold: true
+    code-overflow: wrap
+
+    # liens + UX
+    link-external-icon: true
+    link-external-newwindow: true
+    anchor-sections: true
+
+    # petites métas propres
+    title-block-banner: false
+
+execute:
+  freeze: auto
+
+# Options markdown (rendu fluide)
+markdown:
+  wrap: sentence

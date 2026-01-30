@@ -1,1 +1,12 @@
-/* css styles */
+/* Hero gradient + scientific vibe */
+.hero {
+  background: linear-gradient(135deg, rgba(120,180,255,.25), rgba(210,220,235,.35));
+  border: 1px solid rgba(160,180,210,.35);
+  border-radius: 20px;
+  padding: 28px;
+  backdrop-filter: blur(6px);
+}
+
+.footer-note { opacity: .85; }
+
+.navbar { backdrop-filter: blur(10px); }
