@@ -1,5 +1,25 @@
 ---
-title: "About"
+title: ""
+toc: false
 ---
 
-About this site
+I am a **data science / optimization / data engineering** professional with a hands-on approach: starting from operational constraints, structuring data, modeling, measuring impact with KPIs, and delivering usable artifacts (code, dashboards, docs).
+
+My current focus: **supply chain & optimization**, ERP integration (Dynamics 365 SCM), and time series forecasting (energy / demand).
+
+::: {.about-grid}
+::: {.about-left}
+## What I value
+- **Clarity**: readable and maintainable deliverables   
+- **Measurement**: KPIs, validation, scenarios  
+- **Execution**: deployment, automation, CI/CD
+:::
+::: {.about-right}
+![](assets/profile.jpg){.about-photo width=220}
+:::
+::: 
+## Contact
+You can reach me at:
+📩 **georges.balogog@yahoo.fr**
+🔗 [LinkedIn](https://www.linkedin.com/in/balogog-georges-6810b9118/) · [GitHub](https://github.com/MBalogogGLemuel)
+:::

@@ -1,0 +1,13 @@
+---
+title: ""
+toc: false
+---
+
+# Blog
+
+I plan to publish blog posts here soon: optimization, time series, data engineering, and experience reports (Quarto, Power BI, D365, etc.).
+
+Upcoming: "How to structure a clean MIP project (data, models, KPIs, exports)"
+Upcoming: "End-to-end energy forecasting pipeline"
+
+Stay tuned!

@@ -51,9 +51,9 @@ website:
     left: |
       **Georges Lemuel Balogog**  
       Data Science • Optimisation • Data Engineering  
-      Montréal / Canada
+      Canada
     center: |
-      <span class="footer-note">© 2026 — Built with Quarto • Theme custom (blue/grey gradient)</span>
+      <span class="footer-note">© 2026</span>
     right: |
       <div class="footer-links">
         <a href="mailto:georges.balogog@yahoo.fr">Contact</a> ·
