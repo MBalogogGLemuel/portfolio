@@ -1,0 +1,323 @@
+---
+title: "Forecasting"
+toc: true
+---
+
+# Forecasting
+
+My forecasting work focuses on **robust decision-oriented forecasting**, where interpretability, stability across seasons, and realistic assumptions matter more than marginal gains in accuracy.
+
+The following project is based on a full end-to-end electricity demand forecasting study conducted on **10 years of hourly load data** for a major U.S. utility. It demonstrates how **operational constraints, uncertainty quantification, and model robustness** should drive forecasting methodology—not just statistical performance metrics.
+
+---
+
+## Electricity Demand Forecasting — JC Power & Light (NJ)
+
+### Context
+
+Jersey Central Power & Light (JCP&L) serves approximately **1.1 million customers** over **3,200 square miles** in New Jersey, representing roughly **12% of the state's population**. The electricity mix is dominated by **natural gas and nuclear**, with limited renewables, leading to strong weather sensitivity.
+
+The operational objective was **short-term load forecasting** that remains reliable across:
+- **Seasonal transitions** (heating vs. cooling demand),
+- **Extreme weather events** (heatwaves, cold snaps, storms),
+- **Structural changes** (grid modernization, demand response programs, economic shifts).
+
+This is not an academic exercise in minimizing MAPE on a test set. This is about **building forecasts that operators trust, that survive edge cases, and that degrade gracefully when assumptions break**.
+
+---
+
+### Data & Exploratory Analysis
+
+**Dataset characteristics:**
+- **10 years of hourly load data** (≈ 87,600 observations)
+- No missing values
+- Strong **weekly and yearly seasonality**
+- Clear correlation with weather variables (temperature, snow, precipitation)
+- Several **major outage events**, manually audited and imputed when they had a measurable impact on peak load
+
+**Exploratory findings:**
+
+**Seasonality patterns:**
+- **Winter peaks** driven by heating demand (natural gas, electric heating)
+- **Summer peaks** driven by cooling demand (air conditioning saturation)
+- **Shoulder seasons** (Spring/Fall) with lower overall demand but higher volatility
+
+**Weather sensitivity:**
+- Strong nonlinear relationship between temperature and load
+- Temperature extremes (below 20°F, above 90°F) trigger rapid demand acceleration
+- Humidity and wind chill amplify weather effects
+
+**Structural breaks:**
+- Post-2008 financial crisis: demand plateau and gradual recovery
+- Energy efficiency programs: gradual baseload reduction
+- Demand response events: sharp, temporary load reductions during peak pricing
+
+**Outlier treatment philosophy:**
+
+Special attention was paid to **outlier treatment**—only incidents that clearly disrupted load patterns were adjusted, to avoid over-smoothing real operational stress signals.
+
+Why this matters:
+- **Over-cleaning** data removes valuable information about system behavior under stress
+- **Under-cleaning** data trains models on anomalies that won't generalize
+- The right approach: **audit outliers manually, understand root causes, impute only when necessary**
+
+For example:
+- Major storm outage affecting 500k+ customers → **Imputed** (not representative of normal load)
+- Heatwave driving record peak demand → **Retained** (this is exactly what the model needs to learn)
+
+This is the difference between **statistical convenience** and **operational relevance**.
+
+---
+
+### Feature Engineering
+
+Forecasting was framed as a **regression problem with temporal structure**—combining the interpretability of regression with the temporal dynamics of ARIMA.
+
+**Key engineered features:**
+
+**1. Thermal comfort indices:**
+- **Heating Degree Days (HDD):** Captures heating demand when temperature drops below 65°F
+- **Cooling Degree Days (CDD):** Captures cooling demand when temperature exceeds 65°F
+- **Wind chill indicators:** Adjusts perceived temperature for wind effects
+```python
+# Heating and Cooling Degree Days
+df['HDD'] = np.maximum(65 - df['temperature'], 0)
+df['CDD'] = np.maximum(df['temperature'] - 65, 0)
+
+# Wind chill adjustment
+df['wind_chill'] = 35.74 + 0.6215*df['temperature'] - 35.75*(df['wind_speed']**0.16) + 0.4275*df['temperature']*(df['wind_speed']**0.16)
+```
+
+**2. Lagged weather variables:**
+- **Lag 1 and Lag 2 temperature:** Accounts for thermal inertia in buildings
+- **Lag 1 precipitation:** Captures delayed behavioral responses (e.g., reduced commercial activity)
+```python
+# Lagged features
+df['temp_lag1'] = df['temperature'].shift(1)
+df['temp_lag2'] = df['temperature'].shift(2)
+df['precip_lag1'] = df['precipitation'].shift(1)
+```
+
+**3. Calendar effects:**
+- **Weekday indicators:** Mon-Fri vs. weekends have fundamentally different load profiles
+- **Holiday flags:** Major holidays (Thanksgiving, Christmas, July 4th) show distinct patterns
+- **Hour of day:** Captures intraday demand cycles
+```python
+# Calendar features
+df['weekday'] = df['timestamp'].dt.dayofweek
+df['is_weekend'] = df['weekday'].isin([5, 6]).astype(int)
+df['is_holiday'] = df['timestamp'].isin(holiday_dates).astype(int)
+df['hour'] = df['timestamp'].dt.hour
+```
+
+**4. Autoregressive structure via ARMA errors:**
+
+Instead of pure regression, models were specified as **regression with ARMA errors**, capturing both:
+- **Exogenous drivers** (weather, calendar) via regression coefficients
+- **Temporal autocorrelation** (persistence, short-term trends) via ARMA structure
+```python
+from statsmodels.tsa.arima.model import ARIMA
+
+# Regression with ARMA(2,1) errors
+model = ARIMA(
+    endog=load,
+    exog=weather_features,
+    order=(2, 0, 1)  # AR(2), no differencing, MA(1)
+)
+results = model.fit()
+```
+
+**5. Realistic temperature forecast noise injection:**
+
+To reflect real-world uncertainty, **temperature forecast noise** was injected into the regression inputs, simulating realistic weather forecast errors.
+
+This is critical because:
+- In production, you don't have **actual** temperature—you have **forecasted** temperature
+- Weather forecasts have inherent uncertainty (±2-3°F typical error)
+- Models trained on perfect weather perform worse in production than models trained on noisy weather
+```python
+# Inject realistic temperature forecast noise
+temperature_forecast_error_std = 2.5  # degrees F
+df['temp_forecast'] = df['temperature'] + np.random.normal(0, temperature_forecast_error_std, len(df))
+
+# Train on forecasted temperature, not actual
+X = df[['temp_forecast', 'HDD', 'CDD', 'wind_chill', 'temp_lag1', 'is_weekend', 'hour']]
+```
+
+**This is what separates academic forecasting from operational forecasting:** training on the data you'll actually have, not the data you wish you had.
+
+---
+
+### Models Evaluated
+
+A wide range of models were compared under a **rolling validation protocol**—not a single train/test split, but repeated validation across multiple time windows to assess stability.
+
+**Model families tested:**
+
+**1. Naïve baselines:**
+- **Naïve forecast:** Tomorrow = Today
+- **Seasonal naïve:** Tomorrow = Same day last week
+
+**2. Exponential smoothing:**
+- **SES (Simple Exponential Smoothing):** Weighted average of past observations
+- **Holt's method:** Adds linear trend
+- **Holt-Winters:** Adds seasonal components
+- **ETS (Error-Trend-Seasonal):** Automated selection of smoothing components
+- **TBATS:** Complex seasonality with Fourier terms
+
+**3. ARIMA family:**
+- **SARIMA:** Seasonal ARIMA with Box-Cox transformation
+- **SARIMAX:** SARIMA with exogenous weather variables
+
+**4. Regression-based:**
+- **Linear regression with ARMA errors:** Combines interpretability with temporal structure
+- **ARX (Autoregressive Exogenous):** Regression with autoregressive dynamics
+
+**5. Machine learning (exploration, not production):**
+- **Random Forest:** Ensemble of decision trees
+- **Gradient Boosting (XGBoost):** Sequential boosting
+- **LSTM (RNN):** Deep learning for sequential data
+
+**Evaluation protocol:**
+
+Models were evaluated using:
+- **MAPE (Mean Absolute Percentage Error):** Industry-standard accuracy metric
+- **RMSE (Root Mean Squared Error):** Penalizes large errors more heavily
+- **MAE (Mean Absolute Error):** Robust to outliers
+
+With seasonal breakdowns (Winter, Spring, Summer, Fall) and statistical comparison via **Diebold–Mariano tests** to determine if performance differences were statistically significant.
+
+**Rolling validation:**
+- Train on 8 years of data
+- Test on next 6 months
+- Roll forward 3 months
+- Repeat
+
+This ensures models are evaluated on their ability to **generalize forward in time**, not just fit historical patterns.
+
+---
+
+### Key Results
+
+**Performance summary:**
+
+✅ **Linear regression with realistic temperature noise** consistently outperformed classical time-series models across **Winter, Spring, and Summer**
+
+✅ Performance in Fall was comparable across several models (lower demand variability reduces model differentiation)
+
+❌ Classical models (SARIMA, Holt-Winters, ETS, TBATS) showed **systematic degradation** in volatile or irregular periods (cold snaps, heatwaves, post-holiday transitions)
+
+❌ Naïve baselines failed to capture seasonal dynamics and weather sensitivity
+
+**Quantitative comparison (average across seasons):**
+
+| Model | MAPE (%) | RMSE (MW) | MAE (MW) |
+|-------|----------|-----------|----------|
+| Naïve | 8.2 | 420 | 310 |
+| Seasonal Naïve | 6.5 | 380 | 285 |
+| Holt-Winters | 4.8 | 295 | 225 |
+| SARIMA | 4.2 | 270 | 210 |
+| ETS | 4.0 | 265 | 205 |
+| **Regression + ARMA + Noise** | **3.4** | **235** | **180** |
+
+**Why regression won:**
+
+1. **Weather integration:** Explicit temperature, HDD/CDD features captured nonlinear weather effects better than implicit SARIMA seasonality
+2. **Realistic training:** Injecting forecast noise made the model robust to weather forecast errors
+3. **Interpretability:** Coefficients have clear operational meaning (e.g., "1°F increase → 50 MW load increase")
+4. **Stability:** Performance didn't degrade sharply during extreme events
+
+**Failure modes of classical models:**
+
+- **SARIMA:** Struggled with structural breaks (demand response events, economic shifts)
+- **Holt-Winters:** Over-smoothed during rapid transitions (sudden cold snaps)
+- **TBATS:** Computationally expensive, marginal improvement over simpler models
+- **LSTM:** Required extensive hyperparameter tuning, opaque predictions, no better than regression
+
+The regression-based approach achieved a **strong balance between accuracy, robustness, and interpretability**, making it suitable for operational deployment.
+
+---
+
+### Implementation & Deployment Considerations
+
+**What made this model production-ready:**
+
+✅ **Automated feature engineering pipeline:** Reproducible, testable, version-controlled
+```python
+def engineer_features(df_raw):
+    """
+    Transform raw load and weather data into model-ready features.
+    """
+    df = df_raw.copy()
+    
+    # Thermal indices
+    df['HDD'] = np.maximum(65 - df['temperature'], 0)
+    df['CDD'] = np.maximum(df['temperature'] - 65, 0)
+    
+    # Lags
+    df['temp_lag1'] = df['temperature'].shift(1)
+    df['temp_lag2'] = df['temperature'].shift(2)
+    
+    # Calendar
+    df['weekday'] = df['timestamp'].dt.dayofweek
+    df['is_weekend'] = df['weekday'].isin([5, 6]).astype(int)
+    df['hour'] = df['timestamp'].dt.hour
+    
+    # Inject realistic noise
+    df['temp_forecast'] = df['temperature'] + np.random.normal(0, 2.5, len(df))
+    
+    return df
+```
+
+✅ **Rolling retraining:** Model refit every week with latest data to adapt to structural changes
+
+✅ **Monitoring & alerting:** Track forecast errors in real-time, flag when MAPE exceeds thresholds
+
+✅ **Stakeholder communication:** Forecast outputs include confidence intervals and scenario analysis (optimistic/pessimistic weather)
+
+**What didn't make it to production:**
+
+❌ **LSTM models:** Too opaque, required GPUs, marginal performance gain didn't justify complexity
+
+❌ **Ensemble methods:** Stacking multiple models increased maintenance burden without reliability improvement
+
+❌ **Ultra-short-term forecasting (15-min ahead):** Operational need was day-ahead; adding complexity for 15-min didn't add value
+
+---
+
+### Takeaways
+
+This project reinforced a key principle:
+
+> **In operational forecasting, robustness under uncertainty matters more than theoretical optimality under perfect information.**
+
+Regression-based models with well-chosen predictors remain highly competitive when combined with:
+- **Realistic assumptions** (noisy weather forecasts, not perfect actuals),
+- **Proper evaluation protocols** (rolling validation, seasonal breakdowns, statistical testing),
+- **Operational constraints** (interpretability, computational feasibility, monitoring).
+
+**Broader lessons:**
+
+1. **Inject realism early:** Training on perfect data creates brittle models
+2. **Validate across seasons:** A model that works in Summer might fail in Winter
+3. **Prioritize interpretability:** Operators need to understand *why* a forecast changed
+4. **Beware complexity for complexity's sake:** LSTM didn't beat regression because the problem structure favored explicit feature engineering
+
+**This is the difference between forecasting as a statistical exercise and forecasting as an operational capability.**
+
+---
+
+**Tech Stack:**  
+Python · Statsmodels · Scikit-learn · Pandas · NumPy · Matplotlib · Seaborn
+
+**Repository:**  
+[GitHub – Electricity Demand Forecasting](https://github.com/MBalogogGLemuel) *Realesed soon*
+
+**Related Work:**  
+- [Why Feasibility Matters More Than Optimality](/blog/feasibility-over-optimality)
+- [Can AI Really Think About Model Design?](/blog/ai-model-design)
+
+---
+
+*Forecasting is not about predicting the future.*  
+*It's about making decisions today that remain robust tomorrow.*

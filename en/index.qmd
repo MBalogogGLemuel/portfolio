@@ -1,0 +1,86 @@
+---
+title: ""
+page-layout: full
+toc: false
+---
+
+::: {.hero}
+![](../assets/profile.png){.profile-img}
+
+# Georges Lemuel Balogog
+Data Science · Optimization · Data Engineering · Electrical Engineering 
+
+_I build end-to-end analytical solutions: ingestion/ETL, predictive modeling, optimization (MILP/MIP), deployment (API/CI/CD), and decision-making dashboards._
+
+[Download CV](assets/cv/cv_Data engineer.pdf){.btn .btn-primary}
+:::
+
+
+## Featured Projects
+A selection of my recent work.
+
+::: {.project-grid}
+
+::: {.project-card}
+![](../assets/projects/warehouse.png){.card-img}
+
+**Warehouse Optimization** Solving MIP problems for storage optimization.
+
+MIP Models for slotting, picking, and replenishment with KPI tracking and export.
+
+**Tech:** Python · PuLP/Gurobi · NetworkX · Plotly
+:::
+
+::: {.project-card}
+![](../assets/projects/energy.png){.card-img}
+
+**Energy Forecasting** Predicting energy demand with Stats & ML models.
+
+Demand forecasting using sliding window approach with TCN/RNN models, SARIMAX models, evaluated with MAE/RMSE/MAPE metrics and monitoring.
+
+**Tech:** Python · TensorFlow · Pandas · ML lifecycle tools - R · Prophet · Statsmodels · Forecasting 
+:::
+
+::: {.project-card}
+![](../assets/projects/bi.png){.card-img}
+
+**Data Integration & BI** ETL pipelines to Power BI dashboards.
+
+Pipelines from various data sources (SQL Server, Excel, APIs) to Power BI dashboards with data quality checks and DAX measures.
+
+**Tech:**  Azure Databrick · SQL · Power BI · ETL/ELT · Data quality monitoring · DAX
+:::
+[Read more →](../projects/index.qmd)
+:::
+
+## What I Do
+My key areas of expertise.
+
+::: {.what-i-do}
+
+::: {.what-card}
+### Reinforcement Learning
+Developing RL algorithms for decision-making.
+:::
+
+::: {.what-card}
+### Data Science & Machine Learning
+Advanced analytics and predictive modeling.
+:::
+
+::: {.what-card}
+### Optimization & Operations Research
+Solving complex optimization problems.
+:::
+
+::: {.what-card}
+### Data Engineering
+Building robust and scalable data pipelines.
+:::
+
+::: {.what-card}
+### Heuristic & Metaheuristic Algorithms
+Designing algorithms for complex problem-solving.
+:::
+
+:::

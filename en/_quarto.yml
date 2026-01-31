@@ -1,0 +1,80 @@
+project:
+  type: website
+  output-dir: ../_site/en
+  resources:
+  - assets
+  - styles.css
+
+website:
+  title: "Georges Lemuel Balogog"
+  site-url: "https://mbalogogglemuel.github.io/portfolio/en/"
+
+  navbar:
+    pinned: true
+    left:
+      - text: "Home"
+        href: index.qmd
+
+      - text: "Projects"
+        menu:
+          - text: "All projects"
+            href: projects/index.qmd
+          - text: "Warehouse Optimization (MIP)"
+            href: projects/optimisation.qmd
+          - text: "Energy Forecasting"
+            href: projects/forecasting.qmd
+          - text: "Data Engineering & BI"
+            href: projects/dataeng_mlops.qmd
+      - text: "Blog"
+        menu:
+          - text: "All posts"
+            href: blog/index.qmd
+          - text: "IA Illusion of Thought"
+            href: blog/2026-ia-illusion-thinking.qmd
+          - text: "IA Limits of Optimization"
+            href: blog/2026-ia-optimization-limits.qmd
+
+      - text: "About"
+        href: about.qmd
+      - text: "CV"
+        href: cv.qmd
+
+    right:
+      - text: "FR"
+        href: "#"
+      - text: "EN"
+        href: "#"
+      - icon: github
+        href: "https://github.com/MBalogogGLemuel"
+      - icon: linkedin
+        href: "https://www.linkedin.com/in/balogog-georges-6810b9118/"
+      - icon: envelope
+        href: "mailto:georges.balogog@yahoo.fr"
+
+format:
+  html:
+    theme: cosmo
+    css: ../styles.css
+    toc: true
+    smooth-scroll: true
+
+    include-in-header:
+      - text: |
+          <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              const path = window.location.pathname;
+
+              const frUrl = path.replace("/portfolio/en/", "/portfolio/fr/");
+              const enUrl = path; // already EN
+
+              const links = Array.from(document.querySelectorAll(".navbar a.nav-link"));
+              const frLink = links.find(a => a.textContent.trim() === "FR");
+              const enLink = links.find(a => a.textContent.trim() === "EN");
+
+              if (frLink) frLink.setAttribute("href", frUrl);
+              if (enLink) enLink.setAttribute("href", enUrl);
+            });
+          </script>
+
+execute:
+  freeze: auto

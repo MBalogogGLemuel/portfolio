@@ -1,0 +1,55 @@
+---
+title: ""
+toc: false
+---
+
+# About Me
+
+## From Voltage to Value: A Journey Through Data, Intelligence & Impact
+
+My story begins in the world of **electrons and electromagnetic fields**—where precision matters, where a single miscalculation can mean the difference between light and darkness, between connection and silence. As a telecommunications and electrical engineer, I learned to think in systems: power grids, signal propagation, network reliability. I learned that **complexity can be tamed through rigorous modeling, that uncertainty demands probabilistic thinking, and that real-world impact requires solutions that actually work under pressure**.
+
+But somewhere along that journey, I discovered something profound: **the same principles that govern electrical networks could transform how we understand data, optimize operations, and build intelligent systems**. Energy forecasting isn't just about predicting kilowatts—it's about understanding patterns in chaos, seasonality in noise, and making decisions when the stakes are high. Smart microgrids aren't just hardware—they're **real-time data pipelines demanding millisecond-level decision-making**.
+
+That realization changed everything.
+
+Today, I stand at the **intersection of data engineering, artificial intelligence, and prescriptive optimization**—not as separate disciplines, but as a unified force for solving problems that matter. I design **scalable data pipelines** that don't just move information, but transform it into actionable intelligence. I build **optimization models** that don't live in academic papers, but drive real warehouse operations, reduce preparation times, and improve decision quality. I deploy **machine learning systems** with the same rigor I once applied to electrical grids: robust, monitored, production-ready.
+
+From **ERP integrations** (Dynamics 365 SCM) to **multivariate time series forecasting**, from **MILP warehouse slotting** to **MLOps pipelines** (MLflow, Kubernetes, CI/CD)—every project is a bridge between mathematical elegance and operational reality. I don't just clean data; I ensure its **integrity, lineage, and governance**. I don't just build models; I validate them, measure them, deploy them, and **own their performance** in production.
+
+But here's what drives me most: **I'm still learning. Still growing. Still hungry.**
+
+Right now, I'm diving deep into **Azure Databricks and Apache Spark**, pushing the boundaries of distributed computing for analytics at scale. I'm exploring the bleeding edge of **supply chain optimization**, where every percentage point of efficiency translates to tangible impact. I'm continuously refining my craft in **statistical modeling, cloud architecture, and AI deployment**—because in this field, standing still means falling behind.
+
+I carry forward the mindset of an engineer who once analyzed **electromagnetic disturbances in telecommunications networks**: obsessive about details, relentless about validation, and committed to solutions that don't just work on paper—they work when it counts.
+
+Whether it's designing **ETL workflows for decision-support platforms**, implementing **real-time monitoring dashboards**, or solving **complex prescriptive optimization problems**, I bring the same energy: **clarity in complexity, measurement over assumptions, and execution that delivers value**.
+
+This is more than a career. It's a **continuous pursuit of excellence** at the frontier of data, AI, and optimization. The problems are getting harder. The datasets are getting bigger. The stakes are getting higher.
+
+**And I wouldn't have it any other way.**
+
+::: {.about-grid}
+::: {.about-left}
+## What I value
+- **Clarity**: readable code, maintainable pipelines, understandable models
+- **Measurement**: KPIs that matter, rigorous validation, scenario analysis  
+- **Execution**: from prototype to production, automation, CI/CD, real impact
+- **Growth**: continuous learning, pushing boundaries, staying at the edge
+:::
+
+::: {.about-right}
+![](../assets/profile.jpg){.about-photo width=220}
+:::
+:::
+
+## Let's Build Something That Matters
+
+Whether you're tackling **supply chain optimization**, building **analytics platforms**, or deploying **AI systems at scale**—I bring technical depth, operational awareness, and an unrelenting commitment to delivering solutions that work.
+
+📩 **georges.balogog@yahoo.fr**  
+🔗 [LinkedIn](https://www.linkedin.com/in/balogog-georges-6810b9118/) · [GitHub](https://github.com/MBalogogGLemuel)
+
+---
+
+*From electrical grids to data pipelines. From signal processing to machine learning. From theory to production. Always evolving. Always delivering.*

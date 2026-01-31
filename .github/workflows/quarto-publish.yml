@@ -11,6 +11,7 @@ permissions:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,9 +19,23 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Render + Publish
+      # Render BOTH sub-sites into the same _site folder
+      - name: Render EN
+        run: quarto render en
+
+      - name: Render FR
+        run: quarto render fr
+
+      - name: Copy shared assets and CSS into _site
+        run: |
+          cp -r assets _site/assets
+          cp styles.css _site/styles.css
+
+      # Publish the already-rendered output directory
+      - name: Publish to gh-pages
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
+          path: _site
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
