@@ -79,6 +79,7 @@ jobs:
           rm -rf _site/assets || true
           cp -r assets _site/assets
           cp styles.css _site/styles.css
+          cp index.html _site/index.html
           # optional: if you have a root index.html redirect
           if [ -f index.html ]; then cp index.html _site/index.html; fi
 
