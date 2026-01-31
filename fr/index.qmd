@@ -5,14 +5,14 @@ toc: false
 ---
 
 ::: {.hero}
-![](/../assets/profile.png){.profile-img}
+![](../assets/profile.png){.profile-img}
 
 # Georges Lemuel Balogog
 Data Science · Optimization · Data Engineering · Electrical Engineering 
 
 _I build end-to-end analytical solutions: ingestion/ETL, predictive modeling, optimization (MILP/MIP), deployment (API/CI/CD), and decision-making dashboards._
 
-[Download CV](assets/cv/cv_Data engineer.pdf){.btn .btn-primary}
+[Download CV](../assets/cv/cv_Data engineer.pdf){.btn .btn-primary}
 :::
 
 
@@ -22,7 +22,7 @@ A selection of my recent work.
 ::: {.project-grid}
 
 ::: {.project-card}
-![](/../assets/projects/warehouse.png){.card-img}
+![](../assets/projects/warehouse.png){.card-img}
 
 **Warehouse Optimization** Solving MIP problems for storage optimization.
 
@@ -32,7 +32,7 @@ MIP Models for slotting, picking, and replenishment with KPI tracking and export
 :::
 
 ::: {.project-card}
-![](/../assets/projects/energy.png){.card-img}
+![](../assets/projects/energy.png){.card-img}
 
 **Energy Forecasting** Predicting energy demand with Stats & ML models.
 
@@ -42,7 +42,7 @@ Demand forecasting using sliding window approach with TCN/RNN models, SARIMAX mo
 :::
 
 ::: {.project-card}
-![](/../assets/projects/bi.png){.card-img}
+![](../assets/projects/bi.png){.card-img}
 
 **Data Integration & BI** ETL pipelines to Power BI dashboards.
 
@@ -50,7 +50,7 @@ Pipelines from various data sources (SQL Server, Excel, APIs) to Power BI dashbo
 
 **Tech:**  Azure Databrick · SQL · Power BI · ETL/ELT · Data quality monitoring · DAX
 :::
-[Read more →](/../projects/index.qmd)
+[Read more →](../fr/projects/index.qmd)
 :::
 
 ## What I Do

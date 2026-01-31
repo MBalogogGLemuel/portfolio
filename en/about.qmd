@@ -39,7 +39,7 @@ This is more than a career. It's a **continuous pursuit of excellence** at the f
 :::
 
 ::: {.about-right}
-![](assets/profile.jpg){.about-photo width=220}
+![](/assets/profile.png){.about-photo width=220}
 :::
 :::
 
