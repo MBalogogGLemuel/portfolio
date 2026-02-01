@@ -8,79 +8,94 @@ toc: false
 ![](../assets/profile.png){.profile-img}
 
 # Georges Lemuel Balogog
-Data Science · Optimization · Data Engineering · Electrical Engineering 
+Data Science · Optimisation · Data Engineering · Génie électrique
 
-_I build end-to-end analytical solutions: ingestion/ETL, predictive modeling, optimization (MILP/MIP), deployment (API/CI/CD), and decision-making dashboards._
+_Je conçois des solutions analytiques de bout en bout : ingestion et ETL des données, modélisation prédictive, optimisation (MILP/MIP), déploiement (API / CI-CD) et tableaux de bord décisionnels._
 
-[Download CV](../assets/cv/cv_Data engineer.pdf){.btn .btn-primary}
+[Télécharger le CV](../assets/cv/cv_Data engineer.pdf){.btn .btn-primary}
 :::
 
 
-## Featured Projects
-A selection of my recent work.
+## Projets phares
+Une sélection de mes travaux récents.
 
 ::: {.project-grid}
 
 ::: {.project-card}
 ![](../assets/projects/warehouse.png){.card-img}
 
-**Warehouse Optimization** Solving MIP problems for storage optimization.
+**Optimisation d’entrepôt**  
+Résolution de problèmes MIP pour l’optimisation du stockage.
 
-MIP Models for slotting, picking, and replenishment with KPI tracking and export.
+Modèles MIP pour le slotting, le picking et le réapprovisionnement, avec suivi des KPI et export des résultats.
 
-**Tech:** Python · PuLP/Gurobi · NetworkX · Plotly
+**Technos :** Python · PuLP / Gurobi · NetworkX · Plotly
 :::
 
 ::: {.project-card}
 ![](../assets/projects/energy.png){.card-img}
 
-**Energy Forecasting** Predicting energy demand with Stats & ML models.
+**Prévision énergétique**  
+Prédiction de la demande énergétique à l’aide de modèles statistiques et de machine learning.
 
-Demand forecasting using sliding window approach with TCN/RNN models, SARIMAX models, evaluated with MAE/RMSE/MAPE metrics and monitoring.
+Prévision de la demande via des approches à fenêtres glissantes avec modèles TCN/RNN et SARIMAX, évalués à l’aide des métriques MAE, RMSE et MAPE, avec dispositifs de suivi des performances.
 
-**Tech:** Python · TensorFlow · Pandas · ML lifecycle tools - R · Prophet · Statsmodels · Forecasting 
+**Technos :** Python · TensorFlow · Pandas · Outils de cycle de vie ML · R · Prophet · Statsmodels · Forecasting
 :::
 
 ::: {.project-card}
 ![](../assets/projects/bi.png){.card-img}
 
-**Data Integration & BI** ETL pipelines to Power BI dashboards.
+**Intégration de données & BI**  
+Pipelines ETL vers des tableaux de bord Power BI.
 
-Pipelines from various data sources (SQL Server, Excel, APIs) to Power BI dashboards with data quality checks and DAX measures.
+Chaînes de traitement depuis diverses sources de données (SQL Server, Excel, API) vers Power BI, incluant des contrôles de qualité des données et des mesures DAX.
 
-**Tech:**  Azure Databrick · SQL · Power BI · ETL/ELT · Data quality monitoring · DAX
+**Technos :** Azure Databricks · SQL · Power BI · ETL / ELT · Monitoring de la qualité des données · DAX
 :::
-[Read more →](../fr/projects/index.qmd)
+
+[En savoir plus →](../fr/projects/index.qmd)
 :::
 
-## What I Do
-My key areas of expertise.
+
+## Ce que je fais
+Mes principaux domaines d’expertise.
 
 ::: {.what-i-do}
 
 ::: {.what-card}
-### Reinforcement Learning
-Developing RL algorithms for decision-making.
+### Apprentissage par renforcement
+Développement d’algorithmes RL pour l’aide à la décision.
 :::
 
 ::: {.what-card}
-### Data Science & Machine Learning
-Advanced analytics and predictive modeling.
+### Science des donnees & Apprentissage automatique
+Analytique avancée et modélisation prédictive.
 :::
 
 ::: {.what-card}
-### Optimization & Operations Research
-Solving complex optimization problems.
+### Optimisation & Recherche opérationnelle
+Résolution de problèmes d’optimisation complexes.
 :::
 
 ::: {.what-card}
-### Data Engineering
-Building robust and scalable data pipelines.
+### Ingenierie des données
+Conception de pipelines de données robustes et scalables.
 :::
 
 ::: {.what-card}
-### Heuristic & Metaheuristic Algorithms
-Designing algorithms for complex problem-solving.
+### Algorithmes heuristiques & méta-heuristiques
+Conception d’algorithmes pour des problèmes complexes.
+:::
+
+:::{.what-card}
+### Visualisation & BI
+Création de tableaux de bord interactifs pour la prise de décision.
+:::
+
+:::{.what-card}
+### Génie électrique & Systèmes embarqués
+Conception et optimisation de systèmes électriques.
 :::
 
 :::

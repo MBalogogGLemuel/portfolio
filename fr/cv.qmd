@@ -10,7 +10,6 @@ page-layout: full
 
 ---
 
-<!-- ## Preview -->
 
 <iframe 
   src="../assets/cv/cv_Data engineer_fr.pdf"

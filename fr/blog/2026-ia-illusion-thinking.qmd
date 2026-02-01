@@ -1,5 +1,5 @@
 ---
-title: "Can AI Really Think About Model Design?"
+title: "L'IA peut-elle vraiment réfléchir à la conception de modèles ?"
 date: 2026-01-28
 toc: true
 toc-location: right
@@ -8,161 +8,165 @@ page-class: blog-page
 
 ## Introduction
 
-Recent advances in large language models have reignited an old question:
-*can machines truly reason, or do they merely reproduce convincing patterns?*
+Les récentes avancées dans les grands modèles de langage ont ravivé une vieille question :
+*les machines peuvent-elles vraiment raisonner, ou ne font-elles que reproduire des motifs convaincants ?*
 
-In applied data science and optimization, this question is not philosophical.
-It becomes **practical and painful** as soon as we ask AI systems
-to assist in **model design**, not just code generation.
+En science des données appliquée et en optimisation, cette question n'est pas philosophique.
+Elle devient **pratique et douloureuse** dès que nous demandons aux systèmes d'IA
+d'assister à la **conception de modèles**, et pas seulement à la génération de code.
 
-I've spent years designing optimization models for supply chains, energy systems, and operational planning. I've watched AI systems generate impressively fluent formulations—and I've also debugged the silent failures they create when deployed. This post is about the gap between **what AI can articulate** and **what it can actually understand**.
-
----
-
-## Fluency is not understanding
-
-Modern AI systems are remarkably fluent.
-They can describe optimization models, recite textbook formulations,
-and even generate plausible mathematical expressions with impressive syntax.
-
-What they cannot reliably do is **decide why a model should be designed one way rather than another**.
-
-They often fail to distinguish between:
-- a theoretically elegant formulation,
-- a computationally feasible one,
-- and an operationally usable one.
-
-**Example from practice:**  
-Ask an AI to design a warehouse slotting optimization model. It will confidently propose a Mixed-Integer Linear Program (MILP) with binary variables for every SKU-location pair. Mathematically correct. Computationally catastrophic at scale—thousands of products, hundreds of locations, and solver runtimes exploding into hours or days.
-
-A human optimizer would immediately ask:
-- *Can we decompose this by zone?*
-- *Should we relax some integer constraints?*
-- *What's the real decision frequency—daily, weekly, quarterly?*
-
-These questions don't come from pattern matching. They come from **operational intuition forged through failure and iteration**.
-
-This distinction is precisely where human expertise matters.
+J'ai passé des années à concevoir des modèles d'optimisation pour les chaînes d'approvisionnement, les systèmes énergétiques et la planification opérationnelle. J'ai vu des systèmes d'IA générer des formulations d'une fluidité impressionnante—et j'ai également débogué les échecs silencieux qu'ils créent une fois déployés. Ce billet porte sur l'écart entre **ce que l'IA peut articuler** et **ce qu'elle peut réellement comprendre**.
 
 ---
 
-## Model design is a sequence of commitments
+## La fluidité n'est pas la compréhension
 
-Designing a model is not about choosing equations.
-It is about **committing to assumptions**—each one a negotiation between competing objectives.
+Les systèmes d'IA modernes sont remarquablement fluides.
+Ils peuvent décrire des modèles d'optimisation, réciter des formulations de manuels,
+et même générer des expressions mathématiques plausibles avec une syntaxe impressionnante.
 
-When I decide to:
-- **linearize a constraint** → I'm choosing computational tractability over perfect realism,
-- **split a global optimization into sequential subproblems** → I'm accepting local optima to guarantee convergence,
-- **introduce a penalty instead of a hard constraint** → I'm prioritizing solution existence over strict compliance.
+Ce qu'ils ne peuvent pas faire de manière fiable, c'est **décider pourquoi un modèle devrait être conçu d'une manière plutôt qu'une autre**.
 
-Each decision carries consequences:
-- Linearization may ignore critical non-linear interactions.
-- Decomposition may miss globally optimal solutions.
-- Penalties require careful tuning—too weak and they're ignored; too strong and they dominate the objective.
+Ils échouent souvent à distinguer entre :
 
-I am not optimizing mathematics.  
-I am negotiating **trade-offs between realism, tractability, and stability**.
+- une formulation théoriquement élégante,
+- une formulation computationnellement faisable,
+- et une formulation opérationnellement utilisable.
 
-Current AI systems do not *understand* these trade-offs.  
-They imitate them. They've seen similar patterns in training data. But when faced with a novel operational context—**a new constraint structure, an unusual cost function, a hybrid discrete-continuous problem**—they regress to textbook templates that may be fundamentally unsuited to the problem at hand.
+**Exemple tiré de la pratique :**  
+Demandez à une IA de concevoir un modèle d'optimisation d'allocation d'entrepôt. Elle proposera avec confiance un Programme Linéaire en Nombres Entiers Mixtes (PLNE) avec des variables binaires pour chaque paire SKU-emplacement. Mathématiquement correct. Computationnellement catastrophique à grande échelle—des milliers de produits, des centaines d'emplacements, et des temps d'exécution du solveur qui explosent en heures ou en jours.
 
----
+Un optimiseur humain demanderait immédiatement :
 
-## Why this matters in practice
+- *Pouvons-nous décomposer ceci par zone ?*
+- *Devrions-nous relâcher certaines contraintes entières ?*
+- *Quelle est la vraie fréquence de décision—quotidienne, hebdomadaire, trimestrielle ?*
 
-In real projects, poor model design does not fail loudly.  
-It fails **silently, insidiously, expensively**.
+Ces questions ne viennent pas de la correspondance de motifs. Elles viennent de **l'intuition opérationnelle forgée par l'échec et l'itération**.
 
-### Silent failure modes I've encountered:
-
-**1. Infeasibility that appears only in production**  
-A model validates perfectly on historical data. Deploy it with real-time inputs, and suddenly: *"No feasible solution found."* Why? Because the AI-generated formulation didn't account for operational constraints that rarely appear in training scenarios—equipment downtime, simultaneous resource conflicts, regulatory edge cases.
-
-**2. Numerical instability at scale**  
-A small-scale pilot works beautifully. Scale to production data volumes, and solver performance collapses. The culprit? Poor constraint formulation leading to ill-conditioned matrices, numerical precision issues, or combinatorial explosion that wasn't visible at toy scale.
-
-**3. KPIs improve in simulation but degrade operations**  
-The model optimizes the *wrong* objective. It minimizes total distance traveled but ignores picking time variability. It maximizes throughput but creates bottlenecks downstream. It reduces inventory costs but increases stockout risk beyond acceptable thresholds.
-
-**AI-generated designs often look correct until confronted with reality.**
-
-The model runs. It produces numbers. It generates convincing dashboards.  
-But the **assumptions embedded in its structure** don't reflect the operational reality it was meant to serve.
-
-And here's the insidious part: **the business user won't know**. They see charts, metrics, recommendations. They don't see the linearization that discarded a critical interaction, the penalty coefficient chosen arbitrarily, or the decomposition that locked out better solutions.
+Cette distinction est précisément là où l'expertise humaine compte.
 
 ---
 
-## What AI *can* do well
+## La conception de modèles est une séquence d'engagements
 
-Let's be clear: I use AI extensively in my work. It's not about AI versus humans.  
-It's about **knowing where AI excels and where it fails**.
+Concevoir un modèle ne consiste pas à choisir des équations.
+Il s'agit de **s'engager sur des hypothèses**—chacune étant une négociation entre des objectifs concurrents.
 
-**AI is a powerful assistant for:**
+Quand je décide de :
 
-- **Exploration:** Rapidly generating candidate formulations, testing alternative objective functions, exploring sensitivity to parameters.
-- **Documentation:** Translating mathematical notation into plain language, generating solver configuration documentation, explaining model structure to non-technical stakeholders.
-- **Code acceleration:** Implementing standard algorithms (Simplex, Branch-and-Bound, gradient descent), generating boilerplate for data ingestion and transformation, scaffolding MLOps pipelines.
+- **linéariser une contrainte** → Je choisis la tractabilité computationnelle plutôt que le réalisme parfait,
+- **diviser une optimisation globale en sous-problèmes séquentiels** → J'accepte des optima locaux pour garantir la convergence,
+- **introduire une pénalité au lieu d'une contrainte dure** → Je privilégie l'existence de solution plutôt que la conformité stricte.
 
-But when it comes to **model architecture**—the fundamental decisions about what to optimize, what to constrain, and how to balance competing objectives—**that requires judgment born from experience, failure, and accountability**.
+Chaque décision comporte des conséquences :
 
----
+- La linéarisation peut ignorer des interactions non linéaires critiques.
+- La décomposition peut manquer des solutions globalement optimales.
+- Les pénalités nécessitent un calibrage soigneux—trop faibles et elles sont ignorées ; trop fortes et elles dominent l'objectif.
 
-## The accountability gap
+Je n'optimise pas les mathématiques.  
+Je négocie des **compromis entre réalisme, tractabilité et stabilité**.
 
-Here's the core issue: **AI cannot be held accountable**.
-
-When a model I design fails in production, I own that failure.  
-I debug it. I iterate. I explain to stakeholders what went wrong and how we'll fix it.  
-I carry the operational consequences of my assumptions.
-
-When an AI-generated model fails, who owns it?  
-The data scientist who deployed it without validating assumptions?  
-The AI system that "hallucinated" a plausible-looking formulation?
-
-**Responsibility cannot be delegated to a statistical pattern matcher.**
-
-Model design is fundamentally about **risk management**—understanding what can go wrong, anticipating edge cases, stress-testing assumptions against operational reality.
-
-AI can simulate competence.  
-It cannot simulate accountability.
+Les systèmes d'IA actuels ne *comprennent* pas ces compromis.  
+Ils les imitent. Ils ont vu des motifs similaires dans les données d'entraînement. Mais face à un nouveau contexte opérationnel—**une nouvelle structure de contrainte, une fonction de coût inhabituelle, un problème hybride discret-continu**—ils régressent vers des modèles de manuels qui peuvent être fondamentalement inadaptés au problème en question.
 
 ---
 
-## Conclusion: Tools, not replacements
+## Pourquoi cela importe en pratique
 
-AI is a **force multiplier** for experienced practitioners.  
-It is a **dangerous crutch** for those who don't yet understand the domain.
+Dans les projets réels, une mauvaise conception de modèle n'échoue pas bruyamment.  
+Elle échoue **silencieusement, insidieusement, coûteusement**.
 
-I use AI to:
-- Accelerate implementation of well-understood patterns,
-- Explore formulation alternatives quickly,
-- Document and communicate model logic.
+### Modes d'échec silencieux que j'ai rencontrés :
 
-I do **not** use AI to:
-- Make foundational design decisions,
-- Choose between competing modeling paradigms,
-- Validate whether a model is fit for operational deployment.
+**1. Infaisabilité qui n'apparaît qu'en production**  
+Un modèle se valide parfaitement sur des données historiques. Déployez-le avec des entrées en temps réel, et soudain : *"Aucune solution faisable trouvée."* Pourquoi ? Parce que la formulation générée par l'IA n'a pas pris en compte les contraintes opérationnelles qui apparaissent rarement dans les scénarios d'entraînement—temps d'arrêt d'équipement, conflits de ressources simultanés, cas limites réglementaires.
 
-**Model design remains a human responsibility.**
+**2. Instabilité numérique à grande échelle**  
+Un pilote à petite échelle fonctionne magnifiquement. Passez à l'échelle avec des volumes de données de production, et la performance du solveur s'effondre. Le coupable ? Une mauvaise formulation de contrainte conduisant à des matrices mal conditionnées, des problèmes de précision numérique, ou une explosion combinatoire qui n'était pas visible à l'échelle jouet.
 
-Not because humans are faster.  
-Not because humans are more creative.
+**3. Les KPI s'améliorent en simulation mais dégradent les opérations**  
+Le modèle optimise le *mauvais* objectif. Il minimise la distance totale parcourue mais ignore la variabilité du temps de prélèvement. Il maximise le débit mais crée des goulots d'étranglement en aval. Il réduit les coûts d'inventaire mais augmente le risque de rupture de stock au-delà des seuils acceptables.
 
-But because **we are accountable for assumptions**.
+**Les conceptions générées par l'IA semblent souvent correctes jusqu'à ce qu'elles soient confrontées à la réalité.**
 
-We understand that every model is a **deliberate simplification of reality**.  
-We know which simplifications are acceptable and which are catastrophic.  
-We can explain our choices, defend our trade-offs, and adapt when reality proves us wrong.
+Le modèle s'exécute. Il produit des chiffres. Il génère des tableaux de bord convaincants.  
+Mais les **hypothèses intégrées dans sa structure** ne reflètent pas la réalité opérationnelle qu'il était censé servir.
+
+Et voici la partie insidieuse : **l'utilisateur métier ne le saura pas**. Il voit des graphiques, des métriques, des recommandations. Il ne voit pas la linéarisation qui a écarté une interaction critique, le coefficient de pénalité choisi arbitrairement, ou la décomposition qui a exclu de meilleures solutions.
 
 ---
 
-*AI can write models.  
-It cannot yet take responsibility for them.*
+## Ce que l'IA *peut* bien faire
 
-*And until it can, the final decision—the commitment to deploy, the ownership of outcomes—must remain human.*
+Soyons clairs : j'utilise l'IA extensivement dans mon travail. Il ne s'agit pas d'IA contre humains.  
+Il s'agit de **savoir où l'IA excelle et où elle échoue**.
+
+**L'IA est un assistant puissant pour :**
+
+- **L'exploration :** Générer rapidement des formulations candidates, tester des fonctions objectifs alternatives, explorer la sensibilité aux paramètres.
+- **La documentation :** Traduire la notation mathématique en langage simple, générer de la documentation de configuration de solveur, expliquer la structure du modèle aux parties prenantes non techniques.
+- **L'accélération du code :** Implémenter des algorithmes standard (Simplexe, Séparation et Évaluation, descente de gradient), générer du code boilerplate pour l'ingestion et la transformation de données, échafauder des pipelines MLOps.
+
+Mais en ce qui concerne **l'architecture de modèle**—les décisions fondamentales sur quoi optimiser, quoi contraindre et comment équilibrer des objectifs concurrents—**cela nécessite un jugement né de l'expérience, de l'échec et de la responsabilité**.
 
 ---
 
-**What's your experience?** Have you deployed AI-generated models in production? What failed? What worked? I'd love to hear your stories—reach out on [LinkedIn](https://www.linkedin.com/in/balogog-georges-6810b9118/).
+## L'écart de responsabilité
+
+Voici le problème central : **l'IA ne peut pas être tenue responsable**.
+
+Quand un modèle que je conçois échoue en production, je possède cet échec.  
+Je le débogue. J'itère. J'explique aux parties prenantes ce qui s'est mal passé et comment nous allons le corriger.  
+Je porte les conséquences opérationnelles de mes hypothèses.
+
+Quand un modèle généré par l'IA échoue, qui le possède ?  
+Le data scientist qui l'a déployé sans valider les hypothèses ?  
+Le système d'IA qui a "halluciné" une formulation d'apparence plausible ?
+
+**La responsabilité ne peut pas être déléguée à un apparieur de motifs statistiques.**
+
+La conception de modèles consiste fondamentalement en **gestion des risques**—comprendre ce qui peut mal tourner, anticiper les cas limites, tester les hypothèses sous stress contre la réalité opérationnelle.
+
+L'IA peut simuler la compétence.  
+Elle ne peut pas simuler la responsabilité.
+
+---
+
+## Conclusion : Outils, pas remplacements
+
+L'IA est un **multiplicateur de force** pour les praticiens expérimentés.  
+C'est une **béquille dangereuse** pour ceux qui ne comprennent pas encore le domaine.
+
+J'utilise l'IA pour :
+- Accélérer l'implémentation de motifs bien compris,
+- Explorer rapidement des alternatives de formulation,
+- Documenter et communiquer la logique du modèle.
+
+Je n'utilise **pas** l'IA pour :
+- Prendre des décisions de conception fondamentales,
+- Choisir entre des paradigmes de modélisation concurrents,
+- Valider si un modèle est adapté au déploiement opérationnel.
+
+**La conception de modèles reste une responsabilité humaine.**
+
+Pas parce que les humains sont plus rapides.  
+Pas parce que les humains sont plus créatifs.
+
+Mais parce que **nous sommes responsables des hypothèses**.
+
+Nous comprenons que chaque modèle est une **simplification délibérée de la réalité**.  
+Nous savons quelles simplifications sont acceptables et lesquelles sont catastrophiques.  
+Nous pouvons expliquer nos choix, défendre nos compromis, et nous adapter quand la réalité nous prouve que nous avons tort.
+
+---
+
+*L'IA peut écrire des modèles.  
+Elle ne peut pas encore en assumer la responsabilité.*
+
+*Et jusqu'à ce qu'elle le puisse, la décision finale—l'engagement à déployer, la propriété des résultats—doit rester humaine.*
+
+---
+
+**Quelle est votre expérience ?** Avez-vous déployé des modèles générés par l'IA en production ? Qu'est-ce qui a échoué ? Qu'est-ce qui a fonctionné ? J'aimerais entendre vos histoires—contactez-moi sur [LinkedIn](https://www.linkedin.com/in/balogog-georges-6810b9118/).

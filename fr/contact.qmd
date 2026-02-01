@@ -1,0 +1,56 @@
+---
+title: "Contact"
+page-layout: full
+toc: false
+---
+
+# Me contacter
+
+Vous avez un projet, une question ou simplement envie d’échanger ?  
+Utilisez le formulaire ci-dessous pour me contacter directement par courriel. Je réponds généralement rapidement.
+
+---
+
+<form action="mailto:georges.balogog@yahoo.fr" method="post" enctype="text/plain" class="contact-form">
+
+<div class="form-group">
+  <label for="name">Nom</label><br>
+  <input type="text" id="name" name="Nom" placeholder="Votre nom" required>
+</div>
+
+<br>
+
+<div class="form-group">
+  <label for="email">Adresse e-mail</label><br>
+  <input type="email" id="email" name="Email" placeholder="votre@email.com" required>
+</div>
+
+<br>
+
+<div class="form-group">
+  <label for="subject">Sujet</label><br>
+  <input type="text" id="subject" name="Sujet" placeholder="Objet de votre message" required>
+</div>
+
+<br>
+
+<div class="form-group">
+  <label for="message">Message</label><br>
+  <textarea id="message" name="Message" rows="6" placeholder="Écrivez votre message ici…" required></textarea>
+</div>
+
+<br>
+
+<button type="submit" class="btn btn-primary">
+  Envoyer le message
+</button>
+
+</form>
+
+---
+
+
+- 📧 **Email** : georges.balogog@yahoo.fr  
+- 💼 **LinkedIn** : [linkedin.com/in/balogog-georges-6810b9118](https://www.linkedin.com/in/balogog-georges-6810b9118)
+
+*N’hésitez pas à me contacter pour des collaborations en data science, optimisation, data engineering ou recherche appliquée.*

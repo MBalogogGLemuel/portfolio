@@ -50,7 +50,7 @@ Pipelines from various data sources (SQL Server, Excel, APIs) to Power BI dashbo
 
 **Tech:**  Azure Databrick · SQL · Power BI · ETL/ELT · Data quality monitoring · DAX
 :::
-[Read more →](../fr/projects/index.qmd)
+[Read more →](../en/projects/index.qmd)
 :::
 
 ## What I Do
@@ -81,6 +81,16 @@ Building robust and scalable data pipelines.
 ::: {.what-card}
 ### Heuristic & Metaheuristic Algorithms
 Designing algorithms for complex problem-solving.
+:::
+
+:::{.what-card}
+### Visualisation & BI
+Creating interactive dashboards for decision-making.
+:::
+
+:::{.what-card}
+### Electrical Engineering & Embedded Systems
+Conception et optimisation de systèmes électriques.
 :::
 
 :::

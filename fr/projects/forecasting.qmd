@@ -1,323 +1,479 @@
 ---
-title: "Forecasting"
+title: "Prévision"
 toc: true
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
-# Forecasting
+Mon travail de prévision se concentre sur **la prévision robuste
+orientée vers la décision**, où l'interprétabilité, la stabilité à
+travers les saisons et les hypothèses réalistes comptent plus que les
+gains marginaux de précision.
 
-My forecasting work focuses on **robust decision-oriented forecasting**, where interpretability, stability across seasons, and realistic assumptions matter more than marginal gains in accuracy.
+Le projet suivant est basé sur une étude complète de bout en bout de
+prévision de la demande d'électricité menée sur **10 ans de données de
+charge horaire** pour un grand fournisseur d'énergie américain. Il
+démontre comment **les contraintes opérationnelles, la quantification de
+l'incertitude et la robustesse du modèle** doivent guider la
+méthodologie de prévision—pas seulement les métriques de performance
+statistique.
 
-The following project is based on a full end-to-end electricity demand forecasting study conducted on **10 years of hourly load data** for a major U.S. utility. It demonstrates how **operational constraints, uncertainty quantification, and model robustness** should drive forecasting methodology—not just statistical performance metrics.
+------------------------------------------------------------------------
 
----
+## Prévision de la demande d'électricité — JC Power & Light (NJ)
 
-## Electricity Demand Forecasting — JC Power & Light (NJ)
+### Contexte
 
-### Context
+Jersey Central Power & Light (JCP&L) dessert environ **1,1 million de
+clients** sur **3 200 miles carrés** dans le New Jersey, représentant
+environ **12% de la population de l'État**. Le mix électrique est dominé
+par **le gaz naturel et le nucléaire**, avec des énergies renouvelables
+limitées, conduisant à une forte sensibilité météorologique.
 
-Jersey Central Power & Light (JCP&L) serves approximately **1.1 million customers** over **3,200 square miles** in New Jersey, representing roughly **12% of the state's population**. The electricity mix is dominated by **natural gas and nuclear**, with limited renewables, leading to strong weather sensitivity.
+![Carte de la zone de service JCP&L dans le réseau
+PJM](../assets/forecasting/jcpl.png) *Territoire de service de
+FirstEnergy montrant la zone JCP&L (en jaune) dans le New Jersey*
 
-The operational objective was **short-term load forecasting** that remains reliable across:
-- **Seasonal transitions** (heating vs. cooling demand),
-- **Extreme weather events** (heatwaves, cold snaps, storms),
-- **Structural changes** (grid modernization, demand response programs, economic shifts).
+![Comtés desservis par JCP&L au New
+Jersey](../assets/forecasting/nj2.png) *Détail des régions du New Jersey
+couvertes par JCP&L*
 
-This is not an academic exercise in minimizing MAPE on a test set. This is about **building forecasts that operators trust, that survive edge cases, and that degrade gracefully when assumptions break**.
+L'objectif opérationnel était **la prévision de charge à court terme**
+qui reste fiable à travers : - **Les transitions saisonnières** (demande
+de chauffage vs. climatisation), - **Les événements météorologiques
+extrêmes** (canicules, vagues de froid, tempêtes), - **Les changements
+structurels** (modernisation du réseau, programmes de réponse à la
+demande, changements économiques).
 
----
+Ce n'est pas un exercice académique visant à minimiser le MAPE sur un
+ensemble de test. Il s'agit de **construire des prévisions auxquelles
+les opérateurs font confiance, qui survivent aux cas limites, et qui se
+dégradent gracieusement lorsque les hypothèses se brisent**.
 
-### Data & Exploratory Analysis
+------------------------------------------------------------------------
 
-**Dataset characteristics:**
-- **10 years of hourly load data** (≈ 87,600 observations)
-- No missing values
-- Strong **weekly and yearly seasonality**
-- Clear correlation with weather variables (temperature, snow, precipitation)
-- Several **major outage events**, manually audited and imputed when they had a measurable impact on peak load
+### Données & analyse exploratoire
 
-**Exploratory findings:**
+**Caractéristiques du jeu de données :** - **10 ans de données de charge
+horaire** (≈ 87 600 observations) - Aucune valeur manquante - Forte
+**saisonnalité hebdomadaire et annuelle** - Corrélation claire avec les
+variables météorologiques (température, neige, précipitations) -
+Plusieurs **événements de panne majeurs**, audités manuellement et
+imputés lorsqu'ils avaient un impact mesurable sur la charge de pointe
 
-**Seasonality patterns:**
-- **Winter peaks** driven by heating demand (natural gas, electric heating)
-- **Summer peaks** driven by cooling demand (air conditioning saturation)
-- **Shoulder seasons** (Spring/Fall) with lower overall demand but higher volatility
+![Données d'entraînement et de validation - Demande
+horaire](../assets/forecasting/datasplit.png) *Séries temporelles
+d'entraînement (2015-2019) et de validation (2020-2024)*
 
-**Weather sensitivity:**
-- Strong nonlinear relationship between temperature and load
-- Temperature extremes (below 20°F, above 90°F) trigger rapid demand acceleration
-- Humidity and wind chill amplify weather effects
+**Résultats exploratoires :**
 
-**Structural breaks:**
-- Post-2008 financial crisis: demand plateau and gradual recovery
-- Energy efficiency programs: gradual baseload reduction
-- Demand response events: sharp, temporary load reductions during peak pricing
+**Schémas de saisonnalité :** - **Pics hivernaux** dus à la demande de
+chauffage (gaz naturel, chauffage électrique) - **Pics estivaux** dus à
+la demande de climatisation (saturation de la climatisation) - **Saisons
+intermédiaires** (Printemps/Automne) avec une demande globale plus
+faible mais une volatilité plus élevée
 
-**Outlier treatment philosophy:**
+|  |  |
+|------------------------------------|------------------------------------|
+| ![Événements de tempête majeurs affectant la charge](../assets/forecasting/storm.png) | ![](../assets/forecasting/stormlist.png) |
 
-Special attention was paid to **outlier treatment**—only incidents that clearly disrupted load patterns were adjusted, to avoid over-smoothing real operational stress signals.
+*Impact des tempêtes sur la demande horaire (pannes et récupération)*
 
-Why this matters:
-- **Over-cleaning** data removes valuable information about system behavior under stress
-- **Under-cleaning** data trains models on anomalies that won't generalize
-- The right approach: **audit outliers manually, understand root causes, impute only when necessary**
+**Sensibilité météorologique :** - Relation non linéaire forte entre
+température et charge - Les températures extrêmes (en dessous de 20°F,
+au-dessus de 90°F) déclenchent une accélération rapide de la demande -
+L'humidité et le refroidissement éolien amplifient les effets
+météorologiques
 
-For example:
-- Major storm outage affecting 500k+ customers → **Imputed** (not representative of normal load)
-- Heatwave driving record peak demand → **Retained** (this is exactly what the model needs to learn)
+![Corrélations météorologiques non lineaire avec la
+demande](../assets/forecasting/rawweather.png)
 
-This is the difference between **statistical convenience** and **operational relevance**.
+*Relations entre température, vent, précipitations, neige et demande de
+pointe quotidienne*
 
----
+**Ruptures structurelles :** - Post-crise financière de 2008 : plateau
+de demande et reprise graduelle - Programmes d'efficacité énergétique :
+réduction graduelle de la charge de base - Événements de réponse à la
+demande : réductions de charge brutales et temporaires pendant la
+tarification de pointe
 
-### Feature Engineering
+**Philosophie de traitement des valeurs aberrantes :**
 
-Forecasting was framed as a **regression problem with temporal structure**—combining the interpretability of regression with the temporal dynamics of ARIMA.
+Une attention particulière a été accordée au **traitement des valeurs
+aberrantes**—seuls les incidents qui ont clairement perturbé les schémas
+de charge ont été ajustés, pour éviter de sur-lisser les signaux de
+stress opérationnel réels.
 
-**Key engineered features:**
+Pourquoi cela importe : - **Sur-nettoyage** des données supprime des
+informations précieuses sur le comportement du système sous stress -
+**Sous-nettoyage** des données entraîne les modèles sur des anomalies
+qui ne se généraliseront pas - La bonne approche : **auditer les valeurs
+aberrantes manuellement, comprendre les causes profondes, imputer
+seulement si nécessaire**
 
-**1. Thermal comfort indices:**
-- **Heating Degree Days (HDD):** Captures heating demand when temperature drops below 65°F
-- **Cooling Degree Days (CDD):** Captures cooling demand when temperature exceeds 65°F
-- **Wind chill indicators:** Adjusts perceived temperature for wind effects
-```python
-# Heating and Cooling Degree Days
-df['HDD'] = np.maximum(65 - df['temperature'], 0)
-df['CDD'] = np.maximum(df['temperature'] - 65, 0)
+Par exemple : - Panne majeure de tempête affectant 500k+ clients →
+**Imputé** (pas représentatif de la charge normale) - Canicule
+entraînant une demande de pointe record → **Conservé** (c'est exactement
+ce que le modèle doit apprendre)
 
-# Wind chill adjustment
-df['wind_chill'] = 35.74 + 0.6215*df['temperature'] - 35.75*(df['wind_speed']**0.16) + 0.4275*df['temperature']*(df['wind_speed']**0.16)
+C'est la différence entre **la commodité statistique** et **la
+pertinence opérationnelle**.
+
+------------------------------------------------------------------------
+
+### Ingénierie des caractéristiques
+
+La prévision a été formulée comme un **problème de régression avec
+structure temporelle**—combinant l'interprétabilité de la régression
+avec la dynamique temporelle d'ARIMA.
+
+**Caractéristiques clés ingéniérées :**
+
+**1. Indices de confort thermique :** - **Heating Degree Days (HDD) :**
+Capture la demande de chauffage lorsque la température descend en
+dessous de 65°F - **Cooling Degree Days (CDD) :** Capture la demande de
+climatisation lorsque la température dépasse 65°F - **Indicateurs de
+refroidissement éolien :** Ajuste la température perçue pour les effets
+du vent
+
+``` r
+# Heating et Cooling Degree Days
+df$HDD <- pmax(65 - df$temperature, 0)
+df$CDD <- pmax(df$temperature - 65, 0)
 ```
 
-**2. Lagged weather variables:**
-- **Lag 1 and Lag 2 temperature:** Accounts for thermal inertia in buildings
-- **Lag 1 precipitation:** Captures delayed behavioral responses (e.g., reduced commercial activity)
-```python
-# Lagged features
-df['temp_lag1'] = df['temperature'].shift(1)
-df['temp_lag2'] = df['temperature'].shift(2)
-df['precip_lag1'] = df['precipitation'].shift(1)
-```
+![Corrélations météorologiques non lineaire avec la
+demande](../assets/forecasting/cddhdd.png)
 
-**3. Calendar effects:**
-- **Weekday indicators:** Mon-Fri vs. weekends have fundamentally different load profiles
-- **Holiday flags:** Major holidays (Thanksgiving, Christmas, July 4th) show distinct patterns
-- **Hour of day:** Captures intraday demand cycles
-```python
-# Calendar features
-df['weekday'] = df['timestamp'].dt.dayofweek
-df['is_weekend'] = df['weekday'].isin([5, 6]).astype(int)
-df['is_holiday'] = df['timestamp'].isin(holiday_dates).astype(int)
-df['hour'] = df['timestamp'].dt.hour
-```
+**2. Variables météorologiques décalées :** - **Température Lag 1 et Lag
+2 :** Tient compte de l'inertie thermique dans les bâtiments -
+**Précipitations Lag 1 :** Capture les réponses comportementales
+retardées
 
-**4. Autoregressive structure via ARMA errors:**
+**3. Effets calendaires :** - **Indicateurs de jour de semaine :**
+Lun-Ven vs. week-ends ont des profils de charge fondamentalement
+différents - **Indicateurs de jours fériés :** Les jours fériés majeurs
+présentent des schémas distincts - **Heure de la journée :** Capture les
+cycles de demande intrajournaliers
 
-Instead of pure regression, models were specified as **regression with ARMA errors**, capturing both:
-- **Exogenous drivers** (weather, calendar) via regression coefficients
-- **Temporal autocorrelation** (persistence, short-term trends) via ARMA structure
-```python
-from statsmodels.tsa.arima.model import ARIMA
+![Schémas hebdomadaires de
+demande](../assets/forecasting/sesonalite.png)
 
-# Regression with ARMA(2,1) errors
-model = ARIMA(
-    endog=load,
-    exog=weather_features,
-    order=(2, 0, 1)  # AR(2), no differencing, MA(1)
-)
-results = model.fit()
-```
+*Profils de demande hebdomadaire typiques montrant les variations
+jour/semaine*
 
-**5. Realistic temperature forecast noise injection:**
+**4. Structure autorégressive via erreurs ARMA :**
 
-To reflect real-world uncertainty, **temperature forecast noise** was injected into the regression inputs, simulating realistic weather forecast errors.
+Au lieu d'une régression pure, les modèles ont été spécifiés comme
+**régression avec erreurs ARMA**, capturant à la fois : - **Facteurs
+exogènes** (météo, calendrier) via coefficients de régression -
+**Autocorrélation temporelle** (persistance, tendances à court terme)
+via structure ARMA
 
-This is critical because:
-- In production, you don't have **actual** temperature—you have **forecasted** temperature
-- Weather forecasts have inherent uncertainty (±2-3°F typical error)
-- Models trained on perfect weather perform worse in production than models trained on noisy weather
-```python
-# Inject realistic temperature forecast noise
-temperature_forecast_error_std = 2.5  # degrees F
-df['temp_forecast'] = df['temperature'] + np.random.normal(0, temperature_forecast_error_std, len(df))
+On considère un modèle de régression dynamique avec erreurs ARMA$(2,1)$
+:
 
-# Train on forecasted temperature, not actual
-X = df[['temp_forecast', 'HDD', 'CDD', 'wind_chill', 'temp_lag1', 'is_weekend', 'hour']]
-```
+\[ y_t = \mathbf{x}\_t\^\top \boldsymbol{\beta} + u_t \]
 
-**This is what separates academic forecasting from operational forecasting:** training on the data you'll actually have, not the data you wish you had.
+où :
 
----
+\begin{itemize}
+  \item $y_t$ représente la charge électrique au temps $t$,
+  \item $\mathbf{x}_t$ est le vecteur des variables exogènes (conditions météorologiques),
+  \item $\boldsymbol{\beta}$ est le vecteur des coefficients de régression,
+  \item $u_t$ est un terme d'erreur autocorrélé.
+\end{itemize}
 
-### Models Evaluated
+Le processus d'erreur suit un modèle ARMA$(2,1)$ :
 
-A wide range of models were compared under a **rolling validation protocol**—not a single train/test split, but repeated validation across multiple time windows to assess stability.
+\[ u_t = \phi*1 u*{t-1} + \phi*2 u*{t-2} + \varepsilon\_t + \theta*1*
+\varepsilon{t-1}, \qquad \varepsilon\_t \sim \mathcal{N}(0, \sigma\^2)
+\]
 
-**Model families tested:**
+Ce modèle correspond à une spécification ARIMA$(2,0,1)$ avec variables
+exogènes, estimée par maximum de vraisemblance.
 
-**1. Naïve baselines:**
-- **Naïve forecast:** Tomorrow = Today
-- **Seasonal naïve:** Tomorrow = Same day last week
+**5. Injection réaliste de bruit de prévision de température :**
 
-**2. Exponential smoothing:**
-- **SES (Simple Exponential Smoothing):** Weighted average of past observations
-- **Holt's method:** Adds linear trend
-- **Holt-Winters:** Adds seasonal components
-- **ETS (Error-Trend-Seasonal):** Automated selection of smoothing components
-- **TBATS:** Complex seasonality with Fourier terms
+Pour refléter l'incertitude du monde réel, **du bruit de prévision de
+température** a été injecté dans les entrées de régression, simulant des
+erreurs de prévision météorologique réalistes.
 
-**3. ARIMA family:**
-- **SARIMA:** Seasonal ARIMA with Box-Cox transformation
-- **SARIMAX:** SARIMA with exogenous weather variables
+Ceci est critique parce que : - En production, vous n'avez pas la
+température **réelle**—vous avez la température **prévue** - Les
+prévisions météorologiques ont une incertitude inhérente (erreur typique
+de ±2-3°F) - Les modèles entraînés sur une météo parfaite performent
+moins bien en production que les modèles entraînés sur une météo bruitée
 
-**4. Regression-based:**
-- **Linear regression with ARMA errors:** Combines interpretability with temporal structure
-- **ARX (Autoregressive Exogenous):** Regression with autoregressive dynamics
+\[ \tilde{T}\_t = T_t + \varepsilon\_t \]
 
-**5. Machine learning (exploration, not production):**
-- **Random Forest:** Ensemble of decision trees
-- **Gradient Boosting (XGBoost):** Sequential boosting
-- **LSTM (RNN):** Deep learning for sequential data
+où :
 
-**Evaluation protocol:**
+\begin{itemize}
+  \item $T_t$ est la température observée au temps $t$,
+  \item $\tilde{T}_t$ est la température de prévision,
+  \item $\varepsilon_t \sim \mathcal{N}(0, \sigma_T^2)$ est une erreur de prévision gaussienne.
+\end{itemize}
 
-Models were evaluated using:
-- **MAPE (Mean Absolute Percentage Error):** Industry-standard accuracy metric
-- **RMSE (Root Mean Squared Error):** Penalizes large errors more heavily
-- **MAE (Mean Absolute Error):** Robust to outliers
+Dans nos simulations, l’écart-type de l’erreur de prévision est fixé à
+$\sigma_T = 2.5$ degrés Fahrenheit, ce qui correspond à une incertitude
+réaliste à court terme dans les prévisions de température.
 
-With seasonal breakdowns (Winter, Spring, Summer, Fall) and statistical comparison via **Diebold–Mariano tests** to determine if performance differences were statistically significant.
+**C'est ce qui sépare la prévision académique de la prévision
+opérationnelle :** s'entraîner sur les données que vous aurez
+réellement, pas sur les données que vous souhaiteriez avoir.
 
-**Rolling validation:**
-- Train on 8 years of data
-- Test on next 6 months
-- Roll forward 3 months
-- Repeat
+------------------------------------------------------------------------
 
-This ensures models are evaluated on their ability to **generalize forward in time**, not just fit historical patterns.
+### Modèles évalués
 
----
+Une large gamme de modèles a été comparée selon un **protocole de
+validation glissante**—pas une seule division train/test, mais une
+validation répétée sur plusieurs fenêtres temporelles pour évaluer la
+stabilité.
 
-### Key Results
+**Familles de modèles testées :**
 
-**Performance summary:**
+**1. Références naïves :** - **Prévision naïve :** Demain =
+Aujourd'hui - **Naïf saisonnier :** Demain = Même jour la semaine
+dernière
 
-✅ **Linear regression with realistic temperature noise** consistently outperformed classical time-series models across **Winter, Spring, and Summer**
+**2. Lissage exponentiel :** - **SES (Simple Exponential Smoothing) :**
+Moyenne pondérée des observations passées - **Méthode de Holt :** Ajoute
+une tendance linéaire - **Holt-Winters :** Ajoute des composantes
+saisonnières - **ETS (Error-Trend-Seasonal) :** Sélection automatisée
+des composantes de lissage - **TBATS :** Saisonnalité complexe avec
+termes de Fourier
 
-✅ Performance in Fall was comparable across several models (lower demand variability reduces model differentiation)
+**3. Famille ARIMA :** - **SARIMA :** ARIMA saisonnier avec
+transformation Box-Cox - **SARIMAX :** SARIMA avec variables
+météorologiques exogènes
 
-❌ Classical models (SARIMA, Holt-Winters, ETS, TBATS) showed **systematic degradation** in volatile or irregular periods (cold snaps, heatwaves, post-holiday transitions)
+**4. Basés sur la régression :** - **Régression linéaire avec erreurs
+ARMA :** Combine interprétabilité et structure temporelle - **ARX
+(Autoregressive Exogenous) :** Régression avec dynamique autorégressive
 
-❌ Naïve baselines failed to capture seasonal dynamics and weather sensitivity
+**5. Apprentissage automatique (exploration, pas production) :** -
+**Random Forest :** Ensemble d'arbres de décision - **Gradient Boosting
+(XGBoost) :** Boosting séquentiel - **LSTM (RNN) :** Apprentissage
+profond pour données séquentielles
 
-**Quantitative comparison (average across seasons):**
+**Protocole d'évaluation :**
 
-| Model | MAPE (%) | RMSE (MW) | MAE (MW) |
-|-------|----------|-----------|----------|
-| Naïve | 8.2 | 420 | 310 |
-| Seasonal Naïve | 6.5 | 380 | 285 |
-| Holt-Winters | 4.8 | 295 | 225 |
-| SARIMA | 4.2 | 270 | 210 |
-| ETS | 4.0 | 265 | 205 |
-| **Regression + ARMA + Noise** | **3.4** | **235** | **180** |
+Les modèles ont été évalués en utilisant : - **MAPE (Mean Absolute
+Percentage Error) :** Métrique de précision standard de l'industrie -
+**RMSE (Root Mean Squared Error) :** Pénalise davantage les grandes
+erreurs - **MAE (Mean Absolute Error) :** Robuste aux valeurs aberrantes
 
-**Why regression won:**
+Avec des décompositions saisonnières (Hiver, Printemps, Été, Automne) et
+comparaison statistique via **tests de Diebold-Mariano** pour déterminer
+si les différences de performance étaient statistiquement
+significatives.
 
-1. **Weather integration:** Explicit temperature, HDD/CDD features captured nonlinear weather effects better than implicit SARIMA seasonality
-2. **Realistic training:** Injecting forecast noise made the model robust to weather forecast errors
-3. **Interpretability:** Coefficients have clear operational meaning (e.g., "1°F increase → 50 MW load increase")
-4. **Stability:** Performance didn't degrade sharply during extreme events
+**Validation glissante :** - Entraînement sur 8 ans de données - Test
+sur les 6 prochains mois - Avancer de 3 mois - Répéter
 
-**Failure modes of classical models:**
+Cela garantit que les modèles sont évalués sur leur capacité à **se
+généraliser dans le temps**, pas seulement à s'ajuster aux schémas
+historiques.
 
-- **SARIMA:** Struggled with structural breaks (demand response events, economic shifts)
-- **Holt-Winters:** Over-smoothed during rapid transitions (sudden cold snaps)
-- **TBATS:** Computationally expensive, marginal improvement over simpler models
-- **LSTM:** Required extensive hyperparameter tuning, opaque predictions, no better than regression
+------------------------------------------------------------------------
 
-The regression-based approach achieved a **strong balance between accuracy, robustness, and interpretability**, making it suitable for operational deployment.
+### Résultats clés
 
----
+**Résumé de la performance :**
 
-### Implementation & Deployment Considerations
+✅ **La régression linéaire avec bruit de température réaliste** a
+systématiquement surpassé les modèles de séries temporelles classiques à
+travers **Hiver, Printemps et Été**
 
-**What made this model production-ready:**
+✅ Performance en Automne comparable entre plusieurs modèles
+(variabilité de demande plus faible réduit la différenciation des
+modèles)
 
-✅ **Automated feature engineering pipeline:** Reproducible, testable, version-controlled
-```python
+❌ Les modèles classiques (SARIMA, Holt-Winters, ETS, TBATS) ont montré
+**une dégradation systématique** dans les périodes volatiles ou
+irrégulières (vagues de froid, canicules, transitions post-vacances)
+
+❌ Les références naïves ont échoué à capturer la dynamique saisonnière
+et la sensibilité météorologique
+
+![Comparaison des erreurs MAPE par saison - Modèles
+naïfs](/path/to/graphics_naive_comparison.png) *Source :
+Graphics_JCPL_Final.pdf - Pages 10-11 - Performance des méthodes naïves
+et de lissage simple par saison*
+
+**Comparaison quantitative (moyenne sur les saisons) :**
+
+| Modèle                        | MAPE (%) | RMSE (MW) | MAE (MW) |
+|-------------------------------|----------|-----------|----------|
+| Naïf                          | 8.2      | 420       | 310      |
+| Naïf saisonnier               | 6.5      | 380       | 285      |
+| Holt-Winters                  | 4.8      | 295       | 225      |
+| SARIMA                        | 4.2      | 270       | 210      |
+| ETS                           | 4.0      | 265       | 205      |
+| **Régression + ARMA + Bruit** | **3.4**  | **235**   | **180**  |
+
+![Performance des modèles de lissage
+exponentiel](/path/to/graphics_exponential_smoothing.png) *Source :
+Graphics_JCPL_Final.pdf - Pages 12-15 - Holt, Holt-Winters
+additif/multiplicatif, ETS avec erreurs par saison*
+
+**Pourquoi la régression a gagné :**
+
+1.  **Intégration météorologique :** Les caractéristiques explicites de
+    température, HDD/CDD ont mieux capturé les effets météorologiques
+    non linéaires que la saisonnalité implicite de SARIMA
+2.  **Entraînement réaliste :** L'injection de bruit de prévision a
+    rendu le modèle robuste aux erreurs de prévision météorologique
+3.  **Interprétabilité :** Les coefficients ont une signification
+    opérationnelle claire (ex. "1°F d'augmentation → 50 MW
+    d'augmentation de charge")
+4.  **Stabilité :** La performance ne s'est pas dégradée brutalement
+    pendant les événements extrêmes
+
+![Construction et impact du refroidissement
+éolien](/path/to/graphics_windchill.png) *Source :
+Graphics_JCPL_Final.pdf - Page 16 - Construction du refroidissement
+éolien et son impact sur la demande*
+
+![Diagnostics de régression
+linéaire](/path/to/graphics_regression_diagnostics.png) *Source :
+Graphics_JCPL_Final.pdf - Pages 17-21 - Diagnostics résiduels et
+ajustement du modèle de régression*
+
+**Modes d'échec des modèles classiques :**
+
+-   **SARIMA :** A eu du mal avec les ruptures structurelles (événements
+    de réponse à la demande, changements économiques)
+-   **Holt-Winters :** Sur-lissage pendant les transitions rapides
+    (vagues de froid soudaines)
+-   **TBATS :** Coûteux en calcul, amélioration marginale par rapport
+    aux modèles plus simples
+-   **LSTM :** Nécessitait un réglage intensif des hyperparamètres,
+    prédictions opaques, pas meilleur que la régression
+
+![ACF/PACF et analyse de stationnarité](/path/to/graphics_acf_pacf.png)
+*Source : Graphics_JCPL_Final.pdf - Pages 22-29 - Fonctions
+d'autocorrélation et tests de stationnarité*
+
+![Diagnostics des modèles
+ARIMA/SARIMA](/path/to/graphics_arima_diagnostics.png) *Source :
+Graphics_JCPL_Final.pdf - Pages 30-33 - Diagnostics résiduels pour
+différentes spécifications ARIMA*
+
+L'approche basée sur la régression a atteint un **équilibre solide entre
+précision, robustesse et interprétabilité**, la rendant appropriée pour
+le déploiement opérationnel.
+
+------------------------------------------------------------------------
+
+### Considérations de mise en œuvre et de déploiement
+
+**Ce qui a rendu ce modèle prêt pour la production :**
+
+✅ **Pipeline automatisé d'ingénierie de caractéristiques :**
+Reproductible, testable, sous contrôle de version
+
+``` python
 def engineer_features(df_raw):
     """
-    Transform raw load and weather data into model-ready features.
+    Transformer les données brutes de charge et météo en caractéristiques 
+    prêtes pour le modèle.
     """
     df = df_raw.copy()
     
-    # Thermal indices
+    # Indices thermiques
     df['HDD'] = np.maximum(65 - df['temperature'], 0)
     df['CDD'] = np.maximum(df['temperature'] - 65, 0)
     
-    # Lags
+    # Décalages
     df['temp_lag1'] = df['temperature'].shift(1)
     df['temp_lag2'] = df['temperature'].shift(2)
     
-    # Calendar
+    # Calendrier
     df['weekday'] = df['timestamp'].dt.dayofweek
     df['is_weekend'] = df['weekday'].isin([5, 6]).astype(int)
     df['hour'] = df['timestamp'].dt.hour
     
-    # Inject realistic noise
+    # Injecter du bruit réaliste
     df['temp_forecast'] = df['temperature'] + np.random.normal(0, 2.5, len(df))
     
     return df
 ```
 
-✅ **Rolling retraining:** Model refit every week with latest data to adapt to structural changes
+✅ **Réentraînement glissant :** Modèle réajusté chaque semaine avec les
+dernières données pour s'adapter aux changements structurels
 
-✅ **Monitoring & alerting:** Track forecast errors in real-time, flag when MAPE exceeds thresholds
+✅ **Surveillance et alertes :** Suivi des erreurs de prévision en temps
+réel, alerte lorsque le MAPE dépasse les seuils
 
-✅ **Stakeholder communication:** Forecast outputs include confidence intervals and scenario analysis (optimistic/pessimistic weather)
+✅ **Communication avec les parties prenantes :** Les sorties de
+prévision incluent des intervalles de confiance et une analyse de
+scénarios (météo optimiste/pessimiste)
 
-**What didn't make it to production:**
+**Ce qui n'a pas été mis en production :**
 
-❌ **LSTM models:** Too opaque, required GPUs, marginal performance gain didn't justify complexity
+❌ **Modèles LSTM :** Trop opaques, nécessitaient des GPU, gain de
+performance marginal ne justifiait pas la complexité
 
-❌ **Ensemble methods:** Stacking multiple models increased maintenance burden without reliability improvement
+❌ **Méthodes d'ensemble :** L'empilage de plusieurs modèles a augmenté
+la charge de maintenance sans amélioration de fiabilité
 
-❌ **Ultra-short-term forecasting (15-min ahead):** Operational need was day-ahead; adding complexity for 15-min didn't add value
+❌ **Prévision ultra-court terme (15 min à l'avance) :** Le besoin
+opérationnel était jour-à-jour ; ajouter de la complexité pour 15 min
+n'ajoutait pas de valeur
 
----
+------------------------------------------------------------------------
 
-### Takeaways
+### Points à retenir
 
-This project reinforced a key principle:
+Ce projet a renforcé un principe clé :
 
-> **In operational forecasting, robustness under uncertainty matters more than theoretical optimality under perfect information.**
+> **Dans la prévision opérationnelle, la robustesse sous incertitude
+> compte plus que l'optimalité théorique sous information parfaite.**
 
-Regression-based models with well-chosen predictors remain highly competitive when combined with:
-- **Realistic assumptions** (noisy weather forecasts, not perfect actuals),
-- **Proper evaluation protocols** (rolling validation, seasonal breakdowns, statistical testing),
-- **Operational constraints** (interpretability, computational feasibility, monitoring).
+Les modèles basés sur la régression avec des prédicteurs bien choisis
+restent hautement compétitifs lorsqu'ils sont combinés avec : - **Des
+hypothèses réalistes** (prévisions météo bruitées, pas des valeurs
+réelles parfaites), - **Des protocoles d'évaluation appropriés**
+(validation glissante, décompositions saisonnières, tests
+statistiques), - **Des contraintes opérationnelles** (interprétabilité,
+faisabilité computationnelle, surveillance).
 
-**Broader lessons:**
+**Leçons plus larges :**
 
-1. **Inject realism early:** Training on perfect data creates brittle models
-2. **Validate across seasons:** A model that works in Summer might fail in Winter
-3. **Prioritize interpretability:** Operators need to understand *why* a forecast changed
-4. **Beware complexity for complexity's sake:** LSTM didn't beat regression because the problem structure favored explicit feature engineering
+1.  **Injecter du réalisme tôt :** S'entraîner sur des données parfaites
+    crée des modèles fragiles
+2.  **Valider à travers les saisons :** Un modèle qui fonctionne en été
+    peut échouer en hiver
+3.  **Prioriser l'interprétabilité :** Les opérateurs doivent comprendre
+    *pourquoi* une prévision a changé
+4.  **Se méfier de la complexité pour la complexité :** LSTM n'a pas
+    battu la régression parce que la structure du problème favorisait
+    l'ingénierie explicite de caractéristiques
 
-**This is the difference between forecasting as a statistical exercise and forecasting as an operational capability.**
+**C'est la différence entre la prévision comme exercice statistique et
+la prévision comme capacité opérationnelle.**
 
----
+------------------------------------------------------------------------
 
-**Tech Stack:**  
-Python · Statsmodels · Scikit-learn · Pandas · NumPy · Matplotlib · Seaborn
+**Stack technique :**\
+Python · Statsmodels · Scikit-learn · Pandas · NumPy · Matplotlib ·
+Seaborn
 
-**Repository:**  
-[GitHub – Electricity Demand Forecasting](https://github.com/MBalogogGLemuel) *Realesed soon*
+**Dépôt :**\
+[GitHub – Prévision de la demande
+d'électricité](https://github.com/MBalogogGLemuel) *Bientôt disponible*
 
-**Related Work:**  
-- [Why Feasibility Matters More Than Optimality](/blog/feasibility-over-optimality)
-- [Can AI Really Think About Model Design?](/blog/ai-model-design)
+**Travaux connexes :**\
+- [Pourquoi la faisabilité compte plus que
+l'optimalité](/blog/feasibility-over-optimality) - [L'IA peut-elle
+vraiment réfléchir à la conception de modèles ?](/blog/ai-model-design)
 
----
+------------------------------------------------------------------------
 
-*Forecasting is not about predicting the future.*  
-*It's about making decisions today that remain robust tomorrow.*
+*La prévision ne consiste pas à prédire l'avenir.*\
+*Il s'agit de prendre des décisions aujourd'hui qui restent robustes
+demain.*

@@ -1,38 +1,42 @@
 ---
-title: "Projects"
+title: "Projets"
 toc: false
 ---
 
-# Projects
+# Projets
 
-This section groups my work into a few themes.  
-Each page contains **selected projects**, with a short **problem framing**, **method**, **deliverables**, and links to code when available.
+Cette section regroupe mon travail en quelques thèmes.  
+Chaque page contient des **projets sélectionnés**, avec une brève **formulation du problème**, **méthode**, **livrables**, et des liens vers le code lorsque disponible.
 
-## Choose a category
+## Par catégorie
 
-- [Forecasting](forecasting.qmd)
+- [Prévision](forecasting.qmd)
 - [Optimisation déterministe (MILP)](optimisation.qmd)
 - [Optimisation stochastique](stochastic.qmd)
-- [Reinforcement Learning](rl.qmd)
+- [Apprentissage par renforcement](rl.qmd)
 <!-- - [Bayésien & Statistiques](bayes.qmd) -->
 <!-- - [Data Engineering & MLOps](dataeng_mlops.qmd) -->
 <!-- - [LLM](llm.qmd) -->
 
 ---
 
-## Highlights
+## Points cles
 
-### Warehouse Optimization — Slotting / Picking / Replenishment (MILP)
-A modular MILP framework for warehouse decisions across time (placement, picking, replenishment), with KPI tracking (occupancy, dispersion, distance-to-depot, movement cost).  
-**Tech:** Python · PuLP/Gurobi · Plotly · NetworkX  
-**Repo:** *Released soon*
+### [Prévision de la demande énergétique — Statistique](forecasting.qmd)
+Pipeline de prévision de bout en bout pour la demande énergétique avec évaluation glissante et rapports prêts pour la production.  
+**Tech :** R · Forecasting 
+**Repo :** *Bientôt disponible*
 
-### Energy Demand Forecasting — Statistical + Deep Learning
-End-to-end forecasting pipeline for energy demand with rolling evaluation and production-ready reporting.  
-**Tech:** Python · Statsmodels · TensorFlow · Scikit-learn · Plotly  
-**Repo:** *Released soon*
 
-### Data Engineering & BI — ERP to Dashboards
-Data pipelines from operational systems to analytics layers and Power BI dashboards, with data quality checks and KPI definitions.  
-**Tech:** SQL · Power BI · Python · ETL/ELT · Databricks  
-**Repo:** *Released soon*
+
+### Optimisation d'entrepôt — Allocation / Prélèvement / Réapprovisionnement (MILP)
+Un cadre MILP modulaire pour les décisions d'entrepôt dans le temps (placement, prélèvement, réapprovisionnement), avec suivi des KPI (occupation, dispersion, distance au dépôt, coût de mouvement).  
+**Tech :** Python · PuLP/Gurobi · Plotly · NetworkX  
+**Repo :** *Bientôt disponible*
+
+
+
+### Data Engineering & BI — ERP vers tableaux de bord
+Pipelines de données des systèmes opérationnels vers les couches analytiques et tableaux de bord Power BI, avec contrôles de qualité des données et définitions de KPI.  
+**Tech :** SQL · Power BI · Python · ETL/ELT · Databricks  
+**Repo :** *Bientôt disponible*

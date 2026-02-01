@@ -5,37 +5,38 @@ toc: false
 
 # Blog
 
-This blog is a space for **technical reflections on data science, optimization, and AI systems**.
+Ce blog est un espace dédié aux **réflexions techniques sur la data science, l’optimisation et les systèmes d’IA**.
 
-I focus on **model design, decision-making, and operational realism**, often taking a
-**skeptical stance toward current AI hype**, especially when AI is presented as a
-replacement for structured reasoning in optimization and forecasting.
-
----
-
-## Recent posts
-
-### ❖ Can AI really *think* about model design?
-**A critical look at large language models and their limits in scientific reasoning**
-
-👉 [Read article →](2026-ia-illusion-thinking.qmd)
+Je m’y concentre sur la **conception des modèles, la prise de décision et le réalisme opérationnel**, en adoptant souvent une
+**posture critique face au battage médiatique actuel autour de l’IA**, en particulier lorsque celle-ci est présentée comme un
+substitut au raisonnement structuré en optimisation et en prévision.
 
 ---
 
-### ❖ Why optimization problems expose the limits of AI reasoning
-**Where heuristics, feasibility, and constraints defeat pattern-based intelligence**
+## Articles récents
 
-👉 [Read article →](2026-ia-optimization-limits.qmd)
+### ❖ L’IA peut-elle vraiment *penser* la conception des modèles ?
+**Une analyse critique des grands modèles de langage et de leurs limites en raisonnement scientifique**
 
-### ❖ Why feasibility matters more than optimality
-**The operational importance of feasible solutions over theoretically optimal ones**
-👉 [Read article →](feasibility-over-optimality.qmd)
+👉 [Lire l’article →](2026-ia-illusion-thinking.qmd)
 
 ---
 
-## Topics covered
-- Optimization & MILP modeling
-- Forecasting and time series
-- Model evaluation and failure modes
-- MLOps and production constraints
-- Lessons from real industrial projects
+### ❖ Pourquoi les problèmes d’optimisation révèlent les limites du raisonnement de l’IA
+**Quand les heuristiques, la faisabilité et les contraintes mettent en échec une intelligence fondée sur les motifs**
+
+👉 [Lire l’article →](2026-ia-optimization-limits.qmd)
+
+### ❖ Pourquoi la faisabilité compte plus que l’optimalité
+**L’importance opérationnelle de solutions faisables par rapport à des solutions théoriquement optimales**
+
+👉 [Lire l’article →](feasibility-over-optimality.qmd)
+
+---
+
+## Thématiques abordées
+- Optimisation et modélisation MILP
+- Prévision et séries temporelles
+- Évaluation des modèles et modes d’échec
+- MLOps et contraintes de mise en production
+- Retours d’expérience issus de projets industriels réels

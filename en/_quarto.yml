@@ -33,11 +33,16 @@ website:
             href: blog/2026-ia-illusion-thinking.qmd
           - text: "IA Limits of Optimization"
             href: blog/2026-ia-optimization-limits.qmd
+          - text: "Why Feasibility Matters More Than Optimality"
+            href: blog/feasibility-over-optimality.qmd
 
       - text: "About"
         href: about.qmd
       - text: "CV"
         href: cv.qmd
+      
+      - text: "Contact"
+        href: contact.qmd
 
     right:
       - text: "FR"

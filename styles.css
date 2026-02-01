@@ -330,3 +330,9 @@ body.blog-page #quarto-margin-sidebar nav#TOC{
    You can do it per blog post by adding in front-matter:
    page-class: blog-page
    ========================================================= */
+
+.justify {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
