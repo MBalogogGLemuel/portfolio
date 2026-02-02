@@ -716,7 +716,7 @@ Il constitue également une base solide pour des extensions vers l’**analyse d
 
 
 
-## - Appprentissage machine et profond & Vision par ordinateur {#dl-cv}
+## Appprentissage machine et profond & Vision par ordinateur {#dl-cv}
 
 
 ::: {.project-card}
