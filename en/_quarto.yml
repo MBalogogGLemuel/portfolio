@@ -16,9 +16,10 @@ website:
         href: index.qmd
 
       - text: "Projects"
-        menu:
-          - text: "All projects"
-            href: projects/index.qmd
+        href: projects/index.qmd
+        # menu:
+        #   - text: "All projects"
+        #     href: projects/index.qmd
           # - text: "Warehouse Optimization (MIP)"
           #   href: projects/optimisation.qmd
           # - text: "Energy Forecasting"
