@@ -73,7 +73,7 @@ chauffage (gaz naturel, chauffage électrique) - **Pics estivaux** dus à
 la demande de climatisation (saturation de la climatisation) - **Saisons
 intermédiaires** (Printemps/Automne) avec une demande globale plus
 faible mais une volatilité plus élevée
-
+ 
 |  |  |
 |------------------------------------|------------------------------------|
 | ![Événements de tempête majeurs affectant la charge](../assets/forecasting/storm.png) | ![](../assets/forecasting/stormlist.png) |

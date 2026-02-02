@@ -17,7 +17,7 @@ Each page contains **selected projects**, with a short **problem framing**, **me
 <!-- - [Bayésien & Statistiques](bayes.qmd) -->
 <!-- - [Data Engineering & MLOps](dataeng_mlops.qmd) -->
 <!-- - [LLM](llm.qmd) -->
-
+ 
 ---
 
 ## Highlights

@@ -6,7 +6,9 @@ toc-location: right
 page-class: blog-page
 ---
 
-## Introduction
+::: {.justify}
+
+![](../../assets/blog/img1.png){width=50%}
 
 Recent advances in large language models have reignited an old question:
 *can machines truly reason, or do they merely reproduce convincing patterns?*
@@ -136,11 +138,13 @@ AI is a **force multiplier** for experienced practitioners.
 It is a **dangerous crutch** for those who don't yet understand the domain.
 
 I use AI to:
+
 - Accelerate implementation of well-understood patterns,
 - Explore formulation alternatives quickly,
 - Document and communicate model logic.
 
 I do **not** use AI to:
+
 - Make foundational design decisions,
 - Choose between competing modeling paradigms,
 - Validate whether a model is fit for operational deployment.
@@ -166,3 +170,6 @@ It cannot yet take responsibility for them.*
 ---
 
 **What's your experience?** Have you deployed AI-generated models in production? What failed? What worked? I'd love to hear your stories—reach out on [LinkedIn](https://www.linkedin.com/in/balogog-georges-6810b9118/).
+
+
+:::

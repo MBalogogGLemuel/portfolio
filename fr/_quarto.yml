@@ -19,12 +19,12 @@ website:
         menu:
           - text: "Tous les projets"
             href: projects/index.qmd
-          - text: "Warehouse Optimization (MIP)"
-            href: projects/optimisation.qmd
-          - text: "Energy Forecasting"
-            href: projects/forecasting.qmd
-          - text: "Data Engineering & BI"
-            href: projects/dataeng_mlops.qmd
+          # - text: "Warehouse Optimization (MIP)"
+          #   href: projects/optimisation.qmd
+          # - text: "Energy Forecasting"
+          #   href: projects/forecasting.qmd
+          # - text: "Data Engineering & BI"
+          #   href: projects/dataeng_mlops.qmd
 
       - text: "Blog"
         menu:

@@ -6,6 +6,10 @@ toc-location: right
 page-class: blog-page
 ---
 
+::: {.justify}
+
+![](../../assets/blog/img3.png){width=50%}
+
 ## Introduction : Le paradoxe de l'optimisation
 
 La plupart des cours d'optimisation mettent l'accent sur **l'optimalité**.  
@@ -277,7 +281,7 @@ J'ai appris à évaluer les modèles non pas par la qualité de leur optimisatio
 
 **L'optimalité est un plus.**  
 **La faisabilité est non négociable.**
-
+ 
 ---
 
 ## Le coût caché de l'infaisabilité
@@ -355,3 +359,5 @@ Parce que **les échecs de faisabilité en production sont bien plus coûteux qu
 ---
 
 **Quelle a été votre expérience avec les compromis faisabilité vs optimalité ?** Avez-vous déployé des modèles "optimaux" qui ont échoué ? Ou des modèles "sous-optimaux" qui ont prospéré ? Comparons nos histoires de guerre—contactez-moi sur [LinkedIn](https://www.linkedin.com/in/balogog-georges-6810b9118/).
+
+:::

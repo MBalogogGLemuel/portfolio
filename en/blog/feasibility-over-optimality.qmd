@@ -6,6 +6,10 @@ toc-location: right
 page-class: blog-page
 ---
 
+::: {.justify}
+
+![](../../assets/blog/img3.png){width=50%}
+
 ## Introduction: The Optimization Paradox
 
 Most optimization courses emphasize **optimality**.  
@@ -160,7 +164,7 @@ constraint: production[t] <= nominal_capacity
 constraint: production[t] <= 0.85 * nominal_capacity  # 15% buffer for variability
 ```
 
-### 2. Explicit buffers
+### 2. Explicit buffers 
 
 I build slack **into the model structure**, not as an afterthought:
 

@@ -3,40 +3,86 @@ title: ""
 toc: false
 ---
 
-# Blog
+# Blog 
 
-Ce blog est un espace dédié aux **réflexions techniques sur la data science, l’optimisation et les systèmes d’IA**.
+::: {.justify}
 
-Je m’y concentre sur la **conception des modèles, la prise de décision et le réalisme opérationnel**, en adoptant souvent une
-**posture critique face au battage médiatique actuel autour de l’IA**, en particulier lorsque celle-ci est présentée comme un
-substitut au raisonnement structuré en optimisation et en prévision.
+
+Ce blog est un espace dédié aux **réflexions techniques sur la data science, l'optimisation et les systèmes d'IA**.
+
+Je m'y concentre sur la **conception des modèles, la prise de décision et le réalisme opérationnel**, en adoptant souvent une **posture critique face au battage médiatique actuel autour de l'IA**, en particulier lorsque celle-ci est présentée comme un substitut au raisonnement structuré en optimisation et en prévision.
+
+L'objectif : **démystifier les approches techniques**, partager des **leçons apprises sur le terrain**, et encourager une pratique de la data science **ancrée dans la rigueur méthodologique** plutôt que dans l'effet de mode.
 
 ---
 
 ## Articles récents
 
-### ❖ L’IA peut-elle vraiment *penser* la conception des modèles ?
-**Une analyse critique des grands modèles de langage et de leurs limites en raisonnement scientifique**
+::: {.posts-carousel}
 
-👉 [Lire l’article →](2026-ia-illusion-thinking.qmd)
+::: {.posts-track}
 
----
+::: {.post-card}
+**L'IA peut-elle vraiment *penser* la conception des modèles ?**
 
-### ❖ Pourquoi les problèmes d’optimisation révèlent les limites du raisonnement de l’IA
-**Quand les heuristiques, la faisabilité et les contraintes mettent en échec une intelligence fondée sur les motifs**
+Une analyse critique des grands modèles de langage et de leurs limites en raisonnement scientifique. Exploration des différences fondamentales entre reconnaissance de motifs et raisonnement causal.
 
-👉 [Lire l’article →](2026-ia-optimization-limits.qmd)
+[Lire l'article →](2026-ia-illusion-thinking.qmd)
+:::
 
-### ❖ Pourquoi la faisabilité compte plus que l’optimalité
-**L’importance opérationnelle de solutions faisables par rapport à des solutions théoriquement optimales**
+::: {.post-card}
+**Pourquoi les problèmes d'optimisation révèlent les limites du raisonnement de l'IA**
 
-👉 [Lire l’article →](feasibility-over-optimality.qmd)
+Quand les heuristiques, la faisabilité et les contraintes mettent en échec une intelligence fondée sur les motifs. Une plongée dans la complexité computationnelle que l'IA générative ne peut pas contourner.
+
+[Lire l'article →](2026-ia-optimization-limits.qmd)
+:::
+
+::: {.post-card}
+**Pourquoi la faisabilité compte plus que l'optimalité**
+
+L'importance opérationnelle de solutions faisables par rapport à des solutions théoriquement optimales. Dans le monde réel, une bonne solution applicable vaut mieux qu'une solution parfaite sur papier.
+
+[Lire l'article →](feasibility-over-optimality.qmd)
+:::
+
+:::
+
+:::
 
 ---
 
 ## Thématiques abordées
-- Optimisation et modélisation MILP
-- Prévision et séries temporelles
-- Évaluation des modèles et modes d’échec
-- MLOps et contraintes de mise en production
-- Retours d’expérience issus de projets industriels réels
+
+**Optimisation et recherche opérationnelle**  
+Modélisation MILP, programmation par contraintes, heuristiques métier, résolution de problèmes combinatoires complexes et passage à l'échelle.
+
+**Prévision et séries temporelles**  
+Méthodes classiques vs. deep learning, détection d'anomalies, gestion de l'incertitude, validation temporelle et évaluation rigoureuse des prédictions.
+
+**Critique constructive de l'IA**  
+Analyse des limites des LLM, du sur-ajustement conceptuel, des promesses exagérées et des cas d'usage où l'IA générative n'est pas adaptée.
+
+**MLOps et contraintes de production**  
+Déploiement, monitoring, gestion des dérives, reproductibilité, dette technique et arbitrages entre performance théorique et viabilité opérationnelle.
+
+**Retours d'expérience terrain**  
+Leçons tirées de projets industriels réels : ce qui fonctionne vraiment, ce qui échoue, et pourquoi la théorie ne survit pas toujours au contact du réel.
+
+---
+
+## Approche éditoriale
+
+Les articles de ce blog privilégient :
+
+- **La profondeur technique** plutôt que la vulgarisation excessive
+- **Le scepticisme méthodologique** face aux solutions miracles
+- **Les exemples concrets** issus de cas d'usage réels
+- **L'honnêteté intellectuelle** sur les échecs et les limites
+- **La perspective opérationnelle** : ce qui marche en production compte plus que ce qui brille en conférence
+
+---
+
+*Les opinions exprimées ici sont personnelles et n'engagent que leur auteur.*
+
+:::

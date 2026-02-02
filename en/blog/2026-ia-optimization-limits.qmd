@@ -6,6 +6,10 @@ toc-location: right
 page-class: blog-page
 ---
 
+::: {.justify}
+
+![](../../assets/blog/img2.png){width=50%}
+
 ## Introduction: The Unforgiving Test
 
 If you want to understand the true limits of AI reasoning, don't ask it to write poetry or summarize articles.
@@ -19,7 +23,7 @@ Watch it fail—fluently, confidently, convincingly—in ways that won't become 
 I've debugged enough AI-generated optimization models to recognize a pattern: **AI excels at prediction, but struggles fundamentally with prescription**. And optimization is the ultimate test of prescriptive reasoning.
 
 Here's why.
-
+ 
 ---
 
 ## Optimization is not prediction
@@ -28,6 +32,7 @@ Most successes of modern AI come from **prediction problems**:
 classification, regression, pattern completion, sequence generation.
 
 These are fundamentally **probabilistic** tasks. They ask:
+
 - *What is likely given the data?*
 - *What pattern best fits this distribution?*
 - *What comes next in this sequence?*
@@ -61,6 +66,7 @@ In optimization, constraints are **absolute**.
 Violating one constraint invalidates the entire solution.
 
 Consider a real example from my work in warehouse optimization:
+
 - *"Each SKU must be assigned to exactly one location"* → Hard constraint. Not negotiable.
 - *"High-turnover items should be near packing stations"* → Soft preference. Optimizable.
 
@@ -91,6 +97,7 @@ A human optimizer knows: **hard constraints belong in the constraint set, not th
 **3. Optimizing objectives while breaking feasibility**
 
 I've seen AI-generated models that beautifully minimize transportation costs while quietly violating:
+
 - Precedence constraints (pickup before delivery),
 - Time windows (deliveries after customer closing),
 - Resource limits (vehicles carrying more than capacity).
@@ -117,6 +124,7 @@ Optimization models live in **discrete spaces**.
 Small modeling choices create **exponential consequences**.
 
 Choosing whether a variable is:
+
 - **Binary or continuous** → Binary: enables logical constraints but explodes search space; Continuous: faster to solve but may require rounding heuristics,
 - **Indexed by time or aggregated** → Time-indexed: captures dynamics but multiplies decision variables; Aggregated: compact but loses temporal resolution,
 - **Local or global** → Local subproblems: decomposable, parallelizable; Global: guarantees optimality but may be intractable.
@@ -155,6 +163,7 @@ A human optimizer makes this choice based on:
 **AI systems do not reason about computational geometry.**
 
 They've seen both formulations in training data. They'll suggest one—possibly the wrong one—without understanding the computational consequences. They don't think:
+
 - *"This problem instance has 50,000 SKUs; time-indexed binaries will never solve."*
 - *"Aggregation will lose critical sequencing information for this use case."*
 
@@ -166,13 +175,14 @@ They replay patterns that worked elsewhere, agnostic to scale, solver architectu
 
 Let me be precise about where AI adds value in optimization work—and where it becomes a liability.
 
-### PROS :  ✅ Where AI is genuinely useful:
+### ✅ Where AI is genuinely useful:
 
 **1. Generating initial formulations**
 Starting from a verbal problem description, AI can scaffold a baseline mathematical model—variables, objective, basic constraints. This accelerates the drafting phase, especially for standard problem types (shortest path, knapsack, assignment).
 
 **2. Suggesting alternative constraint formulations**
 Given a constraint in one form, AI can propose equivalent reformulations:
+
 - Big-M constraints → Indicator constraints
 - Quadratic penalties → Piecewise linear approximations
 - Logical implications → Disjunctive constraints
@@ -185,10 +195,11 @@ AI can rapidly generate multiple versions of a model with different assumptions,
 **4. Documentation and explanation**
 Translating mathematical notation into plain language for stakeholders, generating solver configuration docs, explaining dual variables and shadow prices—AI excels here.
 
-### CONS : ❌ Where AI is fundamentally unreliable:
+### ❌ Where AI is fundamentally unreliable:
 
 **1. Deciding decomposition strategies**
 Should you decompose this supply chain optimization into:
+
 - Geography-based subproblems?
 - Time-rolling horizons?
 - Product family clusters?
@@ -197,6 +208,7 @@ This requires understanding problem structure, coupling strength, and recourse d
 
 **2. Guaranteeing feasibility under operational stress**
 What happens when:
+
 - Demand spikes 200% above forecast?
 - A key supplier goes offline?
 - Regulatory constraints change mid-horizon?
@@ -251,6 +263,7 @@ It produces formulations with confidence inversely proportional to its actual un
 Optimization problems are **unforgiving**.
 
 They expose the difference between:
+
 - **Appearance of intelligence** (fluent explanations, plausible formulations),
 - And **commitment to correctness** (absolute feasibility, validated assumptions, operational accountability).
 
@@ -263,6 +276,7 @@ There's no middle ground.
 **This is why optimization is the ultimate test for AI reasoning.**
 
 It requires:
+
 - Understanding **invariants** (non-negotiable constraints),
 - Reasoning about **computational complexity** (tractability vs. optimality trade-offs),
 - Managing **discrete spaces** (combinatorial explosion),
@@ -282,11 +296,13 @@ I use AI extensively in my optimization work.
 But I **never** delegate model design to it.
 
 I use it to:
+
 - Accelerate formulation drafting,
 - Explore alternative structures,
 - Generate solver configurations and documentation.
 
 I do **not** use it to:
+
 - Make foundational modeling decisions,
 - Choose decomposition strategies,
 - Validate feasibility under operational stress,
@@ -308,3 +324,5 @@ the hardest decisions must remain ours.*
 ---
 
 **Have you deployed AI-assisted optimization models?** What worked? What failed spectacularly? I'd love to hear war stories—reach out on [LinkedIn](https://www.linkedin.com/in/balogog-georges-6810b9118/).
+
+:::

@@ -3,6 +3,8 @@ title: ""
 toc: false
 ---
 
+::: {.justify}
+
 # About Me
 
 ## From Voltage to Value: A Journey Through Data, Intelligence & Impact
@@ -47,7 +49,8 @@ This is more than a career. It's a **continuous pursuit of excellence** at the f
 
 Whether you're tackling **supply chain optimization**, building **analytics platforms**, or deploying **AI systems at scale**—I bring technical depth, operational awareness, and an unrelenting commitment to delivering solutions that work.
 
-📩 **georges.balogog@yahoo.fr**  
+:::
+
 🔗 [LinkedIn](https://www.linkedin.com/in/balogog-georges-6810b9118/) · [GitHub](https://github.com/MBalogogGLemuel)
 
 ---

@@ -49,7 +49,6 @@ Use the form below to contact me directly by email. I usually reply promptly.
 
 ---
 
-- 📧 **Email**: georges.balogog@yahoo.fr  
 - 💼 **LinkedIn**: [linkedin.com/in/balogog-georges-6810b9118](https://www.linkedin.com/in/balogog-georges-6810b9118)
 
 *Feel free to reach out for collaborations in data science, optimization, data engineering, or applied research.*

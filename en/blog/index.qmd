@@ -1,41 +1,939 @@
 ---
-title: ""
-toc: false
+title: "Projects"
+toc: true
+toc-depth: 2
+page-class: projects-page
 ---
 
-# Blog
 
-This blog is a space for **technical reflections on data science, optimization, and AI systems**.
+- [Forecasting](#forecasting)
+- [Deterministic Optimization](#optimisation)
+- [Stochastic Optimization](#stochastic)
+- [Reinforcement Learning](#rl)
+- [Data Engineering & MLOps](#dataeng)
+- [Natural Language Processing & LLM](#llm)
+- [Deep Learning & Computer Vision](#dl-cv)
 
-I focus on **model design, decision-making, and operational realism**, often taking a
-**skeptical stance toward current AI hype**, especially when AI is presented as a
-replacement for structured reasoning in optimization and forecasting.
+::: {.justify}
 
----
+This page gathers my technical projects organized by **area of specialization**.
 
-## Recent posts
-
-### ❖ Can AI really *think* about model design?
-**A critical look at large language models and their limits in scientific reasoning**
-
-👉 [Read article →](2026-ia-illusion-thinking.qmd)
-
----
-
-### ❖ Why optimization problems expose the limits of AI reasoning
-**Where heuristics, feasibility, and constraints defeat pattern-based intelligence**
-
-👉 [Read article →](2026-ia-optimization-limits.qmd)
-
-### ❖ Why feasibility matters more than optimality
-**The operational importance of feasible solutions over theoretically optimal ones**
-👉 [Read article →](feasibility-over-optimality.qmd)
+Each section presents **selected projects** with their **context**, **methodological approach**, **results**, and **code links** when available.
 
 ---
 
-## Topics covered
-- Optimization & MILP modeling
-- Forecasting and time series
-- Model evaluation and failure modes
-- MLOps and production constraints
-- Lessons from real industrial projects
+## Forecasting {#forecasting}
+
+Development of **time series forecasting systems applied to real energy systems**, with particular emphasis on **statistical robustness**, **exogenous variable integration**, and **rigorous comparison between classical approaches and deep learning models**.
+
+<div class="cards-grid">
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/jcplforecast.png" alt="JCPL energy forecasting">
+
+<div class="project-body">
+
+### P1 — Regional energy consumption forecasting (statistical approach)
+
+**Context**  
+Forecasting project for **daily energy consumption (peak load)** in regions served by **JCP&L (New Jersey)**, in a context of **medium-term energy planning**.  
+The objective is to anticipate demand fluctuations while maintaining **high interpretability** of explanatory mechanisms.
+
+**Methodological approach**  
+The approach relies on classical time series modeling (Naïve, ETS, SARIMAX) explicitly integrating:
+
+- **energy seasonality**,  
+- **long-term trends**,  
+- **climatic and socio-demographic exogenous variables**.
+
+Models are evaluated in a strict **rolling temporal validation** framework, ensuring realistic estimation of out-of-sample performance.
+
+**Key results**
+- Stable and consistent forecasts at regional scale  
+- Clear identification of seasonal components and exogenous effects  
+- Construction of a **reliable operational baseline**  
+
+**Added value**  
+This project illustrates the value of well-specified statistical models for **energy decision-making** and **operational planning**, when transparency and traceability of assumptions are essential.
+
+**Tech**: `R` · `Statistical forecasting` · `Time series` · `Power BI` · `Tableau` 
+
+<div class="project-actions">
+<a class="btn btn-sm btn-primary" href="#" aria-disabled="true">Case study</a>
+</div>
+
+</div>
+:::
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/mrcforecast.png" alt="Multi-region Quebec energy forecasting by deep learning">
+
+<div class="project-body">
+
+### P2 — Multivariate energy forecasting with deep learning
+
+**Context**  
+Extension of the previous project toward a **data-driven approach**, aimed at capturing **complex non-linear relationships** between energy consumption, weather conditions, and regional dynamics.  
+The framework is that of **multi-regional forecasting** at the scale of Quebec administrative regions, characterized by heterogeneous behaviors and partially non-stationary series.
+
+**Methodological approach**  
+The modeling relies on sequential architectures (RNN-LSTM, TCN), systematically compared to traditional statistical models (SARIMA), in order to:
+
+- exploit **sliding temporal windows**,  
+- integrate **stabilizing transformations** of the target variable,  
+- automatically learn dynamic dependencies between variables.
+
+Particular attention is paid to **comparative evaluation** of approaches to measure the real gain brought by deep learning.
+
+**Key results**
+- Performance improvement in certain regions with high variability  
+- Better capture of lagged effects and non-linearities  
+- Robust behavior on recent out-of-sample periods  
+- Confirmation of the **persistent relevance of traditional statistical models**  
+
+**Added value**  
+This work highlights the **strengths and limitations of deep learning applied to energy forecasting**, and proposes a pragmatic framework to arbitrate between **predictive performance**, **temporal stability**, and **operational complexity**.
+
+**Tech**: `Python` · `Pytorch` · `TensorFlow` · `Scikit-learn` · `Pandas` · `NumPy` · `Matplotlib` · `Power BI`
+
+<div class="project-actions">
+<a class="btn btn-sm btn-primary" href="#" aria-disabled="true">Comparative study</a>
+</div>
+
+</div>
+:::
+
+</div>
+
+
+
+
+
+
+
+
+
+
+## Deterministic optimization {#optimisation}
+
+Design and analysis of **deterministic optimization models** for real-world problems in planning, resource allocation, and project management, with particular emphasis on **translating operational constraints into actionable mathematical formulations** and on **cost–time–resource trade-off analysis**.
+
+<div class="cards-grid">
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/warehouse-optim4.png" alt="Deterministic optimization of an industrial warehouse">
+
+<div class="project-body">
+
+### P1 — Integrated deterministic optimization of a logistics warehouse (MILP)
+
+**Context**  
+Recent industrial project aimed at operational optimization of a multi-zone, multi-format, multi-level logistics warehouse, in a real context of **high flow variability**, **strict physical constraints**, and **daily operational pressure**.  
+The project is conducted in a confidential framework; elements presented here are intentionally **abstracted and anonymized**.
+
+The overall objective is to simultaneously improve:
+
+- **stock placement** efficiency,  
+- **order picking** performance,  
+- and **internal replenishment** consistency,  
+while maintaining **operational feasibility day by day**.
+
+**Methodological approach**  
+The problem is formulated as a **sequential deterministic optimization** structured around three complementary sub-models:
+
+- **Placement (Putaway / Slotting)**: format activation decisions by location and allocation of incoming arrivals, under capacity, compatibility, and functional proximity constraints.
+- **Order picking**: optimal allocation of picks to maximize service while minimizing internal movements.
+- **Internal replenishment**: controlled stock relocation via an admissible subset of arcs, to limit combinatorial complexity and movement costs.
+
+These models are **orchestrated sequentially at daily scale**, with consistent propagation of inventory states between steps.
+
+**Performance evaluation and indicators**  
+A KPI engine evaluates decision impact before and after each step, including:
+
+- weighted average distance to central point,
+- occupancy rate and stock dispersion,
+- co-location penalties (similarity),
+- volume and cost of internal movements,
+- layout stability (churn).
+
+This approach enables a **clear quantitative reading of operational trade-offs** induced by each decision.
+
+**Key results**
+
+- Measurable improvement in high-demand item accessibility  
+- Reduction of unnecessary internal movements  
+- Better layout stability under dynamic flows  
+- Reproducible framework for testing realistic operational scenarios  
+
+**Added value**  
+This project illustrates a complete implementation of **deterministic optimization applied to a real logistics system**, combining mathematical modeling, decision orchestration, and performance analysis.  
+It constitutes a solid foundation for future extensions toward **stochastic** approaches or **reinforcement learning**, while remaining operationally deployable.
+
+**Tech**: `Python` · `GulP/Gurobi` · `Plotly` · `NetworkX` · `Pandas` · `NumPy` · `Matplotlib` · `Power BI`
+
+<div class="project-actions">
+<a class="btn btn-sm btn-primary" href="#" aria-disabled="true">Industrial study</a>
+</div>
+
+</div>
+:::
+
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/optim-project1.png" alt="Software project scheduling and acceleration">
+
+<div class="project-body">
+
+### P2 — Scheduling and acceleration of a complex software project
+
+**Context**  
+Planning problem for software development composed of multiple interdependent sub-projects, with strict precedence constraints.  
+The initial objective is to **minimize total project duration**, then explore **acceleration strategies under budget constraints**, integrating partial or total outsourcing decisions.
+
+**Methodological approach**  
+The problem is formulated as a **deterministic scheduling model**, progressively enriched by:
+- **explicit precedence constraints** between tasks,
+- **binary decision variables** to represent outsourcing,
+- **global deadline constraints** imposed by the client,
+- linear mechanisms to model **non-uniform costs**, **conditional discounts**, and **partial delivery thresholds** (e.g., 75% of tasks delivered before a target date).
+
+Each model adjustment aims to preserve **linearity** while increasing decision realism.
+
+**Key results**
+- Significant reduction of delivery time under cost constraints  
+- Identification of critical tasks to prioritize for outsourcing  
+- Fine-grained analysis of trade-offs between **acceleration cost** and **deadline compliance**  
+
+**Added value**  
+This project illustrates a complete **incremental modeling approach**, typical of real industrial contexts where requirements evolve and require robust, explainable, and adaptable models.
+
+**Tech**: `Excel Solver` · `Gams` · `IBM Cplex` · `PowerBi`
+
+<div class="project-actions">
+<a class="btn btn-sm btn-primary" href="#" aria-disabled="true">Case study</a>
+</div>
+
+</div>
+:::
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/optim-locomotive2.png" alt="Dynamic locomotive fleet allocation">
+
+<div class="project-body">
+
+### P3 — Dynamic allocation of a multi-site locomotive fleet
+
+**Context**  
+Management problem for a locomotive fleet circulating between several interconnected sites (A–B–C), with imposed departure and arrival schedules and **minimum capacity requirements per trip**.  
+The challenge is to **minimize the total number of locomotives needed**, while ensuring network operational feasibility.
+
+**Methodological approach**  
+The system is modeled as a **multi-period deterministic allocation problem**, integrating:
+- **minimum capacity constraints per trip**,
+- **flow balance equations** ensuring availability consistency per site,
+- **cyclical conditions** ensuring fleet stability over the time horizon.
+
+The model explicitly captures resource temporal dynamics and interdependencies between local and global decisions.
+
+**Key results**
+- Determination of **minimum fleet needed** to satisfy all trips  
+- Clear visualization of flows and resource tensions  
+- Highlighting of critical periods in terms of availability  
+
+**Added value**  
+This work highlights the power of deterministic models for **logistics network planning**, when priority is given to robustness and feasibility rather than stochasticity.
+
+<div class="project-actions">
+<a class="btn btn-sm btn-primary" href="#" aria-disabled="true">Operational analysis</a>
+</div>
+
+**Tech**: `Python` · `Gams` · `IBM Cplex` · `PowerBi` · `Excel Solver`
+
+</div>
+:::
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/optim-maintenance3.png" alt="Industrial maintenance planning">
+
+<div class="project-body">
+
+### P4 — Optimal maintenance planning for power plants
+
+**Context**  
+Planning problem for maintenance of multiple power plants over several months, under **team availability constraints**, **authorized launch windows**, and **calendar-dependent costs**.  
+Two objectives are studied: **total cost minimization** and **earliest maintenance completion**, independent of budget.
+
+**Methodological approach**  
+The problem is formulated as a **linear optimization model with binary variables**, integrating:
+- uniqueness constraints for start month per plant,
+- global personnel capacity constraints per period,
+- temporal relationships linking start month to end date,
+- adjustments imposing **order or synchronization relationships** between certain plants.
+
+This approach enables rapid testing of multiple strategic scenarios.
+
+**Key results**
+- Measured reduction of maintenance costs under realistic constraints  
+- Clear comparison between **cost-minimal** and **time-minimal** strategies  
+- Identification of human resource bottlenecks  
+
+**Added value**  
+This project demonstrates how deterministic optimization can serve as a strategic decision support tool in critical industrial contexts, where resources are limited and operational consequences are major.
+
+**Tech**: `Excel Solver` · `Gams` · `IBM Cplex` · `PowerBi` 
+
+<div class="project-actions">
+<a class="btn btn-sm btn-primary" href="#" aria-disabled="true">Decision study</a>
+</div>
+
+</div>
+:::
+
+</div>
+
+## Stochastic optimization {#stochastic}
+
+Design of **optimization under uncertainty models** aimed at supporting decision-making when key parameters (demand, performance, environment) are **neither deterministic nor perfectly observable**.  
+The projects below emphasize **probabilistic modeling**, **risk–performance trade-offs**, and **value of information**.
+
+<div class="cards-grid">
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/bayesian-optim1.png" alt="Bayesian optimization for experimental systems">
+
+<div class="project-body">
+
+### P1 — Bayesian optimization for costly experimental systems
+
+**Context**  
+This project addresses an optimization problem where the objective function is **unknown**, **noisy**, and **expensive to evaluate**, a typical situation in industrial or experimental environments.  
+The case study focuses on optimizing the **mechanical strength of a polymer**, depending on continuous physico-chemical parameters (plasticizer proportion x₁ ∈ [0,1] and curing time x₂ ∈ [0,5] hours), for which each evaluation represents a real cost (time, resources, laboratory tests).
+
+The objective is to identify the optimal formulation while **minimizing the number of necessary experiments**, while explicitly managing measurement uncertainty.
+
+**Methodological approach**  
+The strategy relies on **sequential Bayesian optimization**, structured around:
+
+- a **probabilistic surrogate model** (Gaussian process) providing an estimate of expected performance μ(x) and associated uncertainty σ(x) at each point in the input space,  
+- an **acquisition function** (Expected Improvement) enabling balance between exploration (uncertain zones) and exploitation (promising zones),  
+- an **iterative update** of the model from new observations simulated via the synthetic function:  
+
+  ```
+  f(x₁,x₂) = P_strength·exp[-(x₁-μ₁)² + (x₂-μ₂)²)/(2σ²)] + I(x₁,x₂) + ε
+  ```
+  where I(x₁,x₂) = -0.5·sin(3πx₁)·cos(2πx₂) captures non-linear effects.
+
+This approach enables **drastic reduction in the number of necessary experiments** (10 iterations vs 100+ by exhaustive grid) while converging toward promising regions of the decision space.
+
+**Key results**
+
+- **Optimal solution identified**: x₁* = 0.510, x₂* = 2.048 with strength of **93.87 MPa**  
+- **Rapid convergence**: stabilization after only 10 iterations  
+- **Explicit uncertainty quantification** associated with decisions (σ(x) exploited in acquisition function)  
+- **Concrete illustration of value of information**: each observation reduces global uncertainty  
+
+**Added value**  
+The project demonstrates how Bayesian stochastic optimization constitutes a robust alternative to deterministic methods when data are scarce, costly, or noisy, while remaining **interpretable and decision-oriented**.  
+Direct applications include material formulation (polymers, alloys, composites), chemical process optimization, manufacturing parameter tuning, and hyperparameter optimization in machine learning.
+
+**Tech:** `Python` · `R` · `NumPy` · `SciPy` · `Matplotlib`
+
+<div class="project-actions">
+<a class="btn btn-sm btn-primary" href="#" aria-disabled="true">Experimental study</a>
+</div>
+
+</div>
+:::
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/mdp-treasure2.png" alt="Optimal decision under uncertainty in risky environment">
+
+<div class="project-body">
+
+### P2 — Optimal decision under uncertainty and probabilistic scenarios
+
+**Context**  
+This project falls within a framework of **sequential decision-making under risk**, where action outcomes depend on probabilistic transitions and random shocks.  
+The modeled scenario is that of a **treasure hunter navigating dense jungle**, having to reach an ancient temple (reward +1000) while **minimizing exposure to adverse scenarios**: cliffs (75% success / 25% fall, penalty -100), rivers (80% / 20%, -75), jungle (90% / 10%, -50), and negative absorbing states (Valley of Death: -150, Predators: -200).
+
+The objective is to maximize expected value over the decision horizon, while explicitly managing time cost (-10 per action) and risk aversion.
+
+**Methodological approach**  
+The modeling relies on explicit stochastic formulation as a **Markov Decision Process (MDP)**, integrating:
+
+- **probabilistic scenarios** representing possible outcomes of each decision, with transitions P(s'|s,a) varying by terrain,  
+- an **expected value function** V*(s) = max_a Σ_s' P(s'|s,a)[R(s,a,s') + γ·V*(s')] integrating rewards, penalties, and time cost,  
+- a **discount factor** γ = 0.9 translating temporal preference and risk aversion.
+
+The analysis includes both **exact resolution** (Value Iteration, convergence in 13 iterations) and **linear approximation of value function** via TD Learning, enabling study of trade-offs between precision and computational complexity:
+```
+V(s) ≈ θ₁·f₁(s) + θ₂·f₂(s) + θ₃·f₃(s)
+```
+with f₁ = distance to treasure, f₂ = proximity to dangers, f₃ = safe state indicator.
+
+**Key results**
+
+- **Exact optimal policy identified**: S→J1→T (optimal values V*(S)=1666.37, V*(J1)=1862.64)  
+- **Highlighting of strategies** avoiding states with high expected loss (cliffs, river)  
+- **Marked sensitivity** to discount factor: high γ favors risk-taking for final gain  
+- **Capacity of linear approximations** (TD Learning, 1000 episodes) to capture global structure: θ₃=1799.45 (safe states valued), θ₂=1619.82 (avoid dangers), θ₁=-48.75 (minimize distance)  
+
+**Added value**  
+This work illustrates the foundations of multi-stage stochastic optimization and highlights central issues of decision-making under uncertainty: **anticipation, prudence, and risk management**.  
+Direct applications include robotic trajectory planning, financial portfolio management (risk/return), search and rescue strategies, logistics optimization under uncertainty, and autonomous navigation.
+
+**Tech:** `Python` · `R` · `Pandas` · `NetworkX` · `NumPy` · `Matplotlib`
+
+<div class="project-actions">
+<a class="btn btn-sm btn-primary" href="#" aria-disabled="true">Decision analysis</a>
+</div>
+
+</div>
+:::
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/pricing-policy3.png" alt="Optimal selling policy under price uncertainty">
+
+<div class="project-body">
+
+### P3 — Optimal selling policy under price uncertainty
+
+**Context**  
+**Dynamic pricing** problem in a context of stochastic uncertainty on future price evolution of an asset.  
+A seller holds a good that can be sold at any time. Prices fluctuate randomly according to different stochastic processes (random walk, autoregressive model AR(3)). The objective is to identify the **selling policy maximizing expected profit**, arbitrating between immediate sale (exploitation) and waiting for better price (exploration).
+
+**Methodological approach**  
+Three parametric policy classes are compared via **Monte Carlo simulation** (1000–5000 realizations):
+
+1. **"Sell-low" policy**: sell as soon as p_t ≥ θ_low (simple threshold rule)  
+2. **"High-low" policy**: sell if p_t ≥ θ_high or p_t ≤ θ_low (stop-loss + take-profit)  
+3. **"Tracking" policy**: sell if p_t ≥ α·p̄_t + (1-α)·θ_track (adaptive moving average)
+
+Policies are evaluated under different **stochastic price models**:
+
+- **Random walk**: p_{t+1} = p_t + ε, ε ~ N(0,σ²)  
+- **AR(3) model**: p_{t+1} = θ₀·p_t + θ₁·p_{t-1} + θ₂·p_{t-2} + ε (captures autocorrelation)
+
+Optimization focuses on identifying best parameters (θ_low, θ_high, θ_track, α) for each policy and model.
+
+**Key results**
+
+- **"Tracking" policy consistently winning** across all tested scenarios:  
+
+  • Random walk (N=5000): $45.55 (vs $45.22 for others)  
+  • AR(3) with autocorrelation: $41.59 (vs $41.28–$41.59)  
+
+- **Stable performance** across different stochastic models (robustness)  
+- **Autocorrelation impact**: profits reduced by ~10% under AR(3) ($41 vs $46)  
+- **Best adaptive parameters**: α ≈ 0.7–0.9 depending on context  
+
+**Added value**  
+The project demonstrates the importance of **adaptive policies** facing stochastic uncertainty, and illustrates the **simulation-based evaluation** methodology to compare decision strategies.  
+Direct applications include algorithmic trading, perishable inventory management, dynamic pricing (hospitality, transportation), online auctions, and yield management.
+
+**Tech:** `Python` · `R` · `Monte Carlo simulation` · `NumPy` · `Pandas` · `Matplotlib`
+
+<div class="project-actions">
+<a class="btn btn-sm btn-primary" href="#" aria-disabled="true">Strategy study</a>
+</div>
+
+</div>
+:::
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/newsvendor4.png" alt="Newsvendor problem with salvage value">
+
+<div class="project-body">
+
+### P4 — Optimal inventory management under demand uncertainty
+
+**Context**  
+Classic **inventory optimization under uncertainty** problem, extended to include salvage value of unsold items (price s per unit, 0 < s < r).  
+A vendor must determine the **optimal order quantity** (x*) before observing random demand D, knowing they incur purchase cost c per unit, sell at price r, and can salvage unsold items at price s. The objective is to **maximize expected profit** by arbitrating between shortage risk (lost revenue) and surplus risk (storage cost / devaluation).
+
+**Methodological approach**  
+The problem is formulated as an **analytical stochastic optimization model**:
+
+```
+max_x E[r·min(x,D) + s·max(0,x-D) - c·x]
+```
+
+Resolution by gradient calculation and first-order optimality condition leads to the **critical quantile formula**:
+
+```
+F(x*) = (c - r) / (s - r)
+⟹ x* = F⁻¹[(c - r) / (s - r)]
+```
+
+Two approaches are compared:
+1. **Optimal stochastic solution** (x* = 125 units for D ~ U(50,150), c=10, r=25, s=5)  
+2. **Deterministic solution** with demand fixed at E[D] = 100 (x*_det = 100 units)  
+
+The gap between the two quantifies the **Value of Stochastic Solution (VSS)**: VSS = Π(x*) - Π(x*_det) = 1100 - 1500 = -$400.
+
+A **stochastic gradient algorithm** is also implemented to empirically validate convergence toward x* ≈ 124 units.
+
+**Key results**
+
+- **Analytical optimal solution**: x* = 125 units (expected profit $1100)  
+- **VSS = -$400**: stochastic solution presents loss risk compared to deterministic demand fixed at 100, illustrating **importance of forecast quality**  
+- **Empirical convergence** of stochastic gradient toward x* ≈ 124 units  
+- **Insensitivity to distribution bounds**: formula remains valid for D ∈ [a,b] with truncated distribution  
+
+**Added value**  
+This project illustrates fundamental concepts of stochastic optimization: **cost/benefit balance under uncertainty**, **value of perfect information**, and **sensitivity analysis** to parameters (c, r, s, D distribution).  
+Direct applications include inventory management (retail, manufacturing), capacity planning, and any decision situation before observing random demand.
+
+**Tech:** `Python` · `R` · `NumPy` · `Matplotlib`
+
+<div class="project-actions">
+<a class="btn btn-sm btn-primary" href="#" aria-disabled="true">Theoretical analysis</a>
+</div>
+
+</div>
+:::
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+## Reinforcement learning {#rl}
+
+Application of **reinforcement learning** to a **sequential control and combinatorial optimization** problem, in a simulated and constrained environment, with complete implementation in **native Python** and standard scientific ecosystem libraries.
+
+<div class="cards-grid">
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/rlrocky1.png" alt="Bayesian optimization for experimental systems">
+
+
+<div class="project-body">
+
+### Reinforcement learning for autonomous robot navigation (Codey Rocky)
+
+**Context**  
+This project addresses a variant of the **Traveling Salesman Problem (TSP)** in a discrete environment, formulated as a **sequential decision problem under constraints**.  
+An autonomous robot (Codey Rocky) must:
+
+- visit a set of colored items **once each**,  
+- **minimize total traveled distance**,  
+- then **return to starting point**,  
+all in a deliberately limited state space to make learning tractable.
+
+The problem is **NP-hard**, with rapid combinatorial explosion of possible trajectories as the number of targets increases.
+
+**Methodological approach**  
+The environment is modeled as a **Markov Decision Process (MDP)** comprising:
+
+- a discrete state space (128 states) although in reality the space is normally continuous (white zones on the map),
+- a restricted action set (forward, rotations),
+- a reward function combining objectives and penalties.
+
+Two approaches are implemented and compared:
+
+- **Tabular Q-learning**  
+  Learning by direct Q-table update, serving as interpretable reference.
+
+- **Deep Q-learning (DQN)**  
+  Value function approximation by a dense neural network, trained by backpropagation.
+
+Policies are trained using an **ε-greedy** strategy, with explicit control of learning rate and discount factor.
+
+**Key results**
+
+- Convergence of both approaches after comparable number of episodes  
+- Similar final performance in moderate state space  
+- Empirical validation of deep RL limits when structural complexity remains low  
+
+**Critical analysis**  
+The project highlights that:
+
+- deep learning does not systematically bring significant gain versus well-posed tabular methods,
+- state space structure is determinant to justify neural network use,
+- stability and interpretability remain key criteria in constrained environments.
+
+**Added value**  
+This work illustrates **rigorous reinforcement learning implementation**, from environment modeling to comparative algorithm analysis, highlighting **real conditions for deep RL relevance**.
+
+**Tech:** `Python` · `PyTorch` · `TensorFlow` · `NumPy` · `Pandas` · `Matplotlib`
+
+</div>
+:::
+
+</div>
+
+## Data Engineering & MLOps {#dataeng}
+
+Design and implementation of **data pipelines and AI models fully deployed in production**, with particular attention to **cloud scalability**, **experimental reproducibility**, and integration of **advanced paradigms such as federated learning**.
+
+<div class="cards-grid">
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/ecoenergy1.png" alt="AWS MLOps platform and federated learning">
+
+<div class="project-body">
+
+### P1 — Cloud-native MLOps platform for intelligent energy monitoring
+
+**Context**  
+End-to-end project aimed at designing an **industrial MLOps platform fully deployed on AWS cloud**, for analysis and forecasting of energy consumption in distributed systems.  
+The operational framework imposes strong constraints: **heterogeneous data**, **multi-site deployment**, **data security**, and **real-time prediction needs**.
+
+The objective is to cover the entire **AI application production lifecycle**, from data ingestion to model serving, while integrating a **federated learning** approach to preserve local data confidentiality.
+
+**Cloud architecture & deployment**  
+The application is deployed **end-to-end on AWS**, with a service-oriented architecture:
+
+- **Storage & data**
+  - Historical and intermediate data stored on **Amazon S3**
+  - Clear separation between raw data, features, and model artifacts  
+
+- **Compute & orchestration**
+  - Containerized services orchestrated via **AWS Kubernetes (EKS)**  
+  - Distributed training and inference, with GPU support  
+  - Automatic horizontal scalability based on load  
+
+- **Serving & integration**
+  - Models exposed via **API endpoints**  
+  - Asynchronous triggers via **AWS Lambda** for inference and updates  
+  - Architecture ready for real-time and batch use cases  
+
+**MLOps & experimentation**
+- Experiment, metric, and model version tracking  
+- Status management (experimentation, validation, production)  
+- Strict separation between data, training, and deployment pipelines  
+
+**Federated learning (key element)**  
+A **federated learning** mechanism was implemented to:
+
+- Train models **without centralizing sensitive data**  
+- Aggregate weights learned locally on different nodes  
+- Reduce risks related to data confidentiality and governance  
+- Simulate multi-site industrial scenarios (buildings, regions, equipment)
+
+This approach constitutes an **innovative lever** for energy and industrial systems, where regulatory and operational constraints limit data centralization.
+
+**Key results**
+- AI application **fully deployed in production on AWS**  
+- Functional MLOps pipeline from storage to prediction API  
+- Validation of distributed environment operation  
+- Successful integration of federated learning in cloud architecture  
+
+**Added value**  
+This project demonstrates **advanced mastery of cloud-native Data Engineering and MLOps**, as well as ability to integrate **recent research paradigms (federated learning)** in realistic industrial architectures.  
+It illustrates the complete transition **from modeling to industrialization**, with a system and long-term vision.
+
+**Tech:** `AWS (S3, Lambda, EKS, Endpoints)` · `Fast Api` · `Nginx` · `Data Engineering` · `MLOps` · `Docker` · `Kubernetes` · `GPU Computing` · `Federated Learning` 
+
+<div class="project-actions">
+<a class="btn btn-sm btn-primary" href="#" aria-disabled="true">Cloud platform & MLOps</a>
+</div>
+
+</div>
+:::
+
+</div>
+
+
+
+
+
+## Natural Language Processing (NLP) & LLM {#llm}
+
+Advanced analysis of **large-scale text corpora** to extract **latent semantic structures**, compare international media discourses, and understand narrative evolution over time.
+
+<div class="cards-grid">
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/nlp1.png" alt="Textual analysis and Topic Modeling on COVID-19">
+
+<div class="project-body">
+
+### P1 — Comparative analysis of international media discourses (COVID-19)
+
+**Context**  
+Large-scale academic project conducted at HEC Montréal aimed at analyzing and comparing **English-language media discourses** from multiple countries and continents around a common theme: the **COVID-19 pandemic**.  
+The objective is to identify **how the same global event is treated differently according to geopolitical, cultural, and temporal contexts**, beyond simple factual content.
+
+**Methodological approach**  
+The approach relies on a complete **natural language processing** pipeline, combining:
+
+- an **in-depth exploratory analysis** of texts (length, temporal distribution, geographic origin),  
+- **rigorous linguistic preprocessing** (cleaning, entity normalization, lexical variant management, noise reduction),  
+- **unsupervised topic modeling** enabling extraction of dominant subjects without a priori hypotheses.
+
+The analysis is structured **by key temporal periods** (beginning, peak, and late phase of the pandemic), to study media narrative evolution over time.
+
+**Key results**
+- Highlighting of **distinct themes according to pandemic phases** (initial reaction, public policies, socio-economic impacts, variants, measure easing)  
+- Marked differences between regions in **subject prioritization** (public health, governance, economy, society)  
+- Topic Modeling capacity to reveal **latent discursive dynamics**, difficult to observe by manual reading  
+
+**Challenges and lessons learned**
+- Strong heterogeneity of sources (editorial styles, article sizes, vocabulary)  
+- Critical importance of **preprocessing and linguistic normalization** to obtain usable results  
+- Need for constant arbitration between **semantic richness** and **statistical stability** of models  
+
+**Added value**  
+This project demonstrates **advanced mastery of modern NLP techniques**, with ability to transform unstructured texts into **interpretable analytical indicators**, useful for:
+- media analysis,  
+- strategic intelligence,  
+- social and decision sciences research.
+
+It also constitutes a solid foundation for extensions toward **sentiment analysis**, **large language models (LLM)**, and fine study of **multi-country narrative dynamics**.
+
+**Tech:** NLP · Topic Modeling · Text Mining · SpaCy · Gensim · NLTK · Transformers · Semantic visualization
+
+<div class="project-actions">
+<a class="btn btn-sm btn-primary" href="#" aria-disabled="true">Session project</a>
+</div>
+
+</div>
+:::
+
+</div>
+
+
+
+## Deep learning & Computer vision {#dl-cv}
+
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/airline1.png" alt="Airline reliability prediction">
+
+<div class="project-body">
+
+### P1 — Airline reliability prediction for commercial routes
+
+**Context**  
+Predictive modeling project aimed at estimating **airline reliability for given routes**, from a vast history of North American commercial flights.  
+Reliability is operationally defined from criteria combining **delays**, **cancellations**, and **temporal variability**, in a context where user decisions are highly sensitive to uncertainty.
+
+The objective is to provide **robust decision support**, enabling comparison of airlines according to **risk associated with a specific route**, considering spatio-temporal context.
+
+**Modeling approach**  
+The approach relies on structured supervised modeling:
+
+- Problem formalization as **reliability class prediction** (low, medium, high)  
+- Integration of temporal, geographic, and operational variables  
+- Comparison of multiple classification model families  
+- Analysis of trade-offs between **global accuracy**, **stability**, and **interpretability**  
+- Rigorous evaluation in a framework respecting data temporal structure  
+
+Particular attention is paid to **class imbalance** and its impact on prediction quality.
+
+**Key results**
+
+- Ability to clearly differentiate reliability levels by airlines and routes  
+- Highlighting of dominant temporal and geographic factors  
+- Significant improvement over naive ranking approaches  
+- Stable and consistent models on out-of-sample periods  
+
+**Added value**  
+This project illustrates a **concrete large-scale predictive modeling application**, with strong link between **statistics**, **machine learning**, and **user decision-making**.  
+It highlights the ability to transform massive data into **actionable reliability indicators**.
+
+**Tech:** `Supervised learning` · `Classification` · `Predictive modeling` · `Imbalanced evaluation` · `Python` · `Scikit-learn` · `XGBoost` · `Pandas` · `Matplotlib`
+
+</div>
+
+:::
+
+
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/montreal2.png" alt="Accident risk at Montreal intersections">
+
+<div class="project-body">
+
+### P2 — Spatial modeling of accident risk at Montreal intersections
+
+**Context**  
+Project applied to **urban road safety**, aimed at modeling and classifying **accident risk level at Montreal intersections**.  
+Traffic accidents exhibit **strong spatial dependence**: nearby intersections often share common characteristics related to urban environment, traffic, and infrastructure.
+
+The objective is to produce a **robust intersection ranking by dangerousness**, to support planning and prevention decisions.
+
+**Modeling approach**  
+The approach combines statistical modeling and spatial dependence:
+
+- Accident count modeling via **adapted count models**  
+- Introduction of **spatial lag variables**  
+- Construction of neighborhood structures (distance, radius, k-nearest neighbors)  
+- Model comparison:
+  - classical count models,
+  - random effects models,
+  - spatial models explicitly integrating geographic dependence  
+
+Evaluation relies on quantitative metrics and **intersection ranking stability**.
+
+**Key results**
+
+- Clear performance improvement through spatial dependence integration  
+- Identification of high-risk urban zones  
+- Consistent and interpretable intersection ranking  
+- Results directly usable for urban planning  
+
+**Added value**  
+This project demonstrates **advanced mastery of applied spatial modeling**, at the interface between **machine learning**, **statistics**, and **urban data**.  
+It highlights the added value of structural models for problems with **strong societal impact**.
+
+**Tech:** `Spatial modeling` · `Count statistics` · `Statistical learning` · `Geographic data` 
+
+</div>
+
+:::
+
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/bixi3.jpg" alt="BIXI bike network solicitation analysis in Montreal">
+
+<div class="project-body">
+
+### P3 — BIXI network solicitation modeling in Montreal
+
+**Context**  
+Project applied to **urban mobility**, aimed at analyzing and modeling **BIXI trip duration and intensity** in Montreal, from data from multiple stations distributed across the urban territory.  
+Observations exhibit a **natural hierarchical structure**: trips are nested in stations, themselves located in different boroughs, inducing **significant intra-station correlations**.
+
+The objective is to understand **how network solicitation varies according to spatial and temporal context**, and quantify inter-station heterogeneity.
+
+**Modeling approach**  
+The approach relies on progressive statistical modeling:
+
+- Basic modeling via a **global linear model**, integrating temporal covariates (weekday vs weekend)  
+- Highlighting of observation independence assumption limitations  
+- Introduction of **mixed-effects models**, with:
+  - **random intercepts per station**,  
+  - then **weekend conditional random effects**,  
+- Formal statistical tests (likelihood ratios, Wald tests) to evaluate:
+  - random effect significance,  
+  - inter-station variability,  
+  - hierarchical structure relevance.
+
+Particular attention is paid to estimation and interpretation of **intra-station correlation**, key indicator of trip dependence.
+
+**Key results**
+- Highlighting of **high intra-station correlation**, invalidating independence assumption  
+- Significant variability of average trip duration between boroughs  
+- Global positive weekend effect on trip duration  
+- Low inter-station variability of "weekend" effect, justifying more parsimonious model  
+
+**Added value**  
+This project demonstrates **advanced mastery of hierarchical models and mixed effects**, essential for correlated urban data analysis.  
+It highlights the importance of **adapted structural modeling** to avoid biased conclusions in shared mobility systems.
+
+**Tech:** `Linear mixed models` · `Advanced statistics` · `Urban mobility data` · `Hierarchical analysis` · `R` · `lme4` · `ggplot2`
+
+</div>
+
+:::
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/beamforming5.png" alt="Antenna array optimization by learning and metaheuristics">
+
+<div class="project-body">
+
+### P4 — Intelligent optimization of a planar antenna array for localization and adaptive beamforming
+
+**Context**  
+Master's thesis project on **planar antenna array optimization** in a context of **intelligent wireless communications**.  
+The objective is to design a system capable of:
+
+- **localizing a user in space**,  
+- **dynamically adapting the radiation pattern** (beamforming),  
+- and **optimizing transmission and reception powers** to improve service quality.
+
+The work sits at the interface between **applied electromagnetics**, **numerical optimization**, and **machine learning**.
+
+**Experimental framework and physical modeling**  
+A **4 × 4 monopole antenna array** is designed and simulated under **CST Design Studio**, including:
+
+- complete array geometry,  
+- feed connectors,  
+- and realistic electromagnetic parameters.
+
+A three-dimensional virtual environment **10 × 10 × 10** is then simulated using a **radio propagation model**, enabling estimation of received powers at different spatial points for various array feeding schemes.
+
+**Methodological approach**  
+
+The approach relies on three main building blocks:
+
+- **Radio fingerprinting**  
+
+  - Construction of an electromagnetic fingerprint database linking spatial positions and received powers  
+  - Learning relationship between radio signatures and user localization  
+
+- **Triangulation localization**  
+
+  - Exploitation of fingerprints to estimate user position  
+  - Localization error reduction in simulated space  
+
+- **Beamforming optimization**  
+
+  - Adjustment of antenna feed currents to orient main lobe  
+  - Comparison of two optimization approaches:
+    - **Artificial Neural Networks (ANN)** for rapid optimal configuration approximation  
+    - **Particle Swarm Optimization (PSO)** as reference metaheuristic method  
+
+**Key results**
+
+- Effective user localization in simulated space  
+- Dynamic adaptation of antenna array main lobe toward estimated position  
+- Clear comparison between:
+  - ANN approach inference speed,  
+  - robustness and global exploration offered by PSO  
+- Analysis of trade-offs between **performance**, **computational complexity**, and **response time**
+
+**Research perspectives**  
+A major perspective of this work consisted in **exploiting the inter-antenna electromagnetic coupling effect** of the array to:
+
+- drive radiation pattern **indirectly**,  
+- **reduce the number of independent feed sources**,  
+- and decrease overall system hardware complexity.
+
+This approach opens the way to **virtual beamforming**, where physical antenna interaction becomes an **optimization lever** rather than a constraint to compensate.  
+It constitutes a promising avenue for designing **more compact, economical, and intelligent antenna arrays**, particularly in **5G/6G** contexts, massive IoT, and embedded systems.
+
+**Added value**  
+This project illustrates a **complete integration between physical modeling and artificial intelligence**, applied to a real telecommunications problem.  
+It demonstrates ability to:
+
+- move from **electromagnetic design** to **algorithmic optimization**,  
+- exploit **system physical interactions** as information source,  
+- and design intelligent solutions oriented toward **localization and adaptive beamforming**.
+
+**Tech:** `Planar antennas` · `Beamforming` · `Inter-antenna coupling` · `Optimization (PSO)` · `Neural networks` · `Radio fingerprinting` · `Propagation modeling` · `CST Design Studio` · `Matlab`
+
+</div>
+
+:::
+
+
+
+:::

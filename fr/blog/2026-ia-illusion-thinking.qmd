@@ -6,7 +6,11 @@ toc-location: right
 page-class: blog-page
 ---
 
-## Introduction
+
+
+::: {.justify}
+
+![](../../assets/blog/img1.png){width=50%}
 
 Les récentes avancées dans les grands modèles de langage ont ravivé une vieille question :
 *les machines peuvent-elles vraiment raisonner, ou ne font-elles que reproduire des motifs convaincants ?*
@@ -140,11 +144,13 @@ L'IA est un **multiplicateur de force** pour les praticiens expérimentés.
 C'est une **béquille dangereuse** pour ceux qui ne comprennent pas encore le domaine.
 
 J'utilise l'IA pour :
+
 - Accélérer l'implémentation de motifs bien compris,
 - Explorer rapidement des alternatives de formulation,
 - Documenter et communiquer la logique du modèle.
 
 Je n'utilise **pas** l'IA pour :
+
 - Prendre des décisions de conception fondamentales,
 - Choisir entre des paradigmes de modélisation concurrents,
 - Valider si un modèle est adapté au déploiement opérationnel.
@@ -170,3 +176,6 @@ Elle ne peut pas encore en assumer la responsabilité.*
 ---
 
 **Quelle est votre expérience ?** Avez-vous déployé des modèles générés par l'IA en production ? Qu'est-ce qui a échoué ? Qu'est-ce qui a fonctionné ? J'aimerais entendre vos histoires—contactez-moi sur [LinkedIn](https://www.linkedin.com/in/balogog-georges-6810b9118/).
+
+
+:::

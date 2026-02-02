@@ -6,6 +6,10 @@ toc-location: right
 page-class: blog-page
 ---
 
+::: {.justify}
+
+![](../../assets/blog/img2.png){width=50%}
+
 ## Introduction : Le test impitoyable
 
 Si vous voulez comprendre les véritables limites du raisonnement de l'IA, ne lui demandez pas d'écrire de la poésie ou de résumer des articles.
@@ -28,6 +32,7 @@ La plupart des succès de l'IA moderne proviennent de **problèmes de prédictio
 classification, régression, complétion de motifs, génération de séquences.
 
 Ce sont fondamentalement des tâches **probabilistes**. Elles demandent :
+
 - *Qu'est-ce qui est probable étant donné les données ?*
 - *Quel motif correspond le mieux à cette distribution ?*
 - *Que vient ensuite dans cette séquence ?*
@@ -61,6 +66,7 @@ En optimisation, les contraintes sont **absolues**.
 Violer une contrainte invalide toute la solution.
 
 Considérez un exemple réel de mon travail en optimisation d'entrepôt :
+
 - *"Chaque SKU doit être assigné à exactement un emplacement"* → Contrainte dure. Non négociable.
 - *"Les articles à forte rotation devraient être près des stations d'emballage"* → Préférence souple. Optimisable.
 
@@ -170,7 +176,7 @@ Ils rejouent des motifs qui ont fonctionné ailleurs, agnostiques de l'échelle,
 
 Laissez-moi être précis sur où l'IA ajoute de la valeur dans le travail d'optimisation—et où elle devient un handicap.
 
-### AVANTAGES : ✅ Où l'IA est réellement utile :
+### ✅ Où l'IA est réellement utile :
 
 **1. Générer des formulations initiales**
 À partir d'une description verbale du problème, l'IA peut échafauder un modèle mathématique de base—variables, objectif, contraintes basiques. Cela accélère la phase de rédaction, surtout pour les types de problèmes standard (plus court chemin, sac à dos, affectation).
@@ -190,7 +196,7 @@ L'IA peut rapidement générer plusieurs versions d'un modèle avec différentes
 **4. Documentation et explication**
 Traduire la notation mathématique en langage simple pour les parties prenantes, générer des docs de configuration de solveur, expliquer les variables duales et les prix fictifs—l'IA excelle ici.
 
-### INCONVÉNIENTS : ❌ Où l'IA est fondamentalement peu fiable :
+### ❌ Où l'IA est fondamentalement peu fiable :
 
 **1. Décider des stratégies de décomposition**
 Devriez-vous décomposer cette optimisation de chaîne d'approvisionnement en :
@@ -258,6 +264,7 @@ Elle produit des formulations avec une confiance inversement proportionnelle à 
 Les problèmes d'optimisation sont **impitoyables**.
 
 Ils exposent la différence entre :
+
 - **L'apparence de l'intelligence** (explications fluides, formulations plausibles),
 - Et **l'engagement envers l'exactitude** (faisabilité absolue, hypothèses validées, responsabilité opérationnelle).
 
@@ -289,11 +296,13 @@ J'utilise l'IA extensivement dans mon travail d'optimisation.
 Mais je ne **délègue jamais** la conception de modèle à elle.
 
 Je l'utilise pour :
+
 - Accélérer la rédaction de formulations,
 - Explorer des structures alternatives,
 - Générer des configurations de solveur et de la documentation.
 
 Je ne l'utilise **pas** pour :
+
 - Prendre des décisions de modélisation fondamentales,
 - Choisir des stratégies de décomposition,
 - Valider la faisabilité sous stress opérationnel,
@@ -315,3 +324,5 @@ les décisions les plus difficiles doivent rester les nôtres.*
 ---
 
 **Avez-vous déployé des modèles d'optimisation assistés par l'IA ?** Qu'est-ce qui a fonctionné ? Qu'est-ce qui a échoué spectaculairement ? J'aimerais entendre des histoires de guerre—contactez-moi sur [LinkedIn](https://www.linkedin.com/in/balogog-georges-6810b9118/).
+
+:::

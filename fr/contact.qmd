@@ -50,7 +50,6 @@ Utilisez le formulaire ci-dessous pour me contacter directement par courriel. Je
 ---
 
 
-- 📧 **Email** : georges.balogog@yahoo.fr  
 - 💼 **LinkedIn** : [linkedin.com/in/balogog-georges-6810b9118](https://www.linkedin.com/in/balogog-georges-6810b9118)
 
 *N’hésitez pas à me contacter pour des collaborations en data science, optimisation, data engineering ou recherche appliquée.*
