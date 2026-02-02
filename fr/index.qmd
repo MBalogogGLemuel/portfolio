@@ -24,6 +24,7 @@ Une sélection de mes travaux récents.
 ::: {.project-card}
 ![](../assets/projects/warehouse.png){.card-img}
 
+
 **Optimisation d’entrepôt**  
 Résolution de problèmes MIP pour l’optimisation du stockage.
 

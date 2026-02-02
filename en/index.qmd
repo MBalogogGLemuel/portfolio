@@ -24,7 +24,8 @@ A selection of my recent work.
 ::: {.project-card}
 ![](../assets/projects/warehouse.png){.card-img}
 
-**Warehouse Optimization** Solving MIP problems for storage optimization.
+**Warehouse Optimization** 
+Solving MIP problems for storage optimization.
 
 MIP Models for slotting, picking, and replenishment with KPI tracking and export.
 

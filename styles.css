@@ -692,5 +692,68 @@ body.blog-page #quarto-margin-sidebar nav#TOC{
   }
 }
 
- 
+/* =========================================================
+   FIX — Home project cards (simple & works)
+   Put this at the VERY END of styles.css
+   ========================================================= */
+
+/* Force the home grid to behave */
+.project-grid{
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 18px !important;
+  width: 100% !important;
+  max-width: 1100px !important;
+  margin: 14px auto 0 !important;
+}
+
+/* Responsive: 2 cols then 1 col */
+@media (max-width: 1100px){
+  .project-grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+@media (max-width: 780px){
+  .project-grid{
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Force home cards to be "vertical cards" (NOT the wide Option B cards) */
+.project-grid .project-card{
+  display: block !important;
+  min-height: auto !important;
+  background: var(--glass) !important;
+  border: 1px solid rgba(160,180,210,.22) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 30px rgba(10,40,80,.12) !important;
+  overflow: hidden !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+/* Fix image sizing on home cards */
+.project-grid .project-card .card-img{
+  display: block !important;
+  width: 100% !important;
+  height: 160px !important;
+  object-fit: cover !important;
+}
+
+/* Fix spacing inside home cards */
+.project-grid .project-card p,
+.project-grid .project-card strong{
+  display: block;
+}
+.project-grid .project-card > :not(.card-img){
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.project-grid .project-card > :last-child{
+  padding-bottom: 16px;
+}
+.project-grid .project-card > :first-child:not(.card-img){
+  padding-top: 16px;
+}
+
 
