@@ -12,7 +12,7 @@ Data Science · Optimisation · Data Engineering · Génie électrique
 
 _Je conçois des solutions analytiques de bout en bout : ingestion et ETL des données, modélisation prédictive, optimisation (MILP/MIP), déploiement (API / CI-CD) et tableaux de bord décisionnels._
 
-[Télécharger le CV](../assets/cv/cv_Data engineer.pdf){.btn .btn-primary}
+[Télécharger le CV](../assets/cv/cv_Data engineer_fr.pdf){.btn .btn-primary}
 :::
 
 

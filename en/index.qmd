@@ -12,7 +12,7 @@ Data Science · Optimization · Data Engineering · Electrical Engineering
 
 _I build end-to-end analytical solutions: ingestion/ETL, predictive modeling, optimization (MILP/MIP), deployment (API/CI/CD), and decision-making dashboards._
 
-[Download CV](assets/cv/cv_Data engineer.pdf){.btn .btn-primary}
+[Download CV](../assets/cv/cv_Data engineer_en.pdf){.btn .btn-primary}
 :::
 
 
