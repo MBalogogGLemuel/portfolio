@@ -5,21 +5,130 @@ toc-depth: 2
 page-class: projects-page
 ---
 
+- [Electrical Engineering & Telecommunications](#Telecom)
 - [Forecasting](#forecasting)
 - [Deterministic Optimization](#optimisation)
 - [Stochastic Optimization](#stochastic)
 - [Reinforcement Learning](#rl)
 - [Data Engineering & MLOps](#dataeng)
-- [Natural Language Processing (NLP) & LLM](#llm)
-- [Machine & Deep Learning + Computer Vision](#dl-cv)
+- [Natural Language Processing (NLP) & LLMs](#llm)
+- [Deep Learning & Computer Vision](#dl-cv)
 
 ::: {.justify}
 
-This page brings together my technical projects organized by **area of specialization**.
+This page brings together my technical projects, organized by **area of specialization**.
 
-Each section highlights **selected projects** with their **context**, **methodological approach**, **key results**, and **links to deliverables** when available.
+Each section presents **selected projects** with their **context**, **methodological approach**, **key results**, and **links to the code** when available.
 
 ---
+
+## Telecommunications & Electrical Engineering {#Telecom}
+
+::: {.cards-grid}
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/monopol3d.PNG" alt="Optimization of an antenna array using ANN">
+
+<div class="project-body">
+
+### P1 – Beamforming optimization of a planar antenna array using Artificial Neural Networks (ANN)
+
+**Context.**  
+
+Design of a planar smart antenna (4×5 monopole array) and training of a **multilayer perceptron (MLP)** to predict the **excitation law (amplitudes/phases)** in order to form a beam toward a target direction.
+
+**Approach.**
+
+- Analytical baseline: **Dolph–Chebyshev** (side-lobe control).
+- ML model: **ANN / MLP with backpropagation**, **MSE** criterion.
+- Evaluation pipeline: **MATLAB (NNSTART) → CST Microwave Studio** (co-simulation and control).
+
+**Key results.**
+
+- **Directivity gain ≈ +0.2 dB** compared with the Dolph–Chebyshev method.
+- **Computation time ≈ 1.27 s** for generating the excitation law.
+- Network training time: **≈ 27 h 59 min 58 s** (backpropagation).
+
+**Technologies.**  
+
+MATLAB R2018a · Neural Network Toolbox (NNSTART) · CST Microwave Studio · Antenna arrays · Beamforming · Heuristic optimization · MLP
+
+**Deliverables.**
+
+- Detailed technical report (Scientific paper)
+- MATLAB scripts (training and inference)
+- Electromagnetic models and simulations in CST
+- 2D and 3D radiation patterns
+
+<div class="project-links">
+[Read the paper (PDF)](../../assets/OptimreseauxantennesRNA/Synthese-Optim_reseaux_antennes_planaires.pdf){.btn .btn-primary}
+[GitHub](https://github.com/MBalogogGLemuel/Optimisation-reseaux-antenne-RNA){.btn .btn-outline}
+</div>
+
+</div>
+
+:::
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/point_mesure.png" alt="Wi-Fi fingerprinting detection">
+
+<div class="project-body">
+
+### P2 – Indoor Wi-Fi localization using RSSI fingerprinting  
+**Machine Learning (ANN/MLP) vs PSO comparison**
+
+**Summary.**  
+
+Indoor localization prototype in a **10 m × 10 m** area with **4 Wi-Fi access points**.  
+The problem is formulated as **supervised regression**: \((RSSI_1,\dots,RSSI_4)\rightarrow(x,y)\), and a **neural network (MLP)** is compared to **PSO** in terms of accuracy and latency.
+
+**Objective.**
+
+- Estimate position **(x, y)** from Wi-Fi RSSI (fingerprinting)
+- Optimize the **accuracy / computation time** trade-off (real-time telecom constraint)
+
+**Methodology.**
+
+- **Experimental setup**: **100 m²** area, **2.4 GHz**, 4 APs at the corners
+- **Dataset**: **50 reference points** (fingerprinting database)
+- **ML model**: **MLP (ANN)**, regression, **MSE** loss
+- **Baseline**: **PSO** (60 particles, \(c_1=c_2=2\), \(w\in[0.4,0.9]\), 1000 iterations)
+- **Condition**: LOS (controlled protocol)
+
+**Key results.**
+
+- **ANN (MLP)**: **2.5729 m** average error | **0.206288 s**
+- **PSO**: **2.8612 m** average error | **1.360301 s**
+- **ANN gain**: **≈ +11%** more accurate | **≈ ×6.6** faster (inference)
+
+**Why it’s strong for a recruiter (Telecom × Data).**
+
+- Reframing a radio problem into an **actionable ML pipeline**
+- Rigorous analysis of **latency vs accuracy** trade-offs
+- Structured comparison **ML vs heuristic optimization**
+- Directly transferable to **IoT / smart buildings / radio analytics**
+
+**Stack & skills.**
+
+- Wi-Fi fingerprinting (RSSI), radio propagation (FSPL/Friis)
+- Supervised regression, MLP, MSE, evaluation
+- PSO (tuning, convergence, computational cost)
+- MATLAB + LaTeX reporting
+
+<div class="project-links">
+[Read the paper (PDF)](../../assets/Detectionparfingerprinting/Synthese-Detection_par_fingerprinting.pdf){.btn .btn-primary}
+[GitHub](https://github.com/MBalogogGLemuel/Detection-par-fingerprinting){.btn .btn-outline}
+</div>
+
+</div>
+
+:::
+
+:::
+
+
 
 ## Forecasting {#forecasting}
 
@@ -36,6 +145,7 @@ Development of **time-series forecasting systems applied to real energy settings
 ### P1 — Regional energy consumption forecasting (statistical approach)
 
 **Context**  
+
 This project forecasts **daily peak load** for regions served by **JCP&L (New Jersey)** in a **mid-term energy planning** setting.  
 The goal is to anticipate demand fluctuations while maintaining **high interpretability** of the underlying drivers.
 
@@ -49,11 +159,13 @@ The work relies on classical time-series modeling (Naïve, ETS, SARIMAX) explici
 Models are evaluated using strict **rolling-origin time validation**, ensuring realistic out-of-sample performance estimates.
 
 **Key results**
+
 - Stable, coherent forecasts at the regional level  
 - Clear identification of seasonal components and exogenous effects  
 - A reliable **operational baseline** suitable for planning workflows  
 
 **Value**  
+
 This project highlights how well-specified statistical models support **energy decision-making** and **operational planning** when transparency and traceability of assumptions are essential.
 
 **Tech**: `R` · `Statistical Forecasting` · `Time Series` · `Power BI` · `Tableau`
@@ -63,6 +175,7 @@ This project highlights how well-specified statistical models support **energy d
 </div>
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -74,10 +187,12 @@ This project highlights how well-specified statistical models support **energy d
 ### P2 — Multivariate energy forecasting with deep learning
 
 **Context**  
+
 This project extends the previous work into a **data-driven** setting, aiming to capture **complex non-linear relationships** between energy demand, climate conditions, and regional dynamics.  
 It targets **multi-region forecasting** at the scale of Quebec administrative regions, characterized by heterogeneous behaviors and partially non-stationary series.
 
 **Methodological approach**  
+
 Sequential deep architectures (RNN-LSTM, TCN) are systematically compared with traditional statistical baselines (SARIMA) to:
 
 - leverage **sliding time windows**,  
@@ -87,12 +202,14 @@ Sequential deep architectures (RNN-LSTM, TCN) are systematically compared with t
 A strong emphasis is placed on **comparative evaluation** to measure the true incremental value of deep learning.
 
 **Key results**
+
 - Improved performance in some highly variable regions  
 - Better capture of delayed effects and non-linearities  
 - Robust behavior on recent out-of-sample periods  
 - Confirmation of the **ongoing relevance of classical statistical models**  
 
 **Value**  
+
 This work clarifies the **strengths and limitations of deep learning for energy forecasting** and proposes a pragmatic framework to trade off **predictive accuracy**, **temporal stability**, and **operational complexity**.
 
 **Tech**: `Python` · `PyTorch` · `TensorFlow` · `Scikit-learn` · `Pandas` · `NumPy` · `Matplotlib` · `Power BI`
@@ -102,6 +219,7 @@ This work clarifies the **strengths and limitations of deep learning for energy 
 </div>
 
 </div>
+
 :::
 
 </div>
@@ -122,7 +240,9 @@ Design and analysis of **deterministic optimization models** for real planning, 
 
 ### P1 — Integrated deterministic optimization of an industrial warehouse (MILP)
 
+
 **Context**  
+
 A recent industrial project focusing on day-to-day operational optimization of a multi-zone, multi-format, multi-level warehouse, under **high flow variability**, strict physical constraints, and daily operational pressure.  
 Due to confidentiality, details are intentionally **abstracted and anonymized**.
 
@@ -134,6 +254,7 @@ The overall goal is to improve simultaneously:
 while maintaining **operational feasibility day after day**.
 
 **Methodological approach**  
+
 The problem is formulated as a **deterministic sequential optimization** organized into three complementary sub-models:
 
 - **Putaway / Slotting**: activation of formats per location and allocation of inbound receipts under capacity, compatibility, and functional proximity constraints.  
@@ -154,12 +275,14 @@ A KPI engine measures impact before/after each stage, including:
 This enables a clear **quantitative reading of operational trade-offs** induced by decisions.
 
 **Key results**
+
 - Measurable improvement in accessibility for high-demand items  
 - Reduction of unnecessary internal travel  
 - More stable layouts under dynamic flows  
 - A reproducible framework to test realistic operational scenarios  
 
 **Value**  
+
 This project demonstrates a complete **deterministic optimization pipeline for a real logistics system**, combining mathematical modeling, decision orchestration, and performance analytics.  
 It provides a strong foundation for future extensions (stochastic optimization, RL) while remaining operationally deployable.
 
@@ -181,10 +304,12 @@ It provides a strong foundation for future extensions (stochastic optimization, 
 ### P2 — Scheduling and acceleration of a complex software project
 
 **Context**  
+
 A project scheduling problem for a multi-module software development program with strict precedence constraints.  
 The objective is first to **minimize total project duration**, then to explore **crashing strategies under budget constraints**, including partial or full outsourcing decisions.
 
 **Methodological approach**  
+
 The problem is formulated as a deterministic **scheduling optimization model**, progressively enriched with:
 
 - explicit **precedence constraints**,  
@@ -195,11 +320,13 @@ The problem is formulated as a deterministic **scheduling optimization model**, 
 Each model iteration preserves **linearity** while increasing decision realism.
 
 **Key results**
+
 - Significant delivery time reduction under cost constraints  
 - Identification of critical tasks to outsource first  
 - Fine-grained analysis of **cost vs deadline compliance** trade-offs  
 
 **Value**  
+
 This project illustrates an end-to-end **incremental modeling workflow**, typical of real industrial contexts where requirements evolve and models must remain robust, explainable, and adaptable.
 
 **Tech**: `Excel Solver` · `GAMS` · `IBM CPLEX` · `Power BI`
@@ -220,6 +347,7 @@ This project illustrates an end-to-end **incremental modeling workflow**, typica
 ### P3 — Dynamic allocation of a multi-site locomotive fleet
 
 **Context**  
+
 Managing a fleet of locomotives circulating across interlinked sites (A–B–C) with fixed departure/arrival schedules and **minimum capacity requirements per trip**.  
 The objective is to **minimize the total number of locomotives** while ensuring network feasibility.
 
@@ -233,11 +361,13 @@ A deterministic **multi-period resource allocation model** combining:
 The model explicitly captures temporal dynamics and interdependencies between local and global decisions.
 
 **Key results**
+
 - Identification of the **minimum fleet size** meeting all trips  
 - Clear visualization of flows and resource tensions  
 - Detection of critical periods with limited availability  
 
 **Value**  
+
 This work highlights the strength of deterministic optimization for **logistics network planning**, when feasibility and robustness are prioritized.
 
 **Tech**: `Python` · `GAMS` · `IBM CPLEX` · `Power BI` · `Excel Solver`
@@ -258,6 +388,7 @@ This work highlights the strength of deterministic optimization for **logistics 
 ### P4 — Optimal maintenance scheduling of power plants
 
 **Context**  
+
 Scheduling maintenance for multiple power plants over a multi-month horizon under constraints on team availability, allowed start windows, and calendar-dependent costs.  
 Two objectives are studied: **minimize total cost** and **finish as early as possible**, regardless of budget.
 
@@ -272,11 +403,13 @@ A binary linear optimization model including:
 This supports fast exploration of strategic options.
 
 **Key results**
+
 - Reduced maintenance costs under realistic constraints  
 - Clear comparison between **cost-min** vs **time-min** strategies  
 - Identification of workforce bottlenecks  
 
 **Value**  
+
 A strong example of deterministic optimization as a decision-support tool in critical industrial settings where resources are limited and operational consequences are significant.
 
 **Tech**: `Excel Solver` · `GAMS` · `IBM CPLEX` · `Power BI`
@@ -308,6 +441,7 @@ Projects below emphasize **probabilistic modeling**, **risk–performance trade-
 ### P1 — Bayesian optimization for costly experimental systems
 
 **Context**  
+
 Optimizing an objective function that is **unknown**, **noisy**, and **expensive to evaluate**, a common situation in industrial and experimental settings.  
 The case study focuses on maximizing the **mechanical strength of a polymer** as a function of continuous physico-chemical inputs (plasticizer proportion x₁ ∈ [0,1] and curing time x₂ ∈ [0,5] hours), where each evaluation implies real cost (time, resources, lab trials).
 
@@ -323,11 +457,13 @@ A sequential **Bayesian optimization** workflow based on:
 This reduces the number of trials dramatically (≈10 iterations vs 100+ for exhaustive grids) while converging to promising regions.
 
 **Key results**
+
 - Rapid convergence to high-performance regions  
 - Explicit uncertainty quantification guiding sampling decisions  
 - A concrete illustration of the value of information in sequential experimentation  
 
 **Value**  
+
 A robust alternative to purely deterministic methods when data are scarce, noisy, or costly—relevant to materials formulation, process optimization, manufacturing tuning, and ML hyperparameter optimization.
 
 **Tech**: `Python` · `R` · `NumPy` · `SciPy` · `Matplotlib`
@@ -348,6 +484,7 @@ A robust alternative to purely deterministic methods when data are scarce, noisy
 ### P2 — Optimal decision-making under uncertainty with probabilistic scenarios
 
 **Context**  
+
 A sequential decision problem under risk, where outcomes depend on probabilistic transitions and random shocks.  
 The scenario is a “treasure hunter” navigating a jungle to reach a temple (+1000) while minimizing exposure to adverse outcomes (cliffs, rivers, predators, absorbing negative states) and paying a time cost (-10 per action).
 
@@ -361,11 +498,13 @@ A stochastic formulation as a **Markov Decision Process (MDP)** with:
 - an exact solver (Value Iteration) and a linear approximation via TD Learning to study accuracy vs computational complexity.
 
 **Key results**
+
 - Optimal policies avoiding high expected-loss states  
 - Strong sensitivity to the discount factor γ  
 - Approximations capturing global structure with reduced complexity  
 
 **Value**  
+
 A strong illustration of multi-stage stochastic optimization foundations: anticipation, prudence, and risk management—applicable to robotics navigation, logistics under uncertainty, and planning under stochastic shocks.
 
 **Tech**: `Python` · `R` · `Pandas` · `NetworkX` · `NumPy` · `Matplotlib`
@@ -375,6 +514,7 @@ A strong illustration of multi-stage stochastic optimization foundations: antici
 </div>
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -386,6 +526,7 @@ A strong illustration of multi-stage stochastic optimization foundations: antici
 ### P3 — Optimal selling policy under stochastic price uncertainty
 
 **Context**  
+
 Dynamic pricing / optimal stopping under uncertain future price evolution.  
 A seller holds an asset and may sell at any time, while prices evolve stochastically (random walk, AR(3)). The objective is to maximize expected profit by balancing immediate sale vs waiting.
 
@@ -399,11 +540,13 @@ Comparison of three parametric policies using Monte Carlo simulation:
 Policies are tuned and compared across stochastic price models.
 
 **Key results**
+
 - Tracking policies consistently outperform rigid threshold rules  
 - Robust performance across price dynamics  
 - Autocorrelation affects achievable profit and optimal tuning  
 
 **Value**  
+
 Demonstrates the importance of adaptive policies under uncertainty and provides a simulation-based framework for comparing stochastic decision strategies.
 
 **Tech**: `Python` · `R` · `Monte Carlo Simulation` · `NumPy` · `Pandas` · `Matplotlib`
@@ -413,6 +556,7 @@ Demonstrates the importance of adaptive policies under uncertainty and provides 
 </div>
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -424,10 +568,12 @@ Demonstrates the importance of adaptive policies under uncertainty and provides 
 ### P4 — Optimal inventory decision under demand uncertainty (Newsvendor)
 
 **Context**  
+
 A classic stochastic inventory optimization problem extended with salvage value for unsold units.  
 A retailer chooses order quantity x before observing random demand D, with unit cost c, selling price r, and salvage price s. The objective is to maximize expected profit while balancing shortage vs surplus risk.
 
 **Methodological approach**  
+
 Analytical stochastic optimization:
 
 - expected profit formulation,  
@@ -436,11 +582,13 @@ Analytical stochastic optimization:
 - empirical validation via stochastic gradient.
 
 **Key results**
+
 - Closed-form optimal solution via the critical quantile  
 - Clear illustration of risk trade-offs and information value  
 - Practical sensitivity to cost/price parameters and demand distribution  
 
 **Value**  
+
 A foundational model for demand-uncertain decisions (retail, manufacturing, capacity planning), showcasing how uncertainty changes optimal policies.
 
 **Tech**: `Python` · `R` · `NumPy` · `Matplotlib`
@@ -450,6 +598,7 @@ A foundational model for demand-uncertain decisions (retail, manufacturing, capa
 </div>
 
 </div>
+
 :::
 
 </div>
@@ -471,6 +620,7 @@ Applying **reinforcement learning** to a constrained **sequential control and co
 ### Reinforcement learning for autonomous robot navigation (Codey Rocky)
 
 **Context**  
+
 A variant of the **Traveling Salesman Problem (TSP)** in a discrete environment formulated as a **constrained sequential decision problem**.  
 A robot (Codey Rocky) must:
 
@@ -494,21 +644,25 @@ Two approaches are implemented and compared:
 Policies are trained with **ε-greedy** exploration and explicit control of learning rate and discount factor.
 
 **Key results**
+
 - Both approaches converge within a comparable number of episodes  
 - Similar final performance in a moderate state space  
 - Practical evidence of deep RL limits when structural complexity remains low  
 
 **Critical discussion**
+
 - Deep learning does not systematically outperform well-posed tabular methods  
 - State-space structure drives whether neural approximation is justified  
 - Stability and interpretability remain central in constrained settings  
 
 **Value**  
+
 A complete RL workflow from environment modeling to comparative analysis, emphasizing the real conditions under which deep RL becomes relevant.
 
 **Tech**: `Python` · `PyTorch` · `TensorFlow` · `NumPy` · `Pandas` · `Matplotlib`
 
 </div>
+
 :::
 
 </div>
@@ -530,6 +684,7 @@ Design and implementation of **data pipelines and AI models fully deployed to pr
 ### P1 — Cloud-native MLOps platform for smart energy monitoring
 
 **Context**  
+
 An end-to-end project designing a production-grade **MLOps platform fully deployed on AWS** for monitoring and forecasting energy consumption in distributed systems.  
 Operational constraints include heterogeneous data, multi-site deployment, data security requirements, and real-time predictions.
 
@@ -539,20 +694,24 @@ The goal is to cover the full **AI production lifecycle**, from ingestion to ser
 The application is deployed end-to-end using a service-oriented architecture:
 
 - **Storage & data**
+
   - raw/intermediate data in **Amazon S3**
   - clear separation between raw, features, and model artifacts  
 
 - **Compute & orchestration**
+  - data processing and model training in **EC2 instances**
   - containerized services orchestrated via **AWS Kubernetes (EKS)**
   - distributed training/inference with optional GPU support
   - horizontal autoscaling based on load  
 
 - **Serving & integration**
+
   - model inference exposed via **API endpoints**
   - async triggers via **AWS Lambda**
   - ready for real-time and batch usage  
 
 **MLOps & experimentation**
+
 - experiment tracking, metrics, and model versioning  
 - environment separation (experimentation, validation, production)  
 - strict separation of data pipelines, training, and deployment  
@@ -581,6 +740,7 @@ Demonstrates advanced capability in cloud-native Data Engineering and MLOps, inc
 </div>
 
 </div>
+
 :::
 
 </div>
@@ -602,10 +762,12 @@ Large-scale **text corpus analysis** to extract **latent semantic structure**, c
 ### P1 — Comparative analysis of international media narratives (COVID-19)
 
 **Context**  
+
 A major academic project at HEC Montréal analyzing **English-language media coverage** across multiple countries and continents around a shared topic: the COVID-19 pandemic.  
 The objective is to understand how the same global event is framed differently depending on geopolitical, cultural, and temporal contexts—beyond factual reporting.
 
 **Methodological approach**  
+
 An end-to-end NLP pipeline combining:
 
 - deep exploratory analysis (length, time distribution, geographic sources),  
@@ -615,16 +777,19 @@ An end-to-end NLP pipeline combining:
 The analysis is structured across key time periods (early stage, peak, late stage) to track narrative shifts.
 
 **Key results**
+
 - Distinct themes by pandemic phase (initial response, public policy, socio-economic impact, variants, relaxation)  
 - Clear regional differences in topic prioritization (public health, governance, economy, society)  
 - Topic modeling reveals latent discourse dynamics that are hard to capture manually  
 
 **Challenges & lessons**
+
 - High heterogeneity across sources (style, scale, vocabulary)  
 - Preprocessing quality is critical for stable, interpretable results  
 - Continuous trade-off between semantic richness and statistical stability  
 
 **Value**  
+
 Demonstrates advanced NLP proficiency and the ability to convert unstructured text into interpretable analytical indicators, relevant for media analysis, strategic intelligence, and social science research.  
 It also provides a foundation for extensions into sentiment analysis and LLM-based approaches.
 
@@ -654,12 +819,14 @@ It also provides a foundation for extensions into sentiment analysis and LLM-bas
 ### P1 — Predicting airline reliability for commercial routes
 
 **Context**  
+
 A predictive modeling project estimating **airline reliability for specific routes** using a large historical dataset of North American commercial flights.  
 Reliability is operationally defined using combined indicators of **delays**, **cancellations**, and **temporal variability**, in a context where users are highly sensitive to uncertainty.
 
 The goal is to provide robust decision support to compare airlines by the **risk associated with a given route**, accounting for spatio-temporal context.
 
 **Modeling approach**  
+
 A structured supervised modeling workflow:
 
 - framing as **reliability class prediction** (low / medium / high)  
@@ -671,17 +838,20 @@ A structured supervised modeling workflow:
 Special attention is given to **class imbalance** and its impact on predictive quality.
 
 **Key results**
+
 - Clear separation of reliability levels across airlines and routes  
 - Dominant temporal and geographic drivers identified  
 - Significant improvements over naïve ranking baselines  
 - Stable performance on out-of-sample periods  
 
 **Value**  
+
 A concrete large-scale predictive modeling application bridging statistics, ML, and decision support—turning massive operational data into actionable reliability indicators.
 
 **Tech**: `Supervised Learning` · `Classification` · `Predictive Modeling` · `Imbalanced Evaluation` · `Python` · `Scikit-learn` · `XGBoost` · `Pandas` · `Matplotlib`
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -693,12 +863,14 @@ A concrete large-scale predictive modeling application bridging statistics, ML, 
 ### P2 — Spatial modeling of accident risk at Montreal intersections
 
 **Context**  
+
 An urban road safety project modeling and ranking intersection-level accident risk in Montreal.  
 Accidents exhibit strong spatial dependence: nearby intersections share environmental, traffic, and infrastructure characteristics.
 
 The objective is to produce a robust intersection ranking to support planning and prevention decisions.
 
 **Modeling approach**
+
 - count-data modeling for accident frequency  
 - spatial lag feature engineering  
 - neighborhood structures (distance threshold, radius, k-nearest neighbors)  
@@ -706,17 +878,20 @@ The objective is to produce a robust intersection ranking to support planning an
 - evaluation includes both predictive metrics and ranking stability
 
 **Key results**
+
 - Clear improvements from explicitly modeling spatial dependence  
 - Identification of high-risk urban zones  
 - Interpretable and stable ranking outcomes  
 - Results suitable for operational planning contexts  
 
 **Value**  
+
 Demonstrates advanced applied spatial modeling at the intersection of statistics, ML, and geospatial urban data.
 
 **Tech**: `Spatial Modeling` · `Count Statistics` · `Statistical Learning` · `Geospatial Data`
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -728,12 +903,14 @@ Demonstrates advanced applied spatial modeling at the intersection of statistics
 ### P3 — Modeling demand intensity in Montreal’s BIXI network
 
 **Context**  
+
 An urban mobility project analyzing and modeling **trip duration and usage intensity** in the BIXI bike-sharing system using multi-station data.  
 The data have a natural hierarchical structure: trips nested within stations, stations within boroughs, inducing strong within-station correlation.
 
 The goal is to quantify how demand varies across time and space and to measure station-level heterogeneity.
 
 **Modeling approach**
+
 - baseline global linear model with temporal covariates (weekday vs weekend)  
 - diagnosing violations of independence assumptions  
 - mixed-effects modeling:
@@ -747,17 +924,20 @@ The goal is to quantify how demand varies across time and space and to measure s
 A key focus is the **intra-station correlation** estimate.
 
 **Key results**
+
 - High intra-station correlation invalidating independence assumptions  
 - Significant variability in mean trip duration across areas  
 - Positive global weekend effect on duration  
 - Limited between-station variability in the weekend effect, supporting parsimony
 
 **Value**  
+
 Highlights advanced mastery of hierarchical and mixed-effects modeling essential for correlated urban mobility data.
 
 **Tech**: `Mixed-Effects Models` · `Advanced Statistics` · `Urban Mobility Data` · `Hierarchical Analysis` · `R` · `lme4` · `ggplot2`
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -769,6 +949,7 @@ Highlights advanced mastery of hierarchical and mixed-effects modeling essential
 ### P4 — Intelligent optimization of a planar antenna array for localization and adaptive beamforming
 
 **Context**  
+
 Master’s thesis project on optimizing a planar antenna array for **smart wireless communications**. The objective was to design a system able to:
 
 - **localize a user in space**,  
@@ -778,6 +959,7 @@ Master’s thesis project on optimizing a planar antenna array for **smart wirel
 The work sits at the intersection of applied electromagnetics, numerical optimization, and machine learning.
 
 **Physical modeling & experimental setup**  
+
 A **4×4 monopole antenna array** was designed and simulated in **CST Design Studio**, including:
 
 - full array geometry,  
@@ -787,19 +969,26 @@ A **4×4 monopole antenna array** was designed and simulated in **CST Design Stu
 A 3D virtual environment (**10×10×10**) was then simulated via a propagation model to estimate received power across space under multiple feeding configurations.
 
 **Methodological approach**
+
 - **Radio fingerprinting**
+
   - building an electromagnetic signature database linking spatial positions to received power patterns  
   - learning the relationship between radio signatures and user location  
+
 - **Triangulation-based localization**
+
   - using fingerprints to estimate user position  
   - reducing localization error in the simulated environment  
+
 - **Beamforming optimization**
+
   - adjusting antenna feeding currents to steer the main lobe toward the estimated user position  
   - comparing:
     - neural-network-based fast approximation for real-time configuration prediction  
     - Particle Swarm Optimization (PSO) as a reference global-search method
 
 **Key results**
+
 - Effective user localization in the simulated space  
 - Dynamic steering of the main beam toward the estimated position  
 - Clear trade-offs between:
@@ -808,6 +997,7 @@ A 3D virtual environment (**10×10×10**) was then simulated via a propagation m
 - Analysis of the balance between performance, compute cost, and response time
 
 **Research perspective (important)**  
+
 A major perspective explored exploiting **inter-antenna electromagnetic coupling** to:
 
 - control radiation patterns more **indirectly**,  
@@ -816,12 +1006,14 @@ A major perspective explored exploiting **inter-antenna electromagnetic coupling
 
 This points toward “virtual beamforming,” where physical interactions become an optimization lever rather than a disturbance to compensate—relevant for compact and energy-efficient antenna systems (5G/6G, massive IoT, embedded platforms).
 
-**Value**  
+**Value** 
+
 A complete integration of physical modeling and intelligent optimization for a real telecommunications problem, from electromagnetic design to adaptive beam control.
 
 **Tech**: `Planar Antennas` · `Beamforming` · `Inter-Antenna Coupling` · `Radio Fingerprinting` · `Propagation Modeling` · `CST Design Studio` · `MATLAB`
 
 </div>
+
 :::
 
 </div>
