@@ -14,6 +14,7 @@ page-class: projects-page
 - [Traitement naturel du langage & LLM](#llm)
 - [Appprentissage profond & Vision par ordinateur](#dl-cv)
 
+ 
 ::: {.justify}
 
 Cette page regroupe mes projets techniques organisés par **domaine de spécialisation**.
@@ -24,6 +25,7 @@ Chaque section présente des **projets sélectionnés** avec leur **contexte**, 
 
 ## Télécom & Génie Électrique {#Telecom}
 
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/monopol3d.png" alt="Optimisation d’un réseau d’antennes par RNA">
@@ -55,13 +57,15 @@ MATLAB R2018a · Neural Network Toolbox (NNSTART) · CST Microwave Studio · Ant
 - Diagrammes de rayonnement 2D et 3D
 
 <div class="project-links">
-[Lire le rapport (PDF)](../../assets/OptimreseauxantennesRNA/Synthese-Optim_reseaux_antennes_planaires.pdf){.btn .btn-primary}
-[Code source GitHub](https://github.com/MBalogogGLemuel/Optimisation-reseaux-antenne-RNA){.btn .btn-outline}
+[Lire l'article (PDF)](../../assets/OptimreseauxantennesRNA/Synthese-Optim_reseaux_antennes_planaires.pdf){.btn .btn-primary}
+[GitHub](https://github.com/MBalogogGLemuel/Optimisation-reseaux-antenne-RNA){.btn .btn-outline}
 </div>
 
+</div>
+ 
 :::
 
-
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/_site/assets/Detection_par_finger_printing/images/point_mesure.png" alt="Detection fingerptinting Wi-Fi">
@@ -75,13 +79,13 @@ MATLAB R2018a · Neural Network Toolbox (NNSTART) · CST Microwave Studio · Ant
 Prototype de localisation indoor dans une zone **10 m × 10 m** avec **4 points d’accès Wi-Fi**.  
 J’ai formulé le problème comme une **régression supervisée** : \((RSSI_1,\dots,RSSI_4)\rightarrow(x,y)\), puis comparé un **réseau de neurones (MLP)** à un **PSO** en précision et en latence.
 
----
+ 
 
 **Objectif.**
 - Estimer la position **(x, y)** à partir des RSSI Wi-Fi (fingerprinting)
 - Optimiser le compromis **précision / temps de calcul** (contrainte télécom temps-réel)
 
----
+ 
 
 **Méthodologie.**
 - **Cadre expérimental** : zone **100 m²**, **2.4 GHz**, 4 AP aux coins
@@ -90,14 +94,14 @@ J’ai formulé le problème comme une **régression supervisée** : \((RSSI_1,\
 - **Baseline** : **PSO** (60 particules, \(c_1=c_2=2\), \(w\in[0.4,0.9]\), 1000 itérations)
 - **Condition** : LOS (protocole contrôlé)
 
----
+ 
 
 **Résultats clés.**
 - **RNA (MLP)** : **2.5729 m** d’erreur moyenne | **0.206288 s**
 - **PSO** : **2.8612 m** d’erreur moyenne | **1.360301 s**
 - **Gain RNA** : **≈ +11%** plus précis | **≈ ×6.6** plus rapide (inférence)
 
----
+
 
 **Pourquoi c’est fort pour un recruteur (Télécoms × Data).**
 - Reformulation d’un problème radio en **pipeline ML** exploitable
@@ -105,7 +109,7 @@ J’ai formulé le problème comme une **régression supervisée** : \((RSSI_1,\
 - Comparaison structurée **ML vs optimisation heuristique**
 - Approche directement transférable à **IoT / smart buildings / analytics radio**
 
----
+
 
 **Stack & compétences.**
 - Fingerprinting Wi-Fi (RSSI), propagation radio (FSPL/Friis)
@@ -114,12 +118,13 @@ J’ai formulé le problème comme une **régression supervisée** : \((RSSI_1,\
 - MATLAB + reporting LaTeX
 
 <div class="project-links">
-[Rapport (PDF)](../../assets/Detectionparfingerprinting/Synthese-Detection_par_fingerprinting.pdf){.btn .btn-primary}
+[Lire l'article (PDF)](../../assets/Detectionparfingerprinting/Synthese-Detection_par_fingerprinting.pdf){.btn .btn-primary}
 [GitHub](https://github.com/MBalogogGLemuel/Detection-par-fingerprinting){.btn .btn-outline}
 </div>
 
+</div>
+ 
 :::
-
 
 
 
@@ -129,6 +134,7 @@ Développement de dispositifs de **prévision temporelle appliqués à des syst�
 
 <div class="cards-grid">
 
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/jcplforecast.png" alt="Prévision énergétique JCPL">
@@ -165,8 +171,10 @@ Ce projet illustre l’intérêt des modèles statistiques bien spécifiés pour
 </div>
 
 </div>
+ 
 :::
 
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/mrcforecast.png" alt="Prévision énergétique multi-régions Québec par deep learning">
@@ -204,12 +212,10 @@ Ce travail met en évidence les **forces et limites du deep learning appliqué �
 </div>
 
 </div>
+ 
 :::
 
 </div>
-
-
-
 
 
 
@@ -223,6 +229,7 @@ Conception et analyse de **modèles d’optimisation déterministes** pour des p
 
 <div class="cards-grid">
 
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/warehouse-optim4.png" alt="Optimisation déterministe d’un entrepôt logistique industriel">
@@ -280,9 +287,11 @@ Il constitue une base solide pour des extensions futures vers des approches **st
 </div>
 
 </div>
+ 
 :::
 
 
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/optim-project1.png" alt="Ordonnancement et accélération de projet logiciel">
@@ -319,8 +328,10 @@ Ce projet illustre une démarche complète de **modélisation incrémentale**, t
 </div>
 
 </div>
+ 
 :::
 
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/optim-locomotive2.png" alt="Allocation dynamique de locomotives">
@@ -356,8 +367,10 @@ Ce travail met en lumière la puissance des modèles déterministes pour la **pl
 **Tech**: `Python` · `Gams` · `IBM Cplex` · `PowerBi`  · `Excel Solver`
 
 </div>
+ 
 :::
 
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/optim-maintenance3.png" alt="Planification de maintenance industrielle">
@@ -387,13 +400,14 @@ Cette approche permet de tester rapidement plusieurs scénarios stratégiques.
 **Valeur ajoutée**  
 Ce projet démontre comment l’optimisation déterministe peut servir d’outil d’aide à la décision stratégique dans des contextes industriels critiques, où les ressources sont limitées et les conséquences opérationnelles majeures.
 
-**Tech**: `Excel Solver` · `Gams` · `IBM Cplex` · `PowerBi` 
+**Tech**: `Excel Solver` · `Gams` · `IBM Cplex` · `PowerBi`
 
 <div class="project-actions">
 <a class="btn btn-sm btn-primary" href="#" aria-disabled="true">Étude décisionnelle</a>
 </div>
 
 </div>
+ 
 :::
 
 </div>
@@ -405,9 +419,10 @@ Les projets ci-dessous mettent l'accent sur la **modélisation probabiliste**, l
 
 <div class="cards-grid">
 
+ 
 ::: {.project-card}
 
-<img class="project-thumb" src="../../assets/bayesian-optim1.png" alt="Optimisation bayésienne pour systèmes expérimentaux">
+<img class="project-thumb" src="../../assets/bayesian-optim1.png" alt="Optimisation bayésienne pour systèmes expérimentaux coûteux">
 
 <div class="project-body">
 
@@ -426,10 +441,9 @@ La stratégie repose sur une **optimisation bayésienne séquentielle**, structu
 - une **fonction d'acquisition** (Expected Improvement) permettant d'équilibrer exploration (zones incertaines) et exploitation (zones prometteuses),  
 - une **mise à jour itérative** du modèle à partir de nouvelles observations simulées via la fonction synthétique :  
 
-  ```
-  f(x₁,x₂) = P_strength·exp[-(x₁-μ₁)² + (x₂-μ₂)²)/(2σ²)] + I(x₁,x₂) + ε
-  ```
-  où I(x₁,x₂) = -0.5·sin(3πx₁)·cos(2πx₂) capture les effets non-linéaires.
+$f(x_1, x_2) = \sin(3\pi x_1) \cdot (1 - e^{-x_2}) + \epsilon, \quad \epsilon \sim \mathcal{N}(0, 0.1^2)$
+
+où $I(x₁,x₂) = -0.5·sin(3πx₁)·cos(2πx₂)$ capture les effets non-linéaires.
 
 Cette approche permet de **réduire drastiquement le nombre d'expériences nécessaires** (10 itérations vs 100+ par grille exhaustive) tout en convergeant vers des régions prometteuses de l'espace des décisions.
 
@@ -451,8 +465,10 @@ Les applications directes incluent la formulation de matériaux (polymères, all
 </div>
 
 </div>
+ 
 :::
 
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/mdp-treasure2.png" alt="Décision optimale sous incertitude dans un environnement risqué">
@@ -475,9 +491,9 @@ La modélisation repose sur une formulation stochastique explicite sous forme de
 - un **facteur d'actualisation** γ = 0.9 traduisant la préférence temporelle et l'aversion au risque.
 
 L'analyse inclut à la fois une **résolution exacte** (Value Iteration, convergence en 13 itérations) et une **approximation linéaire de la fonction de valeur** via TD Learning, permettant d'étudier les compromis entre précision et complexité computationnelle :
-```
-V(s) ≈ θ₁·f₁(s) + θ₂·f₂(s) + θ₃·f₃(s)
-```
+
+$V(s) ≈ θ₁·f₁(s) + θ₂·f₂(s) + θ₃·f₃(s)$
+
 avec f₁ = distance au trésor, f₂ = proximité aux dangers, f₃ = indicateur d'état sûr.
 
 **Résultats clés**
@@ -498,8 +514,10 @@ Les applications directes incluent la planification de trajectoires robotiques, 
 </div>
 
 </div>
+ 
 :::
 
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/pricing-policy3.png" alt="Politique optimale de vente sous incertitude de prix">
@@ -548,8 +566,10 @@ Les applications directes incluent le trading algorithmique, la gestion de stock
 </div>
 
 </div>
+ 
 :::
 
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/newsvendor4.png" alt="Problème du vendeur de journaux avec récupération">
@@ -565,16 +585,15 @@ Un vendeur doit déterminer la **quantité optimale à commander** (x*) avant d'
 **Approche méthodologique**  
 Le problème est formulé comme un **modèle d'optimisation stochastique analytique** :
 
-```
-max_x E[r·min(x,D) + s·max(0,x-D) - c·x]
-```
+$max_x E[r·min(x,D) + s·max(0,x-D) - c·x]$
+
+
 
 La résolution par calcul du gradient et condition d'optimalité du premier ordre conduit à la **formule de quantile critique** :
 
-```
-F(x*) = (c - r) / (s - r)
-⟹ x* = F⁻¹[(c - r) / (s - r)]
-```
+$x* = F^{-1}(\frac{r-c}{r-s})$
+⟹ $x* = F⁻¹[(c - r) / (s - r)]$
+
 
 Deux approches sont comparées :
 1. **Solution stochastique optimale** (x* = 125 unités pour D ~ U(50,150), c=10, r=25, s=5)  
@@ -602,13 +621,10 @@ Les applications directes incluent la gestion de stocks (retail, manufacturing),
 </div>
 
 </div>
+ 
 :::
 
 </div>
-
-
-
-
 
 
 
@@ -622,6 +638,7 @@ Application de l’**apprentissage par renforcement** à un problème de **contr
 
 <div class="cards-grid">
 
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/rlrocky1.png" alt="Optimisation bayésienne pour systèmes expérimentaux">
@@ -678,6 +695,7 @@ Ce travail illustre une **mise en œuvre rigoureuse de l’apprentissage par ren
 **Tech :** `Python` · `PyTorch` · `TensorFlow` · `NumPy` · `Pandas` · `Matplotlib`
 
 </div>
+ 
 :::
 
 </div>
@@ -688,6 +706,7 @@ Conception et mise en œuvre de **pipelines de données et de modèles IA entiè
 
 <div class="cards-grid">
 
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/ecoenergy1.png" alt="Plateforme MLOps AWS et apprentissage fédéré">
@@ -751,6 +770,7 @@ Il illustre le passage complet **de la modélisation à l’industrialisation**,
 </div>
 
 </div>
+ 
 :::
 
 </div>
@@ -765,6 +785,7 @@ Analyse avancée de **corpus textuels à grande échelle** afin d’extraire des
 
 <div class="cards-grid">
 
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/nlp1.png" alt="Analyse textuelle et Topic Modeling sur la COVID-19">
@@ -811,6 +832,7 @@ Il constitue également une base solide pour des extensions vers l’**analyse d
 </div>
 
 </div>
+ 
 :::
 
 </div>
@@ -819,9 +841,7 @@ Il constitue également une base solide pour des extensions vers l’**analyse d
 
 ## Appprentissage machine et profond & Vision par ordinateur {#dl-cv}
 
-
-
-
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/airline1.png" alt="Prédiction de la fiabilité des compagnies aériennes">
@@ -861,11 +881,10 @@ Il met en avant la capacité à transformer des données massives en **indicateu
 **Tech :** `Apprentissage supervisé` · `Classification` · `Modélisation prédictive` · `Évaluation sous déséquilibre` · `Python` · `Scikit-learn` · `XGBoost` · `Pandas` · `Matplotlib`
 
 </div>
-
+ 
 :::
 
-
-
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/montreal2.png" alt="Risque d'accidents aux carrefours de Montréal">
@@ -904,13 +923,13 @@ L’évaluation repose sur des métriques quantitatives et sur la **stabilité d
 Ce projet démontre une **maîtrise avancée de la modélisation spatiale appliquée**, à l’interface entre **apprentissage automatique**, **statistiques** et **données urbaines**.  
 Il met en évidence la valeur ajoutée de modèles structurels pour des problèmes à **fort impact sociétal**.
 
-**Tech :** `Modélisation spatiale` · `Statistiques de comptage` · `Apprentissage statistique` · `Données géographiques` 
+**Tech :** `Modélisation spatiale` · `Statistiques de comptage` · `Apprentissage statistique` · `Données géographiques`
 
 </div>
-
+ 
 :::
 
-
+ 
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/bixi3.jpg" alt="Analyse de la sollicitation des vélos BIXI à Montréal">
@@ -954,91 +973,12 @@ Il met en évidence l’importance d’une **modélisation structurelle adaptée
 
 </div>
 
-:::
-
-<!-- ::: {.project-card}
-
-<img class="project-thumb" src="../../assets/beamforming5.png" alt="Optimisation d’un réseau d’antennes par apprentissage et métaheuristiques">
-
-<div class="project-body">
-
-### P4 — Optimisation intelligente d’un réseau d’antennes planaires pour la localisation et le beamforming adaptatif
-
-**Contexte**  
-Projet de mémoire de master portant sur l’**optimisation d’un réseau d’antennes planaires** dans un contexte de **communications sans fil intelligentes**.  
-L’objectif est de concevoir un système capable de :
-
-- **localiser un utilisateur dans l’espace**,  
-- **adapter dynamiquement le diagramme de rayonnement** (beamforming),  
-- et **optimiser les puissances d’émission et de réception** afin d’améliorer la qualité de service.
-
-Le travail s’inscrit à l’interface entre **électromagnétisme appliqué**, **optimisation numérique** et **apprentissage automatique**.
-
-**Cadre expérimental et modélisation physique**  
-Un réseau d’antennes **monopoles 4 × 4** est conçu et simulé sous **CST Design Studio**, incluant :
-
-- la géométrie complète du réseau,  
-- les connecteurs d’alimentation,  
-- et les paramètres électromagnétiques réalistes.
-
-Un environnement virtuel tridimensionnel **10 × 10 × 10** est ensuite simulé à l’aide d’un **modèle de propagation radio**, permettant d’estimer les puissances reçues en différents points de l’espace pour divers schémas d’alimentation du réseau.
-
-**Approche méthodologique**  
-
-La démarche repose sur trois briques principales :
-
-- **Fingerprinting radio**  
-
-  - Construction d’une base d’empreintes électromagnétiques reliant positions spatiales et puissances reçues  
-  - Apprentissage de la relation entre signatures radio et localisation utilisateur  
-
-- **Localisation par triangulation**  
-
-  - Exploitation des empreintes pour estimer la position de l’utilisateur  
-  - Réduction de l’erreur de localisation dans l’espace simulé  
-
-- **Optimisation du beamforming**  
-
-  - Ajustement des courants d’alimentation des antennes pour orienter le lobe principal  
-  - Comparaison de deux approches d’optimisation :
-    - **Réseaux de neurones artificiels (RNA)** pour l’approximation rapide des configurations optimales  
-    - **Particle Swarm Optimization (PSO)** comme méthode métaheuristique de référence  
-
-**Résultats clés**
-
-- Localisation efficace de l’utilisateur dans l’espace simulé  
-- Adaptation dynamique du lobe principal du réseau d’antennes vers la position estimée  
-- Comparaison claire entre :
-  - rapidité d’inférence des approches par RNA,  
-  - robustesse et exploration globale offertes par le PSO  
-- Analyse des compromis entre **performance**, **complexité computationnelle** et **temps de réponse**
-
-**Perspectives de recherche**  
-Une perspective majeure de ce travail consistait à **exploiter l’effet de couplage électromagnétique inter-antennes** du réseau afin de :
-
-- piloter le diagramme de rayonnement de manière **indirecte**,  
-- **réduire le nombre de sources d’alimentation indépendantes**,  
-- et diminuer la complexité matérielle globale du système.
-
-Cette approche ouvre la voie à un **beamforming virtuel**, où l’interaction physique entre antennes devient un **levier d’optimisation** plutôt qu’une contrainte à compenser.  
-Elle constitue une piste prometteuse pour la conception de **réseaux d’antennes plus compacts, économes et intelligents**, notamment dans des contextes **5G/6G**, IoT massif et systèmes embarqués.
-
-**Valeur ajoutée**  
-Ce projet illustre une **intégration complète entre modélisation physique et intelligence artificielle**, appliquée à un problème réel de télécommunications.  
-Il démontre une capacité à :
-
-- passer de la **conception électromagnétique** à l’**optimisation algorithmique**,  
-- exploiter les **interactions physiques du système** comme source d’information,  
-- et concevoir des solutions intelligentes orientées **localisation et beamforming adaptatif**.
-
-**Tech :** `Antennes planaires` · `Beamforming` · `Couplage inter-antennes` · `Optimisation (PSO)` · `Réseaux de neurones` · `Fingerprinting radio` · `Modélisation de propagation` · `CST Design Studio`  · `Matlab`
-
-</div> -->
-
+ 
 :::
 
 
 
+ 
 :::
 
 

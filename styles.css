@@ -756,4 +756,19 @@ body.blog-page #quarto-margin-sidebar nav#TOC{
   padding-top: 16px;
 }
 
+/* =========================================================
+   PROJECTS PAGE — Dynamic width (responsive)
+   ========================================================= */
 
+.cards-grid{
+  /* Min 1100px, idéal = 92vw, max = 1500px */
+  max-width: clamp(1100px, 92vw, 1500px) !important;
+}
+/* .project-card{
+  grid-template-columns: clamp(280px, 28vw, 400px) 1fr;
+} */
+@media (max-width: 900px){
+  .project-card{
+    grid-template-columns: 1fr;
+  }
+}
