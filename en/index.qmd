@@ -26,7 +26,7 @@ Each section features **selected projects** with their **context**, **methodolog
 
 ::: {.project-card}
 
-<img class="project-thumb" src="../../assets/monopol3d.png" alt="Antenna array optimization using ANN">
+<img class="project-thumb" src="../../assets/monopol3d.PNG" alt="Antenna array optimization using ANN">
 
 <div class="project-body">
 
@@ -956,86 +956,6 @@ It highlights the importance of **adapted structural modeling** to avoid biased 
 
 :::
 
-<!-- ::: {.project-card}
-
-<img class="project-thumb" src="../../assets/beamforming5.png" alt="Antenna array optimization via learning and metaheuristics">
-
-<div class="project-body">
-
-### P4 — Smart Optimization of Planar Antenna Arrays for Localization and Adaptive Beamforming
-
-**Context**  
-Master's thesis project on **planar antenna array optimization** in a **smart wireless communications** context.  
-The objective is to design a system capable of:
-
-- **localizing a user in space**,  
-- **dynamically adapting the radiation pattern** (beamforming),  
-- and **optimizing transmission and reception powers** to improve quality of service.
-
-The work is at the interface between **applied electromagnetics**, **numerical optimization**, and **machine learning**.
-
-**Experimental Framework and Physical Modeling**  
-A **4 × 4 monopole antenna array** is designed and simulated in **CST Design Studio**, including:
-
-- complete array geometry,  
-- feed connectors,  
-- and realistic electromagnetic parameters.
-
-A **10 × 10 × 10** three-dimensional virtual environment is then simulated using a **radio propagation model**, enabling estimation of received powers at different space points for various array feeding schemes.
-
-**Methodological Approach**  
-
-The approach relies on three main components:
-
-- **Radio Fingerprinting**  
-
-  - Construction of electromagnetic fingerprint database linking spatial positions and received powers  
-  - Learning relationship between radio signatures and user localization  
-
-- **Localization via Triangulation**  
-
-  - Exploitation of fingerprints to estimate user position  
-  - Reduction of localization error in simulated space  
-
-- **Beamforming Optimization**  
-
-  - Adjustment of antenna feed currents to steer main lobe  
-  - Comparison of two optimization approaches:
-    - **Artificial Neural Networks (ANN)** for fast approximation of optimal configurations  
-    - **Particle Swarm Optimization (PSO)** as reference metaheuristic method  
-
-**Key Results**
-
-- Effective user localization in simulated space  
-- Dynamic adaptation of array main lobe toward estimated position  
-- Clear comparison between:
-  - ANN approach inference speed,  
-  - PSO robustness and global exploration  
-- Analysis of tradeoffs between **performance**, **computational complexity**, and **response time**
-
-**Research Perspectives**  
-A major perspective of this work consisted in **exploiting inter-antenna electromagnetic coupling effect** of the array to:
-
-- steer radiation pattern **indirectly**,  
-- **reduce number of independent feed sources**,  
-- and decrease overall system hardware complexity.
-
-This approach opens the way to **virtual beamforming**, where physical interaction between antennas becomes an **optimization lever** rather than a constraint to compensate.  
-It constitutes a promising path for designing **more compact, economical, and smart antenna arrays**, particularly in **5G/6G** contexts, massive IoT, and embedded systems.
-
-**Added Value**  
-This project illustrates a **complete integration between physical modeling and artificial intelligence**, applied to a real telecommunications problem.  
-It demonstrates ability to:
-
-- transition from **electromagnetic design** to **algorithmic optimization**,  
-- exploit **physical system interactions** as information source,  
-- and design smart solutions oriented toward **localization and adaptive beamforming**.
-
-**Tech:** `Planar Antennas` · `Beamforming` · `Inter-antenna Coupling` · `Optimization (PSO)` · `Neural Networks` · `Radio Fingerprinting` · `Propagation Modeling` · `CST Design Studio` · `Matlab`
-
-</div> -->
-
-<!-- ::: -->
 
 
 
