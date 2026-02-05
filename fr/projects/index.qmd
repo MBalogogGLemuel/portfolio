@@ -23,8 +23,14 @@ Chaque section présente des **projets sélectionnés** avec leur **contexte**, 
 ---
 
 ## Télécom & Génie Électrique {#Telecom}
+
 ::: {.project-card}
-### Optimisation du beamforming d’un réseau planaire d’antennes par Réseaux de Neurones (RNA)
+
+<img class="project-thumb" src="../../assets/monopol3d.png" alt="Optimisation d’un réseau d’antennes par RNA">
+
+<div class="project-body">
+
+### P1 - Optimisation du beamforming d’un réseau planaire d’antennes par Réseaux de Neurones (RNA)
 
 **Contexte.**  
 Conception d’une antenne intelligente planaire (réseau 4×5 monopôles) et apprentissage d’un **perceptron multicouche (PMC/MLP)** pour prédire la **loi d’alimentation (amplitudes/phases)** afin de former un faisceau dans une direction cible.
