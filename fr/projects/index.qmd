@@ -58,8 +58,8 @@ MATLAB R2018a · Neural Network Toolbox (NNSTART) · CST Microwave Studio · Ant
 [Lire le rapport (PDF)](../../assets/OptimreseauxantennesRNA/Synthese-Optim_reseaux_antennes_planaires.pdf){.btn .btn-primary}
 [Code source GitHub](https://github.com/MBalogogGLemuel/Optimisation-reseaux-antenne-RNA){.btn .btn-outline}
 </div>
-:::
 
+:::
 
 ## Prévision {#forecasting}
 
