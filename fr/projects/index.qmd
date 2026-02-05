@@ -61,6 +61,68 @@ MATLAB R2018a · Neural Network Toolbox (NNSTART) · CST Microwave Studio · Ant
 
 :::
 
+
+::: {.project-card}
+
+<img class="project-thumb" src="../../assets/_site/assets/Detection_par_finger_printing/images/point_mesure.png" alt="Detection fingerptinting Wi-Fi">
+
+<div class="project-body">
+
+### P2 - Localisation indoor Wi-Fi par fingerprinting RSSI  
+**Comparaison Machine Learning (RNA/MLP) vs PSO**
+
+**Résumé.**  
+Prototype de localisation indoor dans une zone **10 m × 10 m** avec **4 points d’accès Wi-Fi**.  
+J’ai formulé le problème comme une **régression supervisée** : \((RSSI_1,\dots,RSSI_4)\rightarrow(x,y)\), puis comparé un **réseau de neurones (MLP)** à un **PSO** en précision et en latence.
+
+---
+
+**Objectif.**
+- Estimer la position **(x, y)** à partir des RSSI Wi-Fi (fingerprinting)
+- Optimiser le compromis **précision / temps de calcul** (contrainte télécom temps-réel)
+
+---
+
+**Méthodologie.**
+- **Cadre expérimental** : zone **100 m²**, **2.4 GHz**, 4 AP aux coins
+- **Dataset** : **50 points de référence** (base fingerprinting)
+- **Modèle ML** : **MLP (RNA)**, régression, loss **MSE**
+- **Baseline** : **PSO** (60 particules, \(c_1=c_2=2\), \(w\in[0.4,0.9]\), 1000 itérations)
+- **Condition** : LOS (protocole contrôlé)
+
+---
+
+**Résultats clés.**
+- **RNA (MLP)** : **2.5729 m** d’erreur moyenne | **0.206288 s**
+- **PSO** : **2.8612 m** d’erreur moyenne | **1.360301 s**
+- **Gain RNA** : **≈ +11%** plus précis | **≈ ×6.6** plus rapide (inférence)
+
+---
+
+**Pourquoi c’est fort pour un recruteur (Télécoms × Data).**
+- Reformulation d’un problème radio en **pipeline ML** exploitable
+- Analyse rigoureuse des compromis **latence vs précision**
+- Comparaison structurée **ML vs optimisation heuristique**
+- Approche directement transférable à **IoT / smart buildings / analytics radio**
+
+---
+
+**Stack & compétences.**
+- Fingerprinting Wi-Fi (RSSI), propagation radio (FSPL/Friis)
+- Régression supervisée, MLP, MSE, évaluation
+- PSO (paramétrage, convergence, coût calcul)
+- MATLAB + reporting LaTeX
+
+<div class="project-links">
+[Rapport (PDF)](../../assets/Detectionparfingerprinting/Synthese-Detection_par_fingerprinting.pdf){.btn .btn-primary}
+[GitHub](https://github.com/MBalogogGLemuel/Detection-par-fingerprinting){.btn .btn-outline}
+</div>
+
+:::
+
+
+
+
 ## Prévision {#forecasting}
 
 Développement de dispositifs de **prévision temporelle appliqués à des systèmes énergétiques réels**, avec un accent particulier sur la **robustesse statistique**, la **prise en compte de variables exogènes** et la **comparaison rigoureuse entre approches classiques et modèles d’apprentissage profond**.
