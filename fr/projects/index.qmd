@@ -28,7 +28,7 @@ Chaque section présente des **projets sélectionnés** avec leur **contexte**, 
  
 ::: {.project-card}
 
-<img class="project-thumb" src="../../assets/monopol3d.png" alt="Optimisation d’un réseau d’antennes par RNA">
+<img class="project-thumb" src="../../assets/monopol3d.PNG" alt="Optimisation d’un réseau d’antennes par RNA">
 
 <div class="project-body">
 
@@ -68,7 +68,7 @@ MATLAB R2018a · Neural Network Toolbox (NNSTART) · CST Microwave Studio · Ant
  
 ::: {.project-card}
 
-<img class="project-thumb" src="../../assets/_site/assets/Detection_par_finger_printing/images/point_mesure.png" alt="Detection fingerptinting Wi-Fi">
+<img class="project-thumb" src="../../assets/point_mesure.png" alt="Detection fingerptinting Wi-Fi">
 
 <div class="project-body">
 
