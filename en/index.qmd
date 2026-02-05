@@ -24,6 +24,8 @@ Each section features **selected projects** with their **context**, **methodolog
 
 ## Telecom & Electrical Engineering {#Telecom}
 
+::: {.cards-grid}
+
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/monopol3d.PNG" alt="Antenna array optimization using ANN">
@@ -57,6 +59,7 @@ MATLAB R2018a · Neural Network Toolbox (NNSTART) · CST Microwave Studio · Arr
 <div class="project-links">
 [Read report (PDF)](../../assets/OptimreseauxantennesRNA/Synthese-Optim_reseaux_antennes_planaires.pdf){.btn .btn-primary}
 [GitHub source code](https://github.com/MBalogogGLemuel/Optimisation-reseaux-antenne-RNA){.btn .btn-outline}
+
 </div>
 
 :::
@@ -75,13 +78,11 @@ MATLAB R2018a · Neural Network Toolbox (NNSTART) · CST Microwave Studio · Arr
 Indoor localization prototype in a **10 m × 10 m area** with **4 Wi-Fi access points**.  
 I formulated the problem as **supervised regression**: \((RSSI_1,\dots,RSSI_4)\rightarrow(x,y)\), then compared a **neural network (MLP)** to **PSO** in accuracy and latency.
 
----
+
 
 **Objective.**
 - Estimate position **(x, y)** from Wi-Fi RSSI (fingerprinting)
 - Optimize the **accuracy / computation time** tradeoff (real-time telecom constraint)
-
----
 
 **Methodology.**
 - **Experimental setup**: **100 m²** area, **2.4 GHz**, 4 APs at corners
@@ -90,14 +91,11 @@ I formulated the problem as **supervised regression**: \((RSSI_1,\dots,RSSI_4)\r
 - **Baseline**: **PSO** (60 particles, \(c_1=c_2=2\), \(w\in[0.4,0.9]\), 1000 iterations)
 - **Condition**: LOS (controlled protocol)
 
----
 
 **Key Results.**
 - **ANN (MLP)**: **2.5729 m** mean error | **0.206288 s**
 - **PSO**: **2.8612 m** mean error | **1.360301 s**
 - **ANN Gain**: **≈ +11%** more accurate | **≈ ×6.6** faster (inference)
-
----
 
 **Why this is strong for a recruiter (Telecom × Data).**
 - Reformulation of a radio problem into an **exploitable ML pipeline**
@@ -105,7 +103,6 @@ I formulated the problem as **supervised regression**: \((RSSI_1,\dots,RSSI_4)\r
 - Structured comparison **ML vs heuristic optimization**
 - Directly transferable approach to **IoT / smart buildings / radio analytics**
 
----
 
 **Stack & Skills.**
 - Wi-Fi Fingerprinting (RSSI), radio propagation (FSPL/Friis)
@@ -116,7 +113,10 @@ I formulated the problem as **supervised regression**: \((RSSI_1,\dots,RSSI_4)\r
 <div class="project-links">
 [Report (PDF)](../../assets/Detectionparfingerprinting/Synthese-Detection_par_fingerprinting.pdf){.btn .btn-primary}
 [GitHub](https://github.com/MBalogogGLemuel/Detection-par-fingerprinting){.btn .btn-outline}
+
 </div>
+
+:::
 
 :::
 
@@ -127,7 +127,7 @@ I formulated the problem as **supervised regression**: \((RSSI_1,\dots,RSSI_4)\r
 
 Development of **time series forecasting systems applied to real energy systems**, with particular emphasis on **statistical robustness**, **incorporation of exogenous variables**, and **rigorous comparison between classical and deep learning approaches**.
 
-<div class="cards-grid">
+::: {cards-grid}
 
 ::: {.project-card}
 
@@ -165,6 +165,7 @@ This project illustrates the value of well-specified statistical models for **en
 </div>
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -204,9 +205,10 @@ This work highlights the **strengths and limitations of deep learning applied to
 </div>
 
 </div>
+
 :::
 
-</div>
+:::
 
 
 
@@ -221,7 +223,7 @@ This work highlights the **strengths and limitations of deep learning applied to
 
 Design and analysis of **deterministic optimization models** for real problems of planning, resource allocation, and project management, with particular emphasis on **translating operational constraints into exploitable mathematical formulations** and on **analyzing cost–time–resource tradeoffs**.
 
-<div class="cards-grid">
+::: {cards-grid}
 
 ::: {.project-card}
 
@@ -280,6 +282,7 @@ It constitutes a solid foundation for future extensions toward **stochastic** ap
 </div>
 
 </div>
+
 :::
 
 
@@ -319,6 +322,7 @@ This project illustrates a complete **incremental modeling** approach, typical o
 </div>
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -356,6 +360,7 @@ This work highlights the power of deterministic models for **logistics network p
 **Tech**: `Python` · `Gams` · `IBM Cplex` · `PowerBi` · `Excel Solver`
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -394,16 +399,16 @@ This project demonstrates how deterministic optimization can serve as a strategi
 </div>
 
 </div>
-:::
 
-</div>
+:::
+:::
 
 ## Stochastic Optimization {#stochastic}
 
 Design of **optimization models under uncertainty** aimed at supporting decision-making when key parameters (demand, performance, environment) are **neither deterministic nor perfectly observable**.  
 The projects below emphasize **probabilistic modeling**, **risk–performance tradeoff**, and **value of information**.
 
-<div class="cards-grid">
+::: {.cards-grid}
 
 ::: {.project-card}
 
@@ -451,7 +456,9 @@ Direct applications include material formulation (polymers, alloys, composites),
 </div>
 
 </div>
+
 :::
+
 
 ::: {.project-card}
 
@@ -498,6 +505,7 @@ Direct applications include robotic path planning, financial portfolio managemen
 </div>
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -548,6 +556,7 @@ Direct applications include algorithmic trading, perishable inventory management
 </div>
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -602,9 +611,10 @@ Direct applications include inventory management (retail, manufacturing), capaci
 </div>
 
 </div>
+
 :::
 
-</div>
+:::
 
 
 
@@ -620,7 +630,7 @@ Direct applications include inventory management (retail, manufacturing), capaci
 
 Application of **reinforcement learning** to a **sequential control and combinatorial optimization** problem, in a simulated and constrained environment, with complete implementation in **native Python** and standard scientific ecosystem libraries.
 
-<div class="cards-grid">
+::: {cards-grid}
 
 ::: {.project-card}
 
@@ -675,18 +685,23 @@ The project highlights that:
 **Added Value**  
 This work illustrates a **rigorous implementation of reinforcement learning**, from environment modeling to comparative algorithm analysis, highlighting the **real conditions for deep RL relevance**.
 
-**Tech:** `Python` · `PyTorch` · `TensorFlow` · `NumPy` · `Pandas` · `Matplotlib`
+**Tech:** `Python` · `PyTorch` · `TensorFlow` · `NumPy` · `Pandas` · `Matplotlib`  ·  `Robotics`
+
+<div class="project-links">
+<a class="btn btn-sm btn-primary" href="https://youtu.be/R0ZM-iSKcVE" target="_blank">Démonstration vidéo</a>
+
 
 </div>
+
 :::
 
-</div>
+:::
 
 ## Data Engineering & MLOps {#dataeng}
 
 Design and implementation of **data and AI model pipelines fully deployed in production**, with particular attention to **cloud scalability**, **experimental reproducibility**, and integration of **advanced paradigms like federated learning**.
 
-<div class="cards-grid">
+::: {cards-grid}
 
 ::: {.project-card}
 
@@ -751,9 +766,9 @@ It illustrates the complete transition **from modeling to industrialization**, w
 </div>
 
 </div>
-:::
 
-</div>
+:::
+:::
 
 
 
@@ -763,7 +778,7 @@ It illustrates the complete transition **from modeling to industrialization**, w
 
 Advanced analysis of **large-scale text corpora** to extract **latent semantic structures**, compare international media discourses, and understand the evolution of narratives over time.
 
-<div class="cards-grid">
+::: {.cards-grid}
 
 ::: {.project-card}
 
@@ -811,9 +826,10 @@ It also constitutes a solid foundation for extensions toward **sentiment analysi
 </div>
 
 </div>
+
 :::
 
-</div>
+:::
 
 
 

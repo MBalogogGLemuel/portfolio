@@ -25,7 +25,10 @@ Chaque section présente des **projets sélectionnés** avec leur **contexte**, 
 
 ## Télécom & Génie Électrique {#Telecom}
 
- 
+ Conception et optimisation de systèmes de communication sans fil, avec un accent particulier sur l'**application des techniques d'apprentissage automatique** pour améliorer la performance et la robustesse des réseaux dans des environnements contraints.
+
+<div class="cards-grid">
+
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/monopol3d.PNG" alt="Optimisation d’un réseau d’antennes par RNA">
@@ -124,15 +127,17 @@ J’ai formulé le problème comme une **régression supervisée** : \((RSSI_1,\
 
 </div>
  
+
 :::
 
+</div>
 
 
 ## Prévision {#forecasting}
 
 Développement de dispositifs de **prévision temporelle appliqués à des systèmes énergétiques réels**, avec un accent particulier sur la **robustesse statistique**, la **prise en compte de variables exogènes** et la **comparaison rigoureuse entre approches classiques et modèles d’apprentissage profond**.
 
-<div class="cards-grid">
+::: {.cards-grid}
 
  
 ::: {.project-card}
@@ -215,7 +220,7 @@ Ce travail met en évidence les **forces et limites du deep learning appliqué �
  
 :::
 
-</div>
+:::
 
 
 
@@ -636,7 +641,7 @@ Les applications directes incluent la gestion de stocks (retail, manufacturing),
 
 Application de l’**apprentissage par renforcement** à un problème de **contrôle séquentiel et d’optimisation combinatoire**, dans un environnement simulé et contraint, avec une implémentation complète en **Python natif** et des bibliothèques standards de l’écosystème scientifique.
 
-<div class="cards-grid">
+::: {.cards-grid}
 
  
 ::: {.project-card}
@@ -692,19 +697,24 @@ Le projet met en évidence que :
 **Valeur ajoutée**  
 Ce travail illustre une **mise en œuvre rigoureuse de l’apprentissage par renforcement**, depuis la modélisation de l’environnement jusqu’à l’analyse comparative des algorithmes, en soulignant les **conditions réelles de pertinence du deep RL**.
 
-**Tech :** `Python` · `PyTorch` · `TensorFlow` · `NumPy` · `Pandas` · `Matplotlib`
+**Tech :** `Python` · `PyTorch` · `TensorFlow` · `NumPy` · `Pandas` · `Matplotlib` · `Robotique`
+
+ <!-- rajoutons le liens youtube du projet -->
+<div class="project-links">
+<a class="btn btn-sm btn-primary" href="https://youtu.be/R0ZM-iSKcVE" target="_blank">Démonstration vidéo</a>
+</div>
 
 </div>
  
 :::
 
-</div>
+:::
 
 ## Data Engineering & MLOps {#dataeng}
 
 Conception et mise en œuvre de **pipelines de données et de modèles IA entièrement déployés en production**, avec une attention particulière portée à la **scalabilité cloud**, à la **reproductibilité expérimentale** et à l’intégration de **paradigmes avancés comme l’apprentissage fédéré**.
 
-<div class="cards-grid">
+::: {.cards-grid}
 
  
 ::: {.project-card}
@@ -773,7 +783,7 @@ Il illustre le passage complet **de la modélisation à l’industrialisation**,
  
 :::
 
-</div>
+:::
 
 
 
@@ -981,4 +991,4 @@ Il met en évidence l’importance d’une **modélisation structurelle adaptée
  
 :::
 
-
+:::

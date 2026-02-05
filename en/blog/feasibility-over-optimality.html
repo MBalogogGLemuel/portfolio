@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-01-29">
+
+<title>Why Feasibility Matters More Than Optimality – Georges Lemuel Balogog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const path = window.location.pathname;
+
+    const frUrl = path.replace("/portfolio/en/", "/portfolio/fr/");
+    const enUrl = path; // already EN
+
+    const links = Array.from(document.querySelectorAll(".navbar a.nav-link"));
+    const frLink = links.find(a => a.textContent.trim() === "FR");
+    const enLink = links.find(a => a.textContent.trim() === "EN");
+
+    if (frLink) frLink.setAttribute("href", frUrl);
+    if (enLink) enLink.setAttribute("href", enUrl);
+  });
+</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Georges Lemuel Balogog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../projects/index.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-blog" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Blog</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-blog">    
+        <li>
+    <a class="dropdown-item" href="../blog/index.html">
+ <span class="dropdown-text">All posts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../blog/2026-ia-illusion-thinking.html">
+ <span class="dropdown-text">IA Illusion of Thought</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../blog/2026-ia-optimization-limits.html">
+ <span class="dropdown-text">IA Limits of Optimization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../blog/feasibility-over-optimality.html">
+ <span class="dropdown-text">Why Feasibility Matters More Than Optimality</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../cv.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../contact.html"> 
+<span class="menu-text">Contact</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../#"> 
+<span class="menu-text">FR</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../#"> 
+<span class="menu-text">EN</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/MBalogogGLemuel"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/balogog-georges-6810b9118/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:georges.balogog@yahoo.fr"> <i class="bi bi-envelope" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Why Feasibility Matters More Than Optimality</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 29, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="justify">
+<p><img src="../../assets/blog/img3.png" class="img-fluid" style="width:50.0%"></p>
+<section id="introduction-the-optimization-paradox" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-the-optimization-paradox">Introduction: The Optimization Paradox</h2>
+<p>Most optimization courses emphasize <strong>optimality</strong>.<br>
+Most industrial systems punish <strong>infeasibility</strong>.</p>
+<p>This mismatch is not academic.<br>
+It is <strong>operational</strong>.</p>
+<p>I’ve watched meticulously optimized models collapse in production because they were too perfect—operating at the razor’s edge of feasibility with zero margin for error. Meanwhile, “suboptimal” solutions with built-in slack ran flawlessly for months.</p>
+<p>The lesson was brutal and clear: <strong>in real-world operations, a feasible solution you can trust beats an optimal solution you can’t deploy</strong>.</p>
+<p>Here’s why feasibility isn’t just important—it’s <strong>the entire foundation</strong> of practical optimization.</p>
+<hr>
+</section>
+<section id="feasible-beats-optimal-every-time" class="level2">
+<h2 class="anchored" data-anchor-id="feasible-beats-optimal-every-time">Feasible beats optimal — every time</h2>
+<p>In theory, an infeasible solution is useless.<br>
+In practice, an <em>almost optimal but feasible</em> solution beats a perfect one that violates a single constraint.</p>
+<p><strong>Consider two warehouse slotting solutions:</strong></p>
+<p><strong>Solution A (Optimal):</strong> - Minimizes total picking distance by 18% - Achieves perfect load balancing across zones - Violates physical capacity in Zone 3 by 2% during peak hours - <strong>Result:</strong> Cannot be implemented. Overflow creates safety hazards and operational chaos.</p>
+<p><strong>Solution B (Feasible, 95% optimal):</strong> - Minimizes total picking distance by 14% - Slight imbalance in zone utilization - Respects all capacity constraints with 10% buffer - <strong>Result:</strong> Deployed successfully. Runs for 6 months without intervention.</p>
+<p><strong>Which solution adds more value?</strong></p>
+<p>The answer is obvious—but optimization algorithms don’t care about deployment. They care about objective functions.</p>
+<section id="operations-do-not-negotiate-constraints" class="level3">
+<h3 class="anchored" data-anchor-id="operations-do-not-negotiate-constraints">Operations do not negotiate constraints</h3>
+<p>When I tell a warehouse manager that my optimization model reduced costs by 15% but requires occasional capacity violations, the response is always the same:</p>
+<p><em>“I don’t care about your objective function. My constraint is physical reality. Shelves hold X pallets. Not X + 2%. Fix your model.”</em></p>
+<p>Operations enforce invariants:</p>
+<ul>
+<li><strong>Capacity:</strong> You cannot store more than physical space allows.</li>
+<li><strong>Safety:</strong> You cannot exceed load limits, violate clearances, or ignore fire codes.</li>
+<li><strong>Timing:</strong> You cannot deliver before pickup, ship before receiving, or start before prerequisites complete.</li>
+<li><strong>Sequencing:</strong> You cannot clean equipment while it’s running, access blocked inventory, or bypass mandatory inspections.</li>
+</ul>
+<p>These are not soft rules.<br>
+They are <strong>boundary conditions of reality</strong>.</p>
+<p>And reality is unforgiving.</p>
+<hr>
+</section>
+</section>
+<section id="optimality-hides-fragility" class="level2">
+<h2 class="anchored" data-anchor-id="optimality-hides-fragility">Optimality hides fragility</h2>
+<p>Highly optimized solutions tend to be <strong>brittle</strong>.<br>
+They operate at the edge of feasibility, exploiting every available degree of freedom.</p>
+<p>This is beautiful in theory.<br>
+It is <strong>catastrophic in practice</strong>.</p>
+<section id="the-fragility-of-optimal-solutions" class="level3">
+<h3 class="anchored" data-anchor-id="the-fragility-of-optimal-solutions">The fragility of optimal solutions</h3>
+<p><strong>Example: Production scheduling</strong></p>
+<p>An optimal production schedule might: - Utilize machines at 98% capacity, - Minimize changeover times to seconds, - Sequence jobs with zero buffer between operations, - Assume perfect availability of materials, labor, and equipment.</p>
+<p><strong>Then reality happens:</strong></p>
+<p>A small perturbation: - Delayed shipment (raw materials arrive 2 hours late), - Missing data (quality inspection reveals batch defect), - Human override (operator emergency stop for safety), - Equipment variance (machine runs 5% slower than spec),</p>
+<p><strong>…and the entire plan collapses.</strong></p>
+<p>The schedule cascades into: - Missed deadlines, - Idle downstream operations, - Expedited logistics to recover, - Manual rescheduling consuming hours of planner time.</p>
+<p><strong>The “optimal” solution optimized for a world that doesn’t exist.</strong></p>
+</section>
+<section id="robust-systems-trade-optimality-for-slack" class="level3">
+<h3 class="anchored" data-anchor-id="robust-systems-trade-optimality-for-slack">Robust systems trade optimality for slack</h3>
+<p>In my supply chain work, I’ve learned to <strong>deliberately suboptimize</strong>:</p>
+<ul>
+<li>Schedule machines at <strong>85-90% capacity</strong>, not 98%—leaves room for variability.</li>
+<li>Build <strong>time buffers</strong> between critical operations—absorbs delays without cascading.</li>
+<li>Maintain <strong>safety stock</strong> even when EOQ formulas say minimize inventory—guards against demand spikes.</li>
+<li>Use <strong>conservative lead times</strong>—accounts for supplier unreliability.</li>
+</ul>
+<p>These choices reduce the objective function value.<br>
+They also <strong>reduce the probability of catastrophic failure</strong>.</p>
+<p><strong>Good models make this trade-off explicit.</strong></p>
+<p>Instead of:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Maximize throughput (fragile)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>objective <span class="op">=</span> maximize(<span class="bu">sum</span>(production[t] <span class="cf">for</span> t <span class="kw">in</span> time_periods))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>I design:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Maximize throughput subject to robustness</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>objective <span class="op">=</span> maximize(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">sum</span>(production[t] <span class="cf">for</span> t <span class="kw">in</span> time_periods) </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span> penalty <span class="op">*</span> <span class="bu">sum</span>(capacity_utilization_excess[m, t] <span class="cf">for</span> m, t <span class="kw">in</span> machines_time)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># With explicit slack constraints</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>capacity_utilization[m, t] <span class="op">&lt;=</span> <span class="fl">0.90</span> <span class="op">*</span> capacity[m]  <span class="co"># Hard 90% cap</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is <strong>not</strong> academic risk-aversion.<br>
+This is <strong>operational survival</strong>.</p>
+<hr>
+</section>
+</section>
+<section id="feasibility-is-a-design-choice" class="level2">
+<h2 class="anchored" data-anchor-id="feasibility-is-a-design-choice">Feasibility is a design choice</h2>
+<p>Feasibility does not come “for free”.<br>
+It is <strong>engineered</strong>.</p>
+<p>When I design an optimization model, ensuring feasibility requires deliberate choices:</p>
+<section id="conservative-bounds" class="level3">
+<h3 class="anchored" data-anchor-id="conservative-bounds">1. Conservative bounds</h3>
+<p>Instead of using nominal capacity, I use <strong>effective capacity</strong> accounting for: - Maintenance downtime, - Quality rejection rates, - Operator efficiency variance, - Peak load conditions.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Naive approach (fails in production)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>constraint: production[t] <span class="op">&lt;=</span> nominal_capacity</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Robust approach (survives reality)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>constraint: production[t] <span class="op">&lt;=</span> <span class="fl">0.85</span> <span class="op">*</span> nominal_capacity  <span class="co"># 15% buffer for variability</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="explicit-buffers" class="level3">
+<h3 class="anchored" data-anchor-id="explicit-buffers">2. Explicit buffers</h3>
+<p>I build slack <strong>into the model structure</strong>, not as an afterthought:</p>
+<ul>
+<li><strong>Time buffers:</strong> between dependent operations,</li>
+<li><strong>Inventory buffers:</strong> safety stock, surge capacity,</li>
+<li><strong>Capacity buffers:</strong> reserve equipment, overflow zones.</li>
+</ul>
+<p>These reduce optimal objective value.<br>
+They also <strong>prevent infeasibility under perturbation</strong>.</p>
+</section>
+<section id="carefully-chosen-big-m-values" class="level3">
+<h3 class="anchored" data-anchor-id="carefully-chosen-big-m-values">3. Carefully chosen big-M values</h3>
+<p>Big-M formulations are notoriously brittle. Choose M too small, and you artificially constrain the problem. Choose M too large, and you create numerical instability.</p>
+<p><strong>Bad big-M choice:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Arbitrary large number</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> <span class="fl">1e9</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>constraint: y[i] <span class="op">&lt;=</span> M <span class="op">*</span> x[i]  <span class="co"># If x[i]=0, forces y[i]=0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>If actual y values can reach 1e8, this breaks. If they’re bounded by 100, M=1e9 causes solver numerical issues.</strong></p>
+<p><strong>Good big-M choice:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Derived from problem structure</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> <span class="bu">max</span>(demand[i] <span class="cf">for</span> i <span class="kw">in</span> products) <span class="op">*</span> <span class="bu">max</span>(lead_time[j] <span class="cf">for</span> j <span class="kw">in</span> suppliers)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>constraint: y[i] <span class="op">&lt;=</span> M <span class="op">*</span> x[i]  <span class="co"># Tightest valid bound</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This requires <strong>understanding the problem</strong>, not just reproducing a textbook template.</p>
+</section>
+<section id="deliberate-simplifications" class="level3">
+<h3 class="anchored" data-anchor-id="deliberate-simplifications">4. Deliberate simplifications</h3>
+<p>Sometimes the “right” formulation is intractable.<br>
+Sometimes simplification is <strong>the only path to feasibility</strong>.</p>
+<p><strong>Example:</strong> A globally optimal multi-echelon inventory model might require: - Stochastic dynamic programming, - Monte Carlo simulation for demand uncertainty, - Integer variables for order quantities, - Nonlinear holding cost functions.</p>
+<p><strong>Result:</strong> Computationally intractable for realistic problem sizes.</p>
+<p><strong>Simplification:</strong> - Use deterministic approximation with demand scenarios, - Linearize holding costs, - Decompose by echelon, - Solve sequentially with information passing.</p>
+<p><strong>Trade-off:</strong> Lose global optimality guarantee.<br>
+<strong>Gain:</strong> Feasible solutions in minutes instead of never.</p>
+<p><strong>These choices are rarely elegant.</strong><br>
+<strong>They are necessary.</strong></p>
+<hr>
+</section>
+</section>
+<section id="what-production-teaches-quickly" class="level2">
+<h2 class="anchored" data-anchor-id="what-production-teaches-quickly">What production teaches quickly</h2>
+<p>Production environments expose what simulations hide.</p>
+<p>In academic settings, models are evaluated on: - Objective function value, - Solver runtime, - Optimality gap.</p>
+<p>In production, models are evaluated on: - <strong>Deployment success rate</strong> (does it actually run?), - <strong>Manual intervention frequency</strong> (how often do operators override it?), - <strong>Failure modes</strong> (what breaks it, and how badly?), - <strong>Stakeholder trust</strong> (do people believe the recommendations?).</p>
+<section id="if-a-model" class="level3">
+<h3 class="anchored" data-anchor-id="if-a-model">If a model:</h3>
+<p><strong>1. Fails silently</strong></p>
+<p>Produces solutions that violate constraints not explicitly modeled (regulatory limits, implicit precedence, unstated business rules), the operations team discovers violations <strong>after deployment</strong>, not before.</p>
+<p><strong>Impact:</strong> Loss of trust. Manual workarounds. Model abandonment.</p>
+<p><strong>2. Requires constant manual fixes</strong></p>
+<p>Generates solutions that are “technically feasible” but operationally nonsensical: - Scheduling a shipment that arrives after the customer deadline, - Assigning incompatible products to the same storage zone, - Recommending production quantities that don’t align with packaging units.</p>
+<p><strong>Impact:</strong> Planners spend more time fixing model outputs than they would planning manually.</p>
+<p><strong>3. Produces solutions that need explanations</strong></p>
+<p>If stakeholders consistently ask <em>“Why did it recommend this?”</em> and the answer requires diving into dual variables, shadow prices, or constraint relaxations—<strong>the model has failed at its primary job: supporting decisions</strong>.</p>
+</section>
+<section id="feasibility-is-what-survives-contact-with-reality" class="level3">
+<h3 class="anchored" data-anchor-id="feasibility-is-what-survives-contact-with-reality">Feasibility is what survives contact with reality</h3>
+<p>I’ve learned to evaluate models not by how well they optimize, but by:</p>
+<ul>
+<li><strong>How long they run without manual intervention</strong>,</li>
+<li><strong>How gracefully they degrade under data quality issues</strong>,</li>
+<li><strong>How easily stakeholders understand and trust the outputs</strong>,</li>
+<li><strong>How few “emergency fixes” they require in production</strong>.</li>
+</ul>
+<p><strong>Optimality is a nice-to-have.</strong><br>
+<strong>Feasibility is non-negotiable.</strong></p>
+<hr>
+</section>
+</section>
+<section id="the-hidden-cost-of-infeasibility" class="level2">
+<h2 class="anchored" data-anchor-id="the-hidden-cost-of-infeasibility">The hidden cost of infeasibility</h2>
+<p>Infeasible solutions don’t just fail—they <strong>erode trust in analytics</strong>.</p>
+<p>When a meticulously crafted optimization model: - Recommends a production plan that violates capacity, - Suggests inventory levels that create stockouts, - Proposes shipments that miss delivery windows,</p>
+<p><strong>Stakeholders don’t blame the model.</strong><br>
+<strong>They blame the entire analytics function.</strong></p>
+<p>The conversation shifts from <em>“How can optimization help us?”</em> to <em>“Why should we trust your models?”</em></p>
+<p><strong>Rebuilding that trust takes months.</strong><br>
+<strong>Destroying it takes one bad deployment.</strong></p>
+<p>This is why I <strong>obsess over feasibility</strong> before I even think about optimality.</p>
+<hr>
+</section>
+<section id="final-thought-existence-before-excellence" class="level2">
+<h2 class="anchored" data-anchor-id="final-thought-existence-before-excellence">Final thought: Existence before excellence</h2>
+<p>Optimization is not about finding the best solution.<br>
+<strong>It is about finding solutions that can exist.</strong></p>
+<p>A solution that: - Respects all constraints, - Withstands operational variability, - Earns stakeholder trust, - Runs without constant intervention,</p>
+<p><strong>…is infinitely more valuable than a theoretically optimal solution that cannot be deployed.</strong></p>
+<p><strong>Everything else is optional.</strong></p>
+<hr>
+</section>
+<section id="practical-checklist-for-feasibility-first-design" class="level2">
+<h2 class="anchored" data-anchor-id="practical-checklist-for-feasibility-first-design">Practical checklist for feasibility-first design</h2>
+<p>When I design an optimization model, I now ask these questions <strong>before</strong> I run the solver:</p>
+<p>✅ <strong>Have I validated every constraint with stakeholders?</strong><br>
+(Not just “Is this constraint correct?” but “Is this how reality actually works?”)</p>
+<p>✅ <strong>Have I built explicit buffers for variability?</strong><br>
+(Capacity slack, time buffers, safety stock, surge capacity)</p>
+<p>✅ <strong>Have I stress-tested the formulation on edge cases?</strong><br>
+(Peak demand, supplier failures, data quality issues, equipment downtime)</p>
+<p>✅ <strong>Can I explain every constraint in plain language?</strong><br>
+(If I can’t explain why a constraint exists, stakeholders won’t trust solutions that respect it)</p>
+<p>✅ <strong>Have I designed for graceful degradation?</strong><br>
+(What happens when a constraint is almost violated? Does the model recover or collapse?)</p>
+<p>✅ <strong>Is my big-M formulation numerically stable?</strong><br>
+(Are my big-M values tight bounds, or arbitrary large numbers that cause solver issues?)</p>
+<p><strong>If I can’t answer “yes” to all of these, I don’t deploy.</strong></p>
+<p>Because <strong>feasibility failures in production are far more expensive than suboptimal solutions</strong>.</p>
+<hr>
+<p><em>Optimal solutions impress in presentations.</em><br>
+<em>Feasible solutions survive in production.</em></p>
+<p><em>I choose survival.</em></p>
+<hr>
+<p><strong>What’s been your experience with feasibility vs.&nbsp;optimality trade-offs?</strong> Have you deployed “optimal” models that failed? Or “suboptimal” models that thrived? Let’s compare war stories—reach out on <a href="https://www.linkedin.com/in/balogog-georges-6810b9118/">LinkedIn</a>.</p>
+
+
+</section>
+</div>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mbalogogglemuel\.github\.io\/portfolio\/en\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

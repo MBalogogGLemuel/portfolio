@@ -762,7 +762,7 @@ body.blog-page #quarto-margin-sidebar nav#TOC{
 
 .cards-grid{
   /* Min 1100px, idéal = 92vw, max = 1500px */
-  max-width: clamp(1100px, 92vw, 1500px) !important;
+  max-width: clamp(1100px, 150vw, 5000px) !important;
 }
 /* .project-card{
   grid-template-columns: clamp(280px, 28vw, 400px) 1fr;
