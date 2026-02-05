@@ -14,7 +14,6 @@ page-class: projects-page
 - [Traitement naturel du langage & LLM](#llm)
 - [Appprentissage profond & Vision par ordinateur](#dl-cv)
 
- 
 ::: {.justify}
 
 Cette page regroupe mes projets techniques organisés par **domaine de spécialisation**.
@@ -27,7 +26,7 @@ Chaque section présente des **projets sélectionnés** avec leur **contexte**, 
 
  Conception et optimisation de systèmes de communication sans fil, avec un accent particulier sur l'**application des techniques d'apprentissage automatique** pour améliorer la performance et la robustesse des réseaux dans des environnements contraints.
 
-<div class="cards-grid">
+::: {.cards-grid}
 
 ::: {.project-card}
 
@@ -130,7 +129,7 @@ J’ai formulé le problème comme une **régression supervisée** : \((RSSI_1,\
 
 :::
 
-</div>
+:::
 
 
 ## Prévision {#forecasting}
@@ -232,7 +231,7 @@ Ce travail met en évidence les **forces et limites du deep learning appliqué �
 
 Conception et analyse de **modèles d’optimisation déterministes** pour des problèmes réels de planification, d’allocation de ressources et de gestion de projets, avec un accent particulier sur la **traduction des contraintes opérationnelles en formulations mathématiques exploitables** et sur l’**analyse des compromis coût–temps–ressources**.
 
-<div class="cards-grid">
+::: {.cards-grid}
 
  
 ::: {.project-card}
@@ -415,14 +414,15 @@ Ce projet démontre comment l’optimisation déterministe peut servir d’outil
  
 :::
 
-</div>
+:::
 
 ## Optimisation stochastique {#stochastic}
 
 Conception de modèles d'**optimisation sous incertitude** visant à soutenir la prise de décision lorsque les paramètres clés (demande, performance, environnement) ne sont **ni déterministes ni parfaitement observables**.  
 Les projets ci-dessous mettent l'accent sur la **modélisation probabiliste**, l'**arbitrage risque–performance** et la **valeur de l'information**.
 
-<div class="cards-grid">
+::: {.cards-grid}
+
 
  
 ::: {.project-card}
@@ -597,7 +597,6 @@ $max_x E[r·min(x,D) + s·max(0,x-D) - c·x]$
 La résolution par calcul du gradient et condition d'optimalité du premier ordre conduit à la **formule de quantile critique** :
 
 $x* = F^{-1}(\frac{r-c}{r-s})$
-⟹ $x* = F⁻¹[(c - r) / (s - r)]$
 
 
 Deux approches sont comparées :
@@ -629,7 +628,7 @@ Les applications directes incluent la gestion de stocks (retail, manufacturing),
  
 :::
 
-</div>
+:::
 
 
 
@@ -793,7 +792,7 @@ Il illustre le passage complet **de la modélisation à l’industrialisation**,
 
 Analyse avancée de **corpus textuels à grande échelle** afin d’extraire des **structures sémantiques latentes**, comparer des discours médiatiques internationaux et comprendre l’évolution des narratifs dans le temps.
 
-<div class="cards-grid">
+::: {.cards-grid}
 
  
 ::: {.project-card}
@@ -845,12 +844,15 @@ Il constitue également une base solide pour des extensions vers l’**analyse d
  
 :::
 
-</div>
+:::
 
 
 
 ## Appprentissage machine et profond & Vision par ordinateur {#dl-cv}
 
+Application de techniques avancées d’**apprentissage machine et profond** à des problématiques réelles de **classification**, **modélisation spatiale** et **analyse prédictive**, avec un focus sur l’**interprétabilité** et la **robustesse des modèles**.
+
+::: {.cards-grid}
  
 ::: {.project-card}
 

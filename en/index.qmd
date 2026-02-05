@@ -401,6 +401,7 @@ This project demonstrates how deterministic optimization can serve as a strategi
 </div>
 
 :::
+ 
 :::
 
 ## Stochastic Optimization {#stochastic}
@@ -767,7 +768,7 @@ It illustrates the complete transition **from modeling to industrialization**, w
 
 </div>
 
-:::
+::: 
 :::
 
 
