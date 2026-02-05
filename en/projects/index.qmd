@@ -229,7 +229,7 @@ This work clarifies the **strengths and limitations of deep learning for energy 
 
 Design and analysis of **deterministic optimization models** for real planning, resource allocation, and project management problems, with a focus on **translating operational constraints into actionable mathematical formulations** and on **cost–time–resource trade-off analysis**.
 
-<div class="cards-grid">
+::: {cards-grid}
 
 ::: {.project-card}
 
@@ -951,75 +951,7 @@ Highlights advanced mastery of hierarchical and mixed-effects modeling essential
 
 <div class="project-body">
 
-### P4 — Intelligent optimization of a planar antenna array for localization and adaptive beamforming
 
-**Context**  
-
-Master’s thesis project on optimizing a planar antenna array for **smart wireless communications**. The objective was to design a system able to:
-
-- **localize a user in space**,  
-- **adapt the radiation pattern dynamically** (beamforming),  
-- and **optimize transmit/receive power** to improve quality of service.
-
-The work sits at the intersection of applied electromagnetics, numerical optimization, and machine learning.
-
-**Physical modeling & experimental setup**  
-
-A **4×4 monopole antenna array** was designed and simulated in **CST Design Studio**, including:
-
-- full array geometry,  
-- feeding connectors,  
-- realistic electromagnetic parameters.
-
-A 3D virtual environment (**10×10×10**) was then simulated via a propagation model to estimate received power across space under multiple feeding configurations.
-
-**Methodological approach**
-
-- **Radio fingerprinting**
-
-  - building an electromagnetic signature database linking spatial positions to received power patterns  
-  - learning the relationship between radio signatures and user location  
-
-- **Triangulation-based localization**
-
-  - using fingerprints to estimate user position  
-  - reducing localization error in the simulated environment  
-
-- **Beamforming optimization**
-
-  - adjusting antenna feeding currents to steer the main lobe toward the estimated user position  
-  - comparing:
-    - neural-network-based fast approximation for real-time configuration prediction  
-    - Particle Swarm Optimization (PSO) as a reference global-search method
-
-**Key results**
-
-- Effective user localization in the simulated space  
-- Dynamic steering of the main beam toward the estimated position  
-- Clear trade-offs between:
-  - fast inference with learning-based methods,  
-  - global robustness/exploration with metaheuristics  
-- Analysis of the balance between performance, compute cost, and response time
-
-**Research perspective (important)**  
-
-A major perspective explored exploiting **inter-antenna electromagnetic coupling** to:
-
-- control radiation patterns more **indirectly**,  
-- **reduce the number of independent feeding sources**,  
-- lower system hardware complexity.
-
-This points toward “virtual beamforming,” where physical interactions become an optimization lever rather than a disturbance to compensate—relevant for compact and energy-efficient antenna systems (5G/6G, massive IoT, embedded platforms).
-
-**Value** 
-
-A complete integration of physical modeling and intelligent optimization for a real telecommunications problem, from electromagnetic design to adaptive beam control.
-
-**Tech**: `Planar Antennas` · `Beamforming` · `Inter-Antenna Coupling` · `Radio Fingerprinting` · `Propagation Modeling` · `CST Design Studio` · `MATLAB`
-
-</div>
-
-:::
 
 :::
 

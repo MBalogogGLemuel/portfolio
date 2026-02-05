@@ -4,7 +4,7 @@ project:
   resources: 
   - assets
   - styles.css
-
+ 
 website:
   title: "Georges Lemuel Balogog"
   site-url: "https://mbalogogglemuel.github.io/portfolio/fr/"

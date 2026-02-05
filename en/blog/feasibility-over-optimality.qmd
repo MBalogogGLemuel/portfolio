@@ -338,6 +338,8 @@ When I design an optimization model, I now ask these questions **before** I run 
 
 Because **feasibility failures in production are far more expensive than suboptimal solutions**.
 
+:::
+
 ---
 
 *Optimal solutions impress in presentations.*  
