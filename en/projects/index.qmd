@@ -64,6 +64,7 @@ MATLAB R2018a · Neural Network Toolbox (NNSTART) · CST Microwave Studio · Ant
 <div class="project-links">
 [Read the paper (PDF)](../../assets/OptimreseauxantennesRNA/Synthese-Optim_reseaux_antennes_planaires.pdf){.btn .btn-primary}
 [GitHub](https://github.com/MBalogogGLemuel/Optimisation-reseaux-antenne-RNA){.btn .btn-outline}
+
 </div>
 
 </div>
@@ -134,7 +135,7 @@ The problem is formulated as **supervised regression**: \((RSSI_1,\dots,RSSI_4)\
 
 Development of **time-series forecasting systems applied to real energy settings**, with a strong focus on **statistical robustness**, **exogenous drivers**, and **rigorous comparisons between classical methods and deep learning approaches**.
 
-<div class="cards-grid">
+::: {.cards-grid}
 
 ::: {.project-card}
 
@@ -222,9 +223,7 @@ This work clarifies the **strengths and limitations of deep learning for energy 
 
 :::
 
-</div>
-
----
+:::
 
 ## Deterministic Optimization {#optimisation}
 
@@ -293,6 +292,7 @@ It provides a strong foundation for future extensions (stochastic optimization, 
 </div>
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -336,6 +336,7 @@ This project illustrates an end-to-end **incremental modeling workflow**, typica
 </div>
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -377,6 +378,7 @@ This work highlights the strength of deterministic optimization for **logistics 
 </div>
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -419,9 +421,10 @@ A strong example of deterministic optimization as a decision-support tool in cri
 </div>
 
 </div>
+
 :::
 
-</div>
+:::
 
 ---
 
@@ -430,7 +433,7 @@ A strong example of deterministic optimization as a decision-support tool in cri
 Design of **decision-making models under uncertainty**, where key parameters (demand, performance, environment) are **not deterministic nor perfectly observable**.  
 Projects below emphasize **probabilistic modeling**, **risk–performance trade-offs**, and the **value of information**.
 
-<div class="cards-grid">
+::: {.cards-grid}
 
 ::: {.project-card}
 
@@ -473,6 +476,7 @@ A robust alternative to purely deterministic methods when data are scarce, noisy
 </div>
 
 </div>
+
 :::
 
 ::: {.project-card}
@@ -601,7 +605,7 @@ A foundational model for demand-uncertain decisions (retail, manufacturing, capa
 
 :::
 
-</div>
+:::
 
 ---
 
@@ -609,7 +613,7 @@ A foundational model for demand-uncertain decisions (retail, manufacturing, capa
 
 Applying **reinforcement learning** to a constrained **sequential control and combinatorial optimization** problem in a simulated environment, with a full implementation in **native Python** and standard scientific libraries.
 
-<div class="cards-grid">
+::: {.cards-grid}
 
 ::: {.project-card}
 
@@ -665,7 +669,7 @@ A complete RL workflow from environment modeling to comparative analysis, emphas
 
 :::
 
-</div>
+:::
 
 ---
 
@@ -673,7 +677,7 @@ A complete RL workflow from environment modeling to comparative analysis, emphas
 
 Design and implementation of **data pipelines and AI models fully deployed to production**, with a strong focus on **cloud scalability**, **experimental reproducibility**, and advanced paradigms such as **federated learning**.
 
-<div class="cards-grid">
+::: {.cards-grid}
 
 ::: {.project-card}
 
@@ -743,7 +747,7 @@ Demonstrates advanced capability in cloud-native Data Engineering and MLOps, inc
 
 :::
 
-</div>
+:::
 
 ---
 
@@ -751,7 +755,7 @@ Demonstrates advanced capability in cloud-native Data Engineering and MLOps, inc
 
 Large-scale **text corpus analysis** to extract **latent semantic structure**, compare international media narratives, and study how discourse evolves over time.
 
-<div class="cards-grid">
+::: {.cards-grid}
 
 ::: {.project-card}
 
@@ -800,15 +804,16 @@ It also provides a foundation for extensions into sentiment analysis and LLM-bas
 </div>
 
 </div>
+
 :::
 
-</div>
+:::
 
 ---
 
 ## Machine & Deep Learning + Computer Vision {#dl-cv}
 
-<div class="cards-grid">
+::: {.cards-grid}
 
 ::: {.project-card}
 
@@ -1016,6 +1021,6 @@ A complete integration of physical modeling and intelligent optimization for a r
 
 :::
 
-</div>
+:::
 
 :::
