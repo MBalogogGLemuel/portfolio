@@ -1,0 +1,173 @@
+%% Optimize Using a Particle Swarm
+% This example shows how to optimize using the |particleswarm| solver. The
+% particle swarm algorithm moves a population of particles called a swarm
+% toward a minimum of an objective function. The velocity of each particle
+% in the swarm changes according to three factors:
+%
+% * The effect of inertia (|InertiaRange| option)
+% * An attraction to the best location the particle has visited
+% (|SelfAdjustmentWeight| option)
+% * An attraction to the best location among neighboring particles
+% (|SocialAdjustmentWeight| option)
+%
+% This example shows some effects of changing particle swarm options.
+
+%% Difficult Objective Function Using Default Parameters
+% The Rosenbrock function is well known to be a difficult function to
+% optimize. This example uses a multidimensional version of the Rosenbrock
+% function. The function has a minimum value of |0| at the point
+% |[1,1,1,...]|.
+
+rng default % for reproducibility
+nvars = 2; % choose any even value for nvars
+formatstring = 'particleswarm reached the value %f using %d function evaluations.\n';
+fun = @multirosenbrock;
+[x,fval,exitflag,output] = particleswarm(fun,nvars);
+fprintf(formatstring,fval,output.funccount)
+
+%%
+% The solver did not find a very good solution.
+
+%% Bound the Search Space
+% Try bounding the space to help the solver locate a good point.
+
+lb = [0 0];
+ub = [10 10];
+[xbounded,fvalbounded,exitflagbounded,outputbounded] = particleswarm(fun,nvars,lb,ub);
+fprintf(formatstring,fvalbounded,outputbounded.funccount)
+
+%%
+% The solver found a much better solution. But it took a very large number
+% of function evaluations to do so.
+
+%% Change Options
+% Perhaps the solver would converge faster if it paid more attention to the
+% best neighbor in the entire space, rather than some smaller neighborhood.
+
+options = optimoptions('particleswarm','CreationFcn',@customcreation,'MinNeighborsFraction',1,'InertiaRange',[0.4,0.9],'SwarmSize',20);
+[xn,fvaln,exitflagn,outputn] = particleswarm(fun,nvars,lb,ub,options);
+fprintf(formatstring,fvaln,outputn.funccount)
+
+%%
+% While the solver took fewer function evaluations, it is unclear if this
+% was due to randomness or to a better option setting.
+%
+% Perhaps you should raise the |SelfAdjustmentWeight| option.
+options.SelfAdjustmentWeight = 1.9;
+[xn2,fvaln2,exitflagn2,outputn2] = particleswarm(fun,nvars,lb,ub,options);
+fprintf(formatstring,fvaln2,outputn2.funccount)
+
+%%
+% This time |particleswarm| took even fewer function evaluations. Is this
+% improvement due to randomness, or are the option settings really
+% worthwhile? Rerun the solver and look at the number of function
+% evaluations.
+[xn3,fvaln3,exitflagn3,outputn3] = particleswarm(fun,nvars,lb,ub,options);
+fprintf(formatstring,fvaln3,outputn3.funccount)
+
+%%
+% This time the number of function evaluations increased. Apparently, this
+% |SelfAdjustmentWeight| setting does not necessarily improve performance.
+
+%% Provide an Initial Point
+% Perhaps |particleswarm| would do better if it started from a known point
+% that is not too far from the solution. Try  the origin. Give a few
+% individuals at the same initial point. Their random velocities ensure
+% that they do not remain together.
+        %%
+        % Create remaining particles, randomly sampling within lb and ub
+        options.SwarmSize = 20;
+        numPositionsToCreate = options.SwarmSize;
+        r = [rand(20,1)  rand(20,1)];
+        
+        
+        Coordonnees_localisation = [2.924226127503866 4.324175984882481];
+        factor = real((-1).^(10*r)) ;
+
+        span = (Coordonnees_localisation./2);
+        swarm = repmat(Coordonnees_localisation,numPositionsToCreate,1) + repmat(span,numPositionsToCreate,1).*r.*factor;
+        
+       
+        %%
+xmin = Coordonnees_localisation(1,1)-(Coordonnees_localisation(1,1)./2);
+xmax = Coordonnees_localisation(1,1)+(Coordonnees_localisation(1,1)./2);
+ymin = Coordonnees_localisation(1,2)-(Coordonnees_localisation(1,2)./2);
+ymax = Coordonnees_localisation(1,2)+(Coordonnees_localisation(1,2)./2);
+
+lb = [xmin ymin];
+ub = [xmax ymax];
+options.InitialSwarmMatrix = swarm; % the rest of the swarm is random
+[xn3,fvaln3,exitflagn3,outputn3] = particleswarm(fun,nvars,lb,ub,options);
+fprintf(formatstring,fvaln3,outputn3.funccount)
+xn3
+
+        hold on
+        grid on
+            scatter(position(1,1), position(2,1),'filled')
+            scatter(Coordonnees_localisation(1,1), Coordonnees_localisation(1,2), 70, [0 0 1],'c', 'filled')
+            scatter(swarm(:,1), swarm(:,2),'.','k')
+            scatter(xn3(1,1), xn3(1,2),'s','r','filled')
+            plot([xmin xmax],[ymin ymin],'k')
+            plot([xmin xmax],[ymax ymax],'k')
+            plot([xmin xmin],[ymin ymax],'k')
+            plot([xmax xmax],[ymin ymax],'k')
+        axis([-0.1 1.1 -0.1 1.1]*10)
+        hold off;
+
+%%
+% The number of function evaluations decreased again.
+
+%% Vectorize for Speed
+% The |multirosenbrock| function allows for vectorized function evaluation.
+% This means that it can simultaneously evaluate the objective function for
+% all particles in the swarm. This usually speeds up the solver
+% considerably.
+rng default % do a fair comparison
+options.UseVectorized = true;
+tic
+[xv,fvalv,exitflagv,outputv] = particleswarm(fun,nvars,lb,ub,options);
+toc
+options.UseVectorized = false;
+rng default
+tic
+[xnv,fvalnv,exitflagnv,outputnv] = particleswarm(fun,nvars,lb,ub,options);
+toc
+
+%%
+% The vectorized calculation took about half the time of the serial
+% calculation.
+
+%% Plot Function
+% You can view the progress of the solver using a plot function.
+options = optimoptions(options,'PlotFcn',@pswplotbestf);
+rng default
+tic
+[x,fval,exitflag,output] = particleswarm(fun,nvars,lb,ub,options);
+fprintf(formatstring,fval,output.funccount)
+toc
+%% Use More Particles 
+% Frequently, using more particles obtains a more accurate solution.
+rng default
+options.SwarmSize = 200;
+[x,fval,exitflag,output] = particleswarm(fun,nvars,lb,ub,options);
+fprintf(formatstring,fval,output.funccount)
+
+%% Hybrid Function
+% |particleswarm| can search through several basins of attraction to arrive
+% at a good local solution. Sometimes, though, it does not arrive at a
+% sufficiently accurate local minimum. Try improving the final answer by
+% specifying a hybrid function that runs after the particle swarm algorithm
+% stops. Reset the number of particles to their original value, 60, to see
+% the difference the hybrid function makes.
+rng default
+options.HybridFcn = @fmincon;
+options.SwarmSize = 60;
+[x,fval,exitflag,output] = particleswarm(fun,nvars,lb,ub,options);
+fprintf(formatstring,fval,output.funccount)
+
+%%
+% While the hybrid function improved the result, the plot function shows
+% the same final value as before. This is because the plot function shows
+% only the particle swarm algorithm iterations, and not the hybrid function
+% calculations. The hybrid function caused the final function value to be
+% very close to the true minimum value of 0.

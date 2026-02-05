@@ -5,7 +5,7 @@ toc-depth: 2
 page-class: projects-page
 ---
 
-
+- [Genie Electritque et Telecom](#Telecom)
 - [Prévision](#forecasting)
 - [Optimisation déterministe](#optimisation)
 - [Optimisation stochastique](#stochastic)
@@ -21,6 +21,39 @@ Cette page regroupe mes projets techniques organisés par **domaine de spéciali
 Chaque section présente des **projets sélectionnés** avec leur **contexte**, **approche méthodologique**, **résultats** et **liens vers le code** lorsque disponible.
 
 ---
+
+## Télécom & Génie Électrique {#Telecom}
+::: {.project-card}
+### Optimisation du beamforming d’un réseau planaire d’antennes par Réseaux de Neurones (RNA)
+
+**Contexte.**  
+Conception d’une antenne intelligente planaire (réseau 4×5 monopôles) et apprentissage d’un **perceptron multicouche (PMC/MLP)** pour prédire la **loi d’alimentation (amplitudes/phases)** afin de former un faisceau dans une direction cible.
+
+**Approche.**
+- Baseline analytique : **Dolph–Tchebychev** (contrôle des lobes secondaires).
+- Modèle ML : **RNA / PMC avec rétropropagation**, critère **EQM (MSE)**.
+- Chaîne d’évaluation : **MATLAB (NNSTART) → CST Microwave Studio** (co-simulation et pilotage).
+
+**Résultats clés.**
+- **Gain de directivité ≈ +0,2 dB** par rapport à la méthode de Dolph–Tchebychev.
+- **Temps de calcul ≈ 1,27 s** pour la génération de la loi d’alimentation.
+- Temps d’apprentissage du réseau : **≈ 27 h 59 min 58 s** (backpropagation).
+
+**Technologies.**  
+MATLAB R2018a · Neural Network Toolbox (NNSTART) · CST Microwave Studio · Antennes réseau · Beamforming · Optimisation heuristique · MLP
+
+**Livrables.**
+- Rapport technique détaillé (Article scientifique)
+- Scripts MATLAB (apprentissage et inférence)
+- Modèles et simulations électromagnétiques sous CST
+- Diagrammes de rayonnement 2D et 3D
+
+<div class="project-links">
+[Lire le rapport (PDF)](../../assets/OptimreseauxantennesRNA/Synthese-Optim_reseaux_antennes_planaires.pdf){.btn .btn-primary}
+[Code source GitHub](https://github.com/MBalogogGLemuel/Optimisation-reseaux-antenne-RNA){.btn .btn-outline}
+</div>
+:::
+
 
 ## Prévision {#forecasting}
 
@@ -719,6 +752,8 @@ Il constitue également une base solide pour des extensions vers l’**analyse d
 ## Appprentissage machine et profond & Vision par ordinateur {#dl-cv}
 
 
+
+
 ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/airline1.png" alt="Prédiction de la fiabilité des compagnies aériennes">
@@ -853,7 +888,7 @@ Il met en évidence l’importance d’une **modélisation structurelle adaptée
 
 :::
 
-::: {.project-card}
+<!-- ::: {.project-card}
 
 <img class="project-thumb" src="../../assets/beamforming5.png" alt="Optimisation d’un réseau d’antennes par apprentissage et métaheuristiques">
 
@@ -930,7 +965,7 @@ Il démontre une capacité à :
 
 **Tech :** `Antennes planaires` · `Beamforming` · `Couplage inter-antennes` · `Optimisation (PSO)` · `Réseaux de neurones` · `Fingerprinting radio` · `Modélisation de propagation` · `CST Design Studio`  · `Matlab`
 
-</div>
+</div> -->
 
 :::
 
