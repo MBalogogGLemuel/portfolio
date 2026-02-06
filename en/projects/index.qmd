@@ -945,14 +945,4 @@ Highlights advanced mastery of hierarchical and mixed-effects modeling essential
 
 :::
 
-::: {.project-card}
-
-<img class="project-thumb" src="../../assets/beamforming5.png" alt="Adaptive Beamforming with a Planar Antenna Array">
-
-<div class="project-body">
-
-
-
-:::
-
 :::
