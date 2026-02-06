@@ -54,7 +54,7 @@ Processing pipelines from multiple data sources (SQL Server, Excel, APIs) into P
 **Technologies:** Azure Databricks · SQL · Power BI · ETL / ELT · Data quality monitoring · DAX
 :::
 
-[Learn more →](../fr/projects/index.qmd)
+[Learn more →](../en/projects/index.qmd)
 :::
 
 
